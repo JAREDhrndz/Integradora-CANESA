@@ -1,19 +1,28 @@
-body{
+body {
     background-color: black;
+    display: flex; /* Habilita el uso de Flexbox */
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
+    height: 100vh; /* Hace que el body tenga la altura completa de la ventana */
+    margin: 0; /* Elimina el margen por defecto */
 }
+
 .login-container {
     width: 300px;
-    margin: auto;
     padding: 20px;
-    border: 1px solid #ccc;
+    border: 1px solid rgba(140, 140, 140, 0.5); /* Borde base */
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    background-color: #f9f9f9;
+    background-color: #f9f9f90f;
+    position: relative;
+    overflow: hidden; /* Para que no se vea el resplandor fuera del contenedor */
+    transition: border 0.2s ease; /* Suaviza la transición del borde */
 }
 
 h2 {
     text-align: center;
     margin-bottom: 20px;
+    color: #ffffff; /* Color del título */
 }
 
 .form-group {
@@ -23,13 +32,16 @@ h2 {
 label {
     display: block;
     margin-bottom: 5px;
+    color: white;
 }
 
 input {
     width: 100%;
     padding: 8px;
-    border: 1px solid #ccc;
+    border: 1px solid #b48250;
     border-radius: 4px;
+    background-color: #b4825026;
+    color: white;
 }
 
 button {
@@ -37,12 +49,18 @@ button {
     padding: 10px;
     border: none;
     border-radius: 4px;
-    background-color: #4CAF50;
+    background-color: #b48250; /* Color del botón */
     color: white;
     font-size: 16px;
     cursor: pointer;
 }
 
 button:hover {
-    background-color: #45a049;
+    background-color: #b48250; /* Color del botón al pasar el cursor */
+}
+
+/* Efecto de resplandor en el contorno */
+.login-container:hover {
+    border: 2px solid rgba(180, 130, 80, 0.5); /* Borde iluminado */
+    box-shadow: 0 0 10px rgba(180, 130, 80, 0.6), 0 0 20px rgba(180, 130, 80, 0.4); /* Sombra del contorno */
 }

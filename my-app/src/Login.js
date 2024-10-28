@@ -5,7 +5,8 @@ import './Login.css';
 const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [mensaje, setMensaje] = useState(''); // Estado para mostrar mensaje
+    const [mensaje, setMensaje] = useState('');
+    const [glowPosition, setGlowPosition] = useState({ x: 0, y: 0 }); // Estado para la posición del resplandor
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -19,13 +20,27 @@ const Login = () => {
         });
 
         const data = await response.json();
-        setMensaje(data.mensaje); // Mostrar el mensaje recibido
+        setMensaje(data.mensaje);
+    };
+
+    const handleMouseMove = (e) => {
+        const rect = e.currentTarget.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        setGlowPosition({ x, y });
     };
 
     return (
         <div>
             <Navbar />
-            <div className="login-container">
+            <div 
+                className="login-container" 
+                onMouseMove={handleMouseMove} // Actualizar posición del resplandor
+            >
+                <div 
+                    className="glow-effect" 
+                    style={{ top: glowPosition.y, left: glowPosition.x }}
+                />
                 <h2>Login Administrador</h2>
                 <form onSubmit={handleSubmit}>
                     <div className="form-group">
@@ -50,7 +65,7 @@ const Login = () => {
                     </div>
                     <button type="submit">Entrar</button>
                 </form>
-                {mensaje && <p>{mensaje}</p>} {/* Mostrar mensaje aquí */}
+                {mensaje && <p>{mensaje}</p>}
             </div>
         </div>
     );
