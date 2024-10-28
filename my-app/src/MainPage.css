@@ -1,0 +1,77 @@
+/* src/MainPage.css */
+.main-page {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: rgb(0, 0, 0);
+}
+
+.parallax-container {
+    position: relative;
+    height: 120vh;
+    overflow: hidden;
+    width: 100vw;
+}
+
+.parallax {
+    position: absolute;
+    width: 100vw;
+    height: 120vh;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.layer1 {
+    background-image: url('./assets/capa1.png');
+    z-index: 1;
+    filter: brightness(0.3);
+}
+
+.layer2 {
+    background-image: url('./assets/capa2.png');
+    z-index: 2;
+    position: absolute; /* Asegúrate de que esté posicionada correctamente */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed; /* Aplica el efecto de paralaje */
+    background-position: center; /* Centra la imagen */
+}
+
+
+.layer3 {
+    background: linear-gradient(to top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0) 10%), 
+                url('./assets/capa3.png');
+    z-index: 3;
+    background-size: cover; /* Asegúrate de que la imagen cubra el área */
+    background-repeat: no-repeat;
+}
+
+.content {
+    position: relative;
+    z-index: 4;
+    color: white;
+    padding: 20px;
+}
+
+h1 {
+    font-size: 4rem;
+}
+
+p {
+    font-size: 1.5rem;
+    margin-top: 20px;
+}
+
+#TEXT1 {
+    color: #909090;
+    font-size: 10px;
+    font-family: 'Raleway', sans-serif;
+    font-weight: normal;
+}
+
+#span2{
+    font-weight: bold;
+}

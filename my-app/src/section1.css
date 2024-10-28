@@ -1,0 +1,12 @@
+/* src/section1.css */
+.section1 {
+    background-color: black; /* Fondo negro sólido */
+    color: white; /* Texto en blanco */
+    padding: 20px; /* Espaciado interno */
+    text-align: center; /* Centrar el texto */
+    height: 90vh; /* Altura de la sección */
+    width: 100vw; /* Ancho completo */
+    box-sizing: border-box; /* Incluye el padding en el cálculo del ancho */
+    margin: 0; /* Elimina el margen para que no haya espacio extra */
+}
+

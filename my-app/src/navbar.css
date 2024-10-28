@@ -1,0 +1,80 @@
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    position: fixed; /* Mantiene la navbar fija en la parte superior */
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    height: 60px; /* Altura fija para la navbar */
+}
+
+.menu-icon {
+    filter: invert(1);
+    cursor: pointer;
+}
+
+.menu-icon img {
+    height: 30px;
+    width: auto;
+}
+
+.logo-icon img {
+    filter: brightness(100);
+    height: 30px;
+    width: auto;
+}
+
+.dropdown {
+    position: absolute; /* Posiciona el menú desplegable de manera absoluta */
+    background-color: rgba(140, 140, 140, 0.151);
+    color: rgb(255, 255, 255);
+    padding: 10px;
+    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.134);
+    z-index: 1000;
+    right: 20px; /* Alinea el menú a la derecha */
+    top: 60px; /* Desplazado hacia abajo para que no cubra la navbar */
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.dropdown:hover::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 10px;
+    border: 2px solid rgba(180,130,80, 0.249);
+    pointer-events: none;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.6), 0 0 20px rgba(255, 255, 255, 0.4);
+    opacity: 0.7;
+    transition: opacity 0.1s ease;
+}
+
+.dropdown a {
+    display: block;
+    padding: 5px 10px;
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+    position: relative;
+    z-index: 1;
+}
+
+.dropdown a:hover {
+    background-color: rgba(180,130,80, 0.189);
+}
+
+.glow-effect {
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    background: radial-gradient(circle, rgba(180,130,80, 0.5), transparent 70%);
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    border-radius: 50%;
+    opacity: 0.8;
+    /* Quitamos la transición para que el efecto siga el cursor sin delay */
+}
+
+
