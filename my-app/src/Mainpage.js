@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import 'animate.css'; 
 import './MainPage.css';
 import Navbar from './navbar';
-import downIcon from './assets/down_icon.png'; // Asegúrate de importar tu icono de desplazamiento
+import downIcon from './assets/down_icon.png';
 
 const MainPage = () => {
     useEffect(() => {
@@ -11,30 +11,20 @@ const MainPage = () => {
             const scrolled = window.scrollY; 
             const layer2 = document.querySelector('.layer2');
 
-            // Ajusta la posición de la capa
-            layer2.style.transform = `translateY(${scrolled * 0.5}px)`; // Ajusta la velocidad
-
-            // Aumenta el desenfoque a medida que se desplaza
-            const blurValue = Math.min(scrolled * 0.1, 5); // Aplica el desenfoque
-            layer2.style.filter = `blur(${blurValue}px)`; // Aplica el desenfoque
+            layer2.style.transform = `translateY(${scrolled * 0.5}px)`;
+            const blurValue = Math.min(scrolled * 0.1, 5);
+            layer2.style.filter = `blur(${blurValue}px)`;
         };
 
-        const layer2 = document.querySelector('.layer2');
-        layer2.style.transform = `translateY(0)`; // Asegúrate de que comience en la posición correcta
-
         window.addEventListener('scroll', handleScroll);
+
+        // Asegúrate de que la página empiece en la parte superior
+        window.scrollTo(0, 0);
 
         return () => {
             window.removeEventListener('scroll', handleScroll);
         };
     }, []);
-
-    const scrollToSection1 = () => {
-        const section = document.querySelector('.section1');
-        if (section) {
-            section.scrollIntoView({ behavior: 'smooth' });
-        }
-    };
 
     return (
         <div className="main-page">
@@ -58,13 +48,11 @@ const MainPage = () => {
                     src={downIcon}  
                     alt="Scroll Down"
                     className="scroll-button" 
-                    onClick={scrollToSection1} 
+                    onClick={() => document.querySelector('.section1').scrollIntoView({ behavior: 'smooth' })} 
                 />
             </div>
-            {/* Sección 1 (asegúrate de que esta clase esté definida en tu CSS) */}
             <div className="section1">
                 <h2>Sección 1</h2>
-                {/* Contenido de la sección 1 */}
             </div>
         </div>
     );

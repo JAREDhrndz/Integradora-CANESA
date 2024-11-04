@@ -1,22 +1,35 @@
 body {
-    background-color: black;
-    display: flex; /* Habilita el uso de Flexbox */
-    justify-content: center; /* Centra horizontalmente */
-    align-items: center; /* Centra verticalmente */
-    height: 100vh; /* Hace que el body tenga la altura completa de la ventana */
+    background-color: black; /* Asegúrate de que este estilo no afecte a otros componentes */
     margin: 0; /* Elimina el margen por defecto */
+    overflow: auto; /* Asegúrate de que haya scroll */
+    height: 100vh; /* Asegura que el body ocupe toda la altura de la ventana */
 }
 
-.login-container {
+.login-wrapper { /* Nuevo contenedor para el Login */
+    position: relative; /* Establece un contexto de posicionamiento */
+    width: 100%;
+    height: 100vh; /* Ocupa toda la altura de la ventana */
+}
+
+#login-container {
+    display: flex; /* Habilita el uso de Flexbox */
+    flex-direction: column; /* Asegura que los elementos del formulario se apilen verticalmente */
+    justify-content: center; /* Centra verticalmente el contenido dentro del contenedor */
+    align-items: center; /* Centra horizontalmente el contenido */
     width: 300px;
     padding: 20px;
     border: 1px solid rgba(140, 140, 140, 0.5); /* Borde base */
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     background-color: #f9f9f90f;
-    position: relative;
+    position: absolute; /* Cambiado a absolute para centrarlo en el contenedor */
+    top: 50%; /* Centra verticalmente */
+    left: 50%; /* Centra horizontalmente */
+    transform: translate(-50%, -50%); /* Alineación perfecta */
     overflow: hidden; /* Para que no se vea el resplandor fuera del contenedor */
     transition: border 0.2s ease; /* Suaviza la transición del borde */
+    height: auto; /* Permite que el contenedor ajuste su altura automáticamente */
+    max-height: 90vh; /* Asegúrate de que no use toda la altura de la ventana */
 }
 
 h2 {
@@ -60,7 +73,7 @@ button:hover {
 }
 
 /* Efecto de resplandor en el contorno */
-.login-container:hover {
+#login-container:hover {
     border: 2px solid rgba(180, 130, 80, 0.5); /* Borde iluminado */
     box-shadow: 0 0 10px rgba(180, 130, 80, 0.6), 0 0 20px rgba(180, 130, 80, 0.4); /* Sombra del contorno */
 }

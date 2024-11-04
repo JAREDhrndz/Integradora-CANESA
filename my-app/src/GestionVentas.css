@@ -1,0 +1,116 @@
+/* src/GestionVentas.css */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css');
+
+#gestion-ventas-container {
+    font-family: 'Poppins', sans-serif;
+    background-color: #332629;
+    color: #DB9146;
+    margin: 0;
+    padding: 0;
+    width: 90%;
+    margin: 50px auto;
+}
+
+#logo {
+    display: block;
+    width: 150px;
+    margin: 0 auto;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    margin-bottom: 30px;
+}
+
+#titulo-ventas {
+    text-align: center;
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+#form-ventas,
+#form-eliminar-venta {
+    background-color: #5C5448;
+    padding: 20px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+    color: #DB9146;
+}
+
+input[type="text"],
+input[type="date"] {
+    width: 97%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+input[type="submit"] {
+    background-color: #DB9146;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+input[type="submit"]:hover {
+    background-color: #704214;
+}
+
+.btn-group {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+#tabla-ventas {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+#tabla-ventas, #tabla-ventas th, #tabla-ventas td {
+    border: 1px solid #DB9146;
+}
+
+#tabla-ventas th, #tabla-ventas td {
+    padding: 15px;
+    text-align: left;
+}
+
+#tabla-ventas th {
+    background-color: #704214;
+    color: white;
+}
+
+#tabla-ventas td {
+    background-color: #5C5448;
+    color: #e6dfd7;
+}
+
+.back-button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.btn-back {
+    background-color: #DB9146;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-back:hover {
+    background-color: #704214;
+}

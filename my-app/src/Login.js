@@ -31,10 +31,10 @@ const Login = () => {
     };
 
     return (
-        <div>
+        <div className="login-wrapper">
             <Navbar />
             <div 
-                className="login-container" 
+                id="login-container" 
                 onMouseMove={handleMouseMove} // Actualizar posición del resplandor
             >
                 <div 

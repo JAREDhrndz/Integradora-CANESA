@@ -1,0 +1,70 @@
+/* src/GestionTrabajadores.css */
+.gestion-trabajadores {
+    background: linear-gradient(to right, #5C5448, #704214);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    color: #DB9146;
+    font-family: 'Poppins', sans-serif;
+}
+
+h2, h3 {
+    text-align: center;
+    color: #fff;
+}
+
+form {
+    background-color: #5C5448;
+    padding: 20px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+input[type="number"],
+input[type="text"],
+input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    background-color: #DB9146;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #704214;
+}
+
+.trabajadores-list table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+}
+
+th {
+    background-color: #704214;
+    color: white;
+}
+
+td {
+    background-color: #5C5448;
+    color: #e6dfd7;
+}
+
+button {
+    padding: 5px 10px;
+}
