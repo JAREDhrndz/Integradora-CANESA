@@ -1,0 +1,120 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css');
+
+/* Estilo del body */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #332629;
+    color: #DB9146;
+    margin: 0;
+    padding: 0;
+}
+
+/* Contenedor principal */
+#container {
+    width: 90%;
+    margin: 50px auto;
+    background: linear-gradient(to right, #5C5448, #704214);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    animation: fadeIn 1s ease-in-out;
+}
+
+/* Estilo de la cabecera con imagen */
+#logo {
+    display: block;
+    width: 150px;
+    margin: 0 auto;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    margin-bottom: 30px;
+}
+
+#title {
+    text-align: center;
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+/* Estilo de la tabla */
+#tabla-proveedores {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+#tabla-proveedores, th, td {
+    border: 1px solid #DB9146;
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+}
+
+th {
+    background-color: #704214;
+    color: white;
+}
+
+td {
+    background-color: #5C5448;
+    color: #e6dfd7;
+}
+
+/* Estilo del formulario */
+#form-add-update, #form-delete {
+    background-color: #5C5448;
+    padding: 20px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+    color: #DB9146;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+input[type="submit"] {
+    background-color: #DB9146;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+input[type="submit"]:hover {
+    background-color: #704214;
+}
+
+/* Contenedor del botón de regreso */
+#back-button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+/* Animación de FadeIn */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}

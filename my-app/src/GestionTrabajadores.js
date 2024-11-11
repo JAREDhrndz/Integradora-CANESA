@@ -104,7 +104,7 @@ const GestionTrabajadores = () => {
     return (
         <div className="gestion-trabajadores">
             <h2>Gestión de Trabajadores</h2>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} id='form2'>
                 <input type="number" name="id" placeholder="ID del Trabajador" value={formData.id} onChange={handleChange} required />
                 <input type="text" name="nombre" placeholder="Nombre" value={formData.nombre} onChange={handleChange} required />
                 <input type="text" name="cargo" placeholder="Cargo" value={formData.cargo} onChange={handleChange} required />

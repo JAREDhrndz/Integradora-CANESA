@@ -1,0 +1,65 @@
+/* Estilos para el menú principal */
+
+body.center-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #332629; /* Color de fondo */
+}
+
+#menu-title {
+    color: #DB9146; /* Color del título */
+    margin-bottom: 10px;
+    font-size: 2em; /* Tamaño del título */
+}
+
+#menu-subtitle {
+    color: #DB9146; /* Color del subtítulo */
+    margin-bottom: 20px;
+    font-size: 1.5em; /* Tamaño del subtítulo */
+}
+
+#menu-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centrar los elementos del menú */
+    margin-bottom: 30px; /* Margen inferior del contenedor del menú */
+}
+
+.menu-item {
+    display: block;
+    background-color: #5C5448; /* Color de fondo de los elementos del menú */
+    color: #DB9146; /* Color del texto */
+    padding: 10px 20px;
+    border: 1px solid #DB9146; /* Borde */
+    border-radius: 5px; /* Bordes redondeados */
+    margin: 5px 0; /* Margen entre elementos del menú */
+    text-decoration: none; /* Quitar subrayado */
+    transition: background-color 0.3s; /* Transición suave para el fondo */
+}
+
+.menu-item:hover {
+    background-color: #DB9146; /* Color de fondo al pasar el mouse */
+    color: white; /* Color del texto al pasar el mouse */
+}
+
+#back-button-container {
+    margin-top: 20px; /* Margen superior para el contenedor del botón de regresar */
+    text-align: center; /* Centrar el botón de regresar */
+}
+
+#back-button {
+    background-color: #DB9146; /* Color del botón */
+    color: white; /* Color del texto del botón */
+    border: none; /* Sin borde */
+    padding: 10px 15px; /* Espaciado interno del botón */
+    border-radius: 5px; /* Bordes redondeados */
+    cursor: pointer; /* Cambiar cursor al pasar sobre el botón */
+    transition: background-color 0.3s; /* Transición suave para el fondo del botón */
+}
+
+#back-button:hover {
+    background-color: #704214; /* Color al pasar el mouse */
+}

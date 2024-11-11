@@ -28,7 +28,9 @@ const Navbar = () => {
     return (
         <nav className="navbar">
             <div className="logo-icon">
-                <img src={logoIcon} alt="Logo" />
+
+            <Link to="/"><img src={logoIcon} alt="Logo"/></Link>
+                
             </div>
             <div className="menu-icon" onClick={toggleMenu}>
                 <img src={menuIcon} alt="Menú" />

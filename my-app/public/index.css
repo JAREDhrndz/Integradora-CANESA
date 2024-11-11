@@ -1,3 +1,9 @@
 html {
     scroll-behavior: smooth;
+    overflow: hidden;
+}
+
+body{
+        scroll-behavior: smooth;
+        overflow: hidden;   
 }

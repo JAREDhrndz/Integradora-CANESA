@@ -3,24 +3,34 @@ import Navbar from './navbar'; // Importa el componente Navbar
 import './Login.css';
 
 const Login = () => {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
+    const [correo, setCorreo] = useState('');
+    const [contraseña, setContraseña] = useState(''); // Estado para la contraseña
     const [mensaje, setMensaje] = useState('');
     const [glowPosition, setGlowPosition] = useState({ x: 0, y: 0 }); // Estado para la posición del resplandor
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
-        const response = await fetch('/php/submit.php', {
+
+        const data = {
+            correo: correo,
+            contraseña: contraseña,
+        };
+
+        const response = await fetch('http://localhost:84/Integradora-CANESA-2/my-app/backend/submit.php', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
+                'Content-Type': 'application/json', // Cambiado a JSON
             },
-            body: `nombre=${encodeURIComponent(username)}`, // Cambia 'nombre' si es necesario
+            body: JSON.stringify(data), // Convertir el objeto a JSON
         });
 
-        const data = await response.json();
-        setMensaje(data.mensaje);
+        const result = await response.json();
+        setMensaje(result.mensaje);
+
+        if (result.status === 'success') {
+            // Redirigir a menu.js si el login es exitoso
+            window.location.href = '/menu.js'; // Asegúrate de que esta ruta sea correcta
+        }
     };
 
     const handleMouseMove = (e) => {
@@ -44,22 +54,22 @@ const Login = () => {
                 <h2>Login Administrador</h2>
                 <form onSubmit={handleSubmit}>
                     <div className="form-group">
-                        <label htmlFor="username">Usuario:</label>
+                        <label htmlFor="correo">Correo:</label>
                         <input
-                            type="text"
-                            id="username"
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
+                            type="email"
+                            id="correo"
+                            value={correo}
+                            onChange={(e) => setCorreo(e.target.value)}
                             required
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="password">Contraseña:</label>
+                        <label htmlFor="contraseña">Contraseña:</label>
                         <input
                             type="password"
-                            id="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
+                            id="contraseña"
+                            value={contraseña}
+                            onChange={(e) => setContraseña(e.target.value)}
                             required
                         />
                     </div>
