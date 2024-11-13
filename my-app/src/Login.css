@@ -77,3 +77,26 @@ button:hover {
     border: 2px solid rgba(180, 130, 80, 0.5); /* Borde iluminado */
     box-shadow: 0 0 10px rgba(180, 130, 80, 0.6), 0 0 20px rgba(180, 130, 80, 0.4); /* Sombra del contorno */
 }
+
+#registrarse {
+    color: rgb(180, 130, 80);
+    cursor: pointer;
+}
+
+#iniciar-sesion {
+    color: rgb(180, 130, 80);
+    cursor: pointer;
+}
+
+
+#registro-enlace {
+    text-align: center;
+    margin-top: 10px;
+    color: white;
+}
+
+#login-enlace {
+    text-align: center;
+    margin-top: 10px;
+    color:white;
+}

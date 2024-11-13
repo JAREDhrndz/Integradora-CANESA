@@ -2,10 +2,8 @@
 .section1 {
     background-color: black; /* Fondo negro */
     color: white; /* Texto blanco */
-    padding: 20px;
-    width: 100%;
-    box-sizing: border-box;
-    margin: 0;
+    padding: 0; /* Eliminamos padding */
+    margin: 0; /* Eliminamos margin */
     display: flex; /* Usamos flexbox para centrar el contenido */
     align-items: center; /* Centra el contenido verticalmente */
     justify-content: center; /* Centra el contenido horizontalmente */
@@ -14,8 +12,8 @@
 
 .section-content {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: center; /* Centra el contenido (texto) horizontalmente */
+    align-items: center; /* Centra el contenido verticalmente */
     width: 100%;
     max-width: 1200px; /* Limita el ancho máximo */
     margin: 0 20px;
@@ -25,12 +23,13 @@
     flex: 1;
     padding-right: 20px;
     max-width: 500px; /* Limita el ancho del texto */
+    text-align: center; /* Centra el texto dentro del contenedor */
 }
 
 .text-content h2 {
     font-size: 2.5rem;
     margin-bottom: 15px;
-    color: #b48250; /* Título blanco */
+    color: #b48250;
 }
 
 .text-content p {
@@ -39,35 +38,50 @@
     color: #ddd; /* Color gris claro para el texto */
 }
 
-.image-content {
-    flex: 1;
-    position: relative;
-    overflow: hidden;
-    height: 100%; /* Asegura que la imagen tenga la altura completa de su contenedor */
+#banner1 {
+    flex-shrink: 0;
     display: flex;
-    justify-content: center;
-    align-items: center; /* Centra la imagen verticalmente */
+    justify-content: flex-end; /* Alinea la imagen a la derecha */
+    align-items: center;
+    position: absolute;
+    right: 0;
+    height: 100%;
+    max-width: 25%;
 }
 
-.image-content img {
-    width: 100%;
-    height: auto;
+#banner1 img {
+    width: 100%; /* La imagen ocupa el 100% del ancho de su contenedor */
+    height: auto; /* Mantiene la proporción de la imagen */
     object-fit: cover; /* Ajusta la imagen para cubrir el área sin distorsión */
-    border-radius: 10px;
+    border-radius: 30px 0 0 30px; /* Esquinas redondeadas solo en la parte superior e inferior izquierda */
     transition: transform 0.3s ease-in-out; /* Animación suave */
 }
 
-.image-content:hover img {
+#banner1:hover img {
     transform: scale(1.05); /* Imagen aumenta ligeramente cuando se pasa el ratón */
 }
 
-@media (max-width: 768px) {
-    .section-content {
-        flex-direction: column;
-        align-items: center; /* Centra el contenido en pantallas más pequeñas */
-    }
-    .image-content {
-        width: 100%;
-        height: auto; /* La imagen se ajusta en pantallas pequeñas */
-    }
+#banner2 {
+    flex-shrink: 0;
+    display: flex;
+    justify-content: flex-start; /* Alinea la imagen a la izquierda */
+    align-items: center;
+    position: absolute;
+    left: 0; /* Asegura que la imagen esté pegada al borde izquierdo */
+    height: 100%;
+    max-width: 25%;
+    transform: translateY(20%); /* Mueve la imagen hacia abajo */
+}
+
+
+#banner2 img {
+    width: 100%; /* La imagen ocupa el 100% del ancho de su contenedor */
+    height: auto; /* Mantiene la proporción de la imagen */
+    object-fit: cover; /* Ajusta la imagen para cubrir el área sin distorsión */
+    border-radius: 0 30px 30px 0; /* Esquinas redondeadas solo en la parte superior e inferior izquierda */
+    transition: transform 0.3s ease-in-out; /* Animación suave */
+}
+
+#banner2:hover img {
+    transform: scale(1.05); /* Imagen aumenta ligeramente cuando se pasa el ratón */
 }
