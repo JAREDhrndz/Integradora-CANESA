@@ -1,18 +1,19 @@
 // src/Menu.js
 import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import './menu.css';
 
 const Menu = () => {
     useEffect(() => {
-        // Aquí añadimos la clase "center-content" al body
         document.body.classList.add("center-content");
+        return () => document.body.classList.remove("center-content");
     }, []);
 
     return (
         <div>
             {/* Contenedor del logo */}
-            <div id="logo-container" className="logo-container">
-                <img src="assets/Logo.png" alt="Logo Constructora Canese" id="logo" className="logo" />
+            <div className="logo-container">
+                <img src="assets/Logo.png" alt="Logo Constructora Canese" className="logo" />
             </div>
 
             {/* Título del menú */}
@@ -21,20 +22,15 @@ const Menu = () => {
 
             {/* Contenedor del menú */}
             <div id="menu-container" className="menu-container animate__animated animate__fadeIn">
-                {[ 
-                    { href: "gestion_citas.html", text: "Gestión Citas" },
-                    { href: "gestion_proveedores.html", text: "Gestión Proveedores" },
-                    { href: "gestion_trabajadores.html", text: "Gestión Trabajadores" },
-                    { href: "servicios.html", text: "Servicios" },
-                    { href: "ventas.html", text: "Ventas" },
-                    { href: "/gestion-trabajadores", text: "Gestión de Trabajadores" }, // Enlace de prueba
-                    { href: "/gestion-ventas", text: "Gestión de Ventas" }, // Enlace de prueba
-                    { href: "/otra-seccion", text: "Otra Sección" }, // Enlace de prueba
-                    { href: "/formulario-ejemplo", text: "Formulario Ejemplo" }, // Enlace de prueba
-                    { href: "/tabla-ejemplo", text: "Tabla Ejemplo" } // Enlace de prueba
-                ].map((item, index) => (
-                    <a key={index} href={item.href} id={`menu-item-${index}`} className="menu-item">{item.text}</a>
-                ))}
+                {/* Primeras tres opciones */}
+                <Link to="/GestionProveedores" className="menu-item">Proveedores</Link>
+                <Link to="/GestionTrabajadores" className="menu-item">Trabajadores</Link>
+                <Link to="/GestionVentas" className="menu-item">Ventas</Link>
+                
+                {/* Tres opciones adicionales (ajusta según necesidades) */}
+                <a href="/servicios.html" className="menu-item">Opcion 4</a>
+                <a href="/reportes.html" className="menu-item">Opcion 5</a>
+                <a href="/perfil.html" className="menu-item">Opcion 6</a>
             </div>
 
             {/* Botón de regresar */}
