@@ -1,5 +1,12 @@
 .App {
   text-align: center;
+  overflow-x: hidden;
+  overflow: hidden;
+}
+
+html, body{
+  scrollbar-width: thin;
+  scrollbar-color: #2d2d2d #171717;
 }
 
 .App-logo {
@@ -55,4 +62,5 @@
   width: 30px; /* Ajusta el tamaño de la imagen */
   height: auto; /* Mantiene la proporción de la imagen */
 }
+
 

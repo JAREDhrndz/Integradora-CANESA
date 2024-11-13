@@ -1,9 +1,14 @@
 html {
     scroll-behavior: smooth;
-    overflow: hidden;
+    overflow: hidden; /* Evita el scroll en el eje principal */
 }
 
-body{
-        scroll-behavior: smooth;
-        overflow: hidden;   
+body {
+    scroll-behavior: smooth;
+    overflow: hidden;
+    -ms-overflow-style: none;  /* Oculta el scroll en IE y Edge */
+}
+
+body::-webkit-scrollbar {
+    display: none; /* Oculta el scroll en Chrome, Safari y Opera */
 }

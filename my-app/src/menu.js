@@ -1,70 +1,54 @@
-// Crear el contenido del menú principal
-document.addEventListener("DOMContentLoaded", () => {
-    document.body.classList.add("center-content");
+// src/Menu.js
+import React, { useEffect } from 'react';
+import './menu.css';
 
-    // Contenedor del logo
-    const logoContainer = document.createElement("div");
-    logoContainer.className = "logo-container";
+const Menu = () => {
+    useEffect(() => {
+        // Aquí añadimos la clase "center-content" al body
+        document.body.classList.add("center-content");
+    }, []);
 
-    const logo = document.createElement("img");
-    logo.src = "assets/Logo.png";
-    logo.alt = "Logo Constructora Canese";
-    logo.className = "logo";
-    logoContainer.appendChild(logo);
+    return (
+        <div>
+            {/* Contenedor del logo */}
+            <div id="logo-container" className="logo-container">
+                <img src="assets/Logo.png" alt="Logo Constructora Canese" id="logo" className="logo" />
+            </div>
 
-    // Título del menú
-    const title = document.createElement("h2");
-    title.id = "menu-title"; // Agregar ID
+            {/* Título del menú */}
+            <h2 id="menu-title">Menú Principal</h2>
+            <h3 id="menu-subtitle">Apartados</h3>
 
-    title.textContent = "Menú Principal";
+            {/* Contenedor del menú */}
+            <div id="menu-container" className="menu-container animate__animated animate__fadeIn">
+                {[ 
+                    { href: "gestion_citas.html", text: "Gestión Citas" },
+                    { href: "gestion_proveedores.html", text: "Gestión Proveedores" },
+                    { href: "gestion_trabajadores.html", text: "Gestión Trabajadores" },
+                    { href: "servicios.html", text: "Servicios" },
+                    { href: "ventas.html", text: "Ventas" },
+                    { href: "/gestion-trabajadores", text: "Gestión de Trabajadores" }, // Enlace de prueba
+                    { href: "/gestion-ventas", text: "Gestión de Ventas" }, // Enlace de prueba
+                    { href: "/otra-seccion", text: "Otra Sección" }, // Enlace de prueba
+                    { href: "/formulario-ejemplo", text: "Formulario Ejemplo" }, // Enlace de prueba
+                    { href: "/tabla-ejemplo", text: "Tabla Ejemplo" } // Enlace de prueba
+                ].map((item, index) => (
+                    <a key={index} href={item.href} id={`menu-item-${index}`} className="menu-item">{item.text}</a>
+                ))}
+            </div>
 
-    const subtitle = document.createElement("h3");
-    subtitle.id = "menu-subtitle"; // Agregar ID
-    subtitle.textContent = "Apartados";
+            {/* Botón de regresar */}
+            <div id="back-button-container" className="back-button-container">
+                <button
+                    id="back-button"
+                    className="btn-back"
+                    onClick={() => window.location.href = 'index.html'}
+                >
+                    Regresar al Menú
+                </button>
+            </div>
+        </div>
+    );
+};
 
-    // Contenedor del menú
-    const menuContainer = document.createElement("div");
-    menuContainer.id = "menu-container"; // Agregar ID
-    menuContainer.className = "menu-container animate__animated animate__fadeIn";
-
-    // Crear los elementos de los apartados del menú
-    const menuItems = [
-        { href: "gestion_citas.html", text: "Gestión Citas" },
-        { href: "gestion_proveedores.html", text: "Gestión Proveedores" },
-        { href: "gestion_trabajadores.html", text: "Gestión Trabajadores" },
-        { href: "servicios.html", text: "Servicios" },
-        { href: "ventas.html", text: "Ventas" },
-        { href: "/gestion-trabajadores", text: "Gestión de Trabajadores" }, // Enlace de prueba
-        { href: "/gestion-ventas", text: "Gestión de Ventas" }, // Enlace de prueba
-        { href: "/otra-seccion", text: "Otra Sección" }, // Enlace de prueba
-        { href: "/formulario-ejemplo", text: "Formulario Ejemplo" }, // Enlace de prueba
-        { href: "/tabla-ejemplo", text: "Tabla Ejemplo" } // Enlace de prueba
-    ];
-
-    menuItems.forEach(item => {
-        const link = document.createElement("a");
-        link.href = item.href;
-        link.className = "menu-item";
-        link.textContent = item.text;
-        menuContainer.appendChild(link);
-    });
-
-    // Botón de regresar
-    const backButtonContainer = document.createElement("div");
-    backButtonContainer.id = "back-button-container"; // Agregar ID
-    backButtonContainer.className = "back-button-container";
-
-    const backButton = document.createElement("button");
-    backButton.id = "back-button"; // Agregar ID
-    backButton.className = "btn-back";
-    backButton.textContent = "Regresar al Menú";
-    backButton.onclick = () => window.location.href = 'index.html';
-    backButtonContainer.appendChild(backButton);
-
-    // Agregar todos los elementos al cuerpo del documento
-    document.body.appendChild(logoContainer);
-    document.body.appendChild(title);
-    document.body.appendChild(subtitle);
-    document.body.appendChild(menuContainer);
-    document.body.appendChild(backButtonContainer);
-});
+export default Menu;

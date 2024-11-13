@@ -1,12 +1,17 @@
 // src/MainPage.js
 import React, { useEffect } from 'react';
 import 'animate.css'; 
+import 'aos/dist/aos.css';
+import AOS from 'aos';
 import './MainPage.css';
 import Navbar from './navbar';
 import downIcon from './assets/down_icon.png';
+import sectionImage from './assets/image-1.jpg';
 
 const MainPage = () => {
     useEffect(() => {
+        AOS.init({ duration: 1000 });
+
         const handleScroll = () => {
             const scrolled = window.scrollY; 
             const layer2 = document.querySelector('.layer2');
@@ -51,11 +56,11 @@ const MainPage = () => {
                     onClick={() => document.querySelector('.section1').scrollIntoView({ behavior: 'smooth' })} 
                 />
             </div>
-            <div className="section1">
-                <h2>Sección 1</h2>
-            </div>
+
+
         </div>
     );
 };
 
 export default MainPage;
+

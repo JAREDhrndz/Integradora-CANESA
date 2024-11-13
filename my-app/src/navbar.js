@@ -1,4 +1,3 @@
-// src/navbar.js
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './navbar.css';
@@ -28,9 +27,7 @@ const Navbar = () => {
     return (
         <nav className="navbar">
             <div className="logo-icon">
-
-            <Link to="/"><img src={logoIcon} alt="Logo"/></Link>
-                
+                <Link to="/"><img src={logoIcon} alt="Logo"/></Link>
             </div>
             <div className="menu-icon" onClick={toggleMenu}>
                 <img src={menuIcon} alt="Menú" />
@@ -49,6 +46,8 @@ const Navbar = () => {
                     <Link to="/services">Proyectos</Link>
                     <Link to="/contact">Contacto</Link>
                     <Link to="/login">Login</Link>
+                    {/* Nueva opción */}
+                    <Link to="/menu">Menu</Link>
                 </div>
             )}
         </nav>
@@ -56,4 +55,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-

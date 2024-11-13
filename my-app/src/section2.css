@@ -1,0 +1,70 @@
+/* src/section2.css */
+#section2 {
+    background-color: #222; /* Fondo oscuro */
+    color: white; /* Texto blanco */
+    padding: 40px;
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0;
+}
+
+#section2-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+#text-section2 {
+    flex: 1;
+    padding-right: 20px;
+    max-width: 600px; /* Limita el ancho del texto */
+}
+
+#section2-title {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    color: #fff;
+}
+
+#section2-description {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: #ddd; /* Color gris claro */
+}
+
+#image-section2 {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    height: 100%; /* Asegura que la imagen tenga la altura completa de su contenedor */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#section2-image {
+    width: 100%;
+    height: auto;
+    object-fit: cover; /* Ajusta la imagen sin distorsión */
+    border-radius: 10px;
+    transition: transform 0.3s ease-in-out;
+}
+
+#image-section2:hover #section2-image {
+    transform: scale(1.05); /* La imagen aumenta cuando se pasa el ratón */
+}
+
+@media (max-width: 768px) {
+    #section2-content {
+        flex-direction: column;
+        align-items: center; /* Centra el contenido en pantallas más pequeñas */
+    }
+
+    #image-section2 {
+        width: 100%;
+        height: auto;
+    }
+}

@@ -1,12 +1,73 @@
 /* src/section1.css */
 .section1 {
-    background-color: black; /* Fondo negro sólido */
-    color: white; /* Texto en blanco */
-    padding: 20px; /* Espaciado interno */
-    text-align: center; /* Centrar el texto */
-    height: 90vh; /* Altura de la sección */
-    width: 100vw; /* Ancho completo */
-    box-sizing: border-box; /* Incluye el padding en el cálculo del ancho */
-    margin: 0; /* Elimina el margen para que no haya espacio extra */
+    background-color: black; /* Fondo negro */
+    color: white; /* Texto blanco */
+    padding: 20px;
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0;
+    display: flex; /* Usamos flexbox para centrar el contenido */
+    align-items: center; /* Centra el contenido verticalmente */
+    justify-content: center; /* Centra el contenido horizontalmente */
+    height: 100vh; /* Hace que la sección ocupe el 100% de la altura de la ventana */
 }
 
+.section-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px; /* Limita el ancho máximo */
+    margin: 0 20px;
+}
+
+.text-content {
+    flex: 1;
+    padding-right: 20px;
+    max-width: 500px; /* Limita el ancho del texto */
+}
+
+.text-content h2 {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    color: #b48250; /* Título blanco */
+}
+
+.text-content p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: #ddd; /* Color gris claro para el texto */
+}
+
+.image-content {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    height: 100%; /* Asegura que la imagen tenga la altura completa de su contenedor */
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Centra la imagen verticalmente */
+}
+
+.image-content img {
+    width: 100%;
+    height: auto;
+    object-fit: cover; /* Ajusta la imagen para cubrir el área sin distorsión */
+    border-radius: 10px;
+    transition: transform 0.3s ease-in-out; /* Animación suave */
+}
+
+.image-content:hover img {
+    transform: scale(1.05); /* Imagen aumenta ligeramente cuando se pasa el ratón */
+}
+
+@media (max-width: 768px) {
+    .section-content {
+        flex-direction: column;
+        align-items: center; /* Centra el contenido en pantallas más pequeñas */
+    }
+    .image-content {
+        width: 100%;
+        height: auto; /* La imagen se ajusta en pantallas pequeñas */
+    }
+}

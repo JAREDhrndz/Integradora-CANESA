@@ -1,5 +1,6 @@
 /* Estilos para el menú principal */
 
+/* Aplica la clase solo al body que tiene la clase center-content */
 body.center-content {
     display: flex;
     flex-direction: column;
@@ -7,59 +8,77 @@ body.center-content {
     justify-content: center;
     min-height: 100vh;
     background-color: #332629; /* Color de fondo */
+    font-family: Arial, sans-serif;
+    color: white;
 }
 
 #menu-title {
     color: #DB9146; /* Color del título */
     margin-bottom: 10px;
     font-size: 2em; /* Tamaño del título */
+    font-weight: bold; /* Negrita */
 }
 
 #menu-subtitle {
     color: #DB9146; /* Color del subtítulo */
     margin-bottom: 20px;
     font-size: 1.5em; /* Tamaño del subtítulo */
+    font-style: italic; /* Cursiva */
 }
 
+/* Contenedor del menú */
 #menu-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Centrar los elementos del menú */
-    margin-bottom: 30px; /* Margen inferior del contenedor del menú */
+    display: grid; /* Usamos grid para el diseño en mosaico */
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Creación dinámica de columnas */
+    gap: 20px; /* Espacio entre los elementos del menú */
+    align-items: center; /* Alinea los elementos verticalmente */
+    margin-bottom: 30px;
+    width: 100%;
+    max-width: 1200px; /* Limita el ancho máximo */
+    padding: 20px; /* Espaciado interno */
 }
 
-.menu-item {
+/* Elementos del menú */
+#menu-container .menu-item {
     display: block;
-    background-color: #5C5448; /* Color de fondo de los elementos del menú */
-    color: #DB9146; /* Color del texto */
-    padding: 10px 20px;
-    border: 1px solid #DB9146; /* Borde */
-    border-radius: 5px; /* Bordes redondeados */
-    margin: 5px 0; /* Margen entre elementos del menú */
-    text-decoration: none; /* Quitar subrayado */
-    transition: background-color 0.3s; /* Transición suave para el fondo */
+    background-color: #5C5448;
+    color: #DB9146;
+    padding: 15px;
+    border: 1px solid #DB9146;
+    border-radius: 5px;
+    text-decoration: none;
+    text-align: center;
+    transition: background-color 0.3s, transform 0.2s;
 }
 
-.menu-item:hover {
-    background-color: #DB9146; /* Color de fondo al pasar el mouse */
-    color: white; /* Color del texto al pasar el mouse */
+/* Hover en los elementos del menú */
+#menu-container .menu-item:hover {
+    background-color: #DB9146;
+    color: white;
+    transform: scale(1.05);
 }
 
+/* Contenedor del botón de regresar */
 #back-button-container {
-    margin-top: 20px; /* Margen superior para el contenedor del botón de regresar */
-    text-align: center; /* Centrar el botón de regresar */
+    margin-top: 20px;
+    text-align: center;
 }
 
-#back-button {
-    background-color: #DB9146; /* Color del botón */
-    color: white; /* Color del texto del botón */
-    border: none; /* Sin borde */
-    padding: 10px 15px; /* Espaciado interno del botón */
-    border-radius: 5px; /* Bordes redondeados */
-    cursor: pointer; /* Cambiar cursor al pasar sobre el botón */
-    transition: background-color 0.3s; /* Transición suave para el fondo del botón */
+/* Estilos para el botón de regresar */
+#back-button-container #back-button {
+    background-color: #DB9146;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    font-size: 1em;
+    font-weight: bold;
 }
 
-#back-button:hover {
-    background-color: #704214; /* Color al pasar el mouse */
+/* Hover en el botón de regresar */
+#back-button-container #back-button:hover {
+    background-color: #704214;
+    transform: scale(1.05);
 }

@@ -13,12 +13,17 @@
     position: relative;
     height: 120vh;
     overflow: hidden;
-    width: 100vw;
+    width: 100%;
+}
+
+.parallax.layer2 {
+    transform: translateY(0); /* Asegura que comience sin desplazamiento */
+    filter: blur(0px); /* Sin desenfoque al inicio */
 }
 
 .parallax {
     position: absolute;
-    width: 100vw;
+    width: 100%;
     height: 120vh;
     background-size: cover;
     background-repeat: no-repeat;
@@ -74,4 +79,19 @@ p {
 
 #span2{
     font-weight: bold;
+}
+
+.text-content {
+    flex: 1;
+    margin-right: 20px;
+}
+
+.image-content {
+    flex: 1;
+    text-align: right;
+}
+
+.image-content img {
+    max-width: 100%;
+    height: auto;
 }
