@@ -1,7 +1,8 @@
 // src/Section1.js
 import React from 'react';
-import './section1.css'; // Asegúrate de que esté en minúsculas
-import image1 from './assets/image-1.jpg'; // Imagen importada
+import './section1.css';
+import image1 from './assets/image-1.jpg';
+import { Link } from 'react-router-dom';
 
 const Section1 = () => {
     return (
@@ -10,7 +11,13 @@ const Section1 = () => {
                 <div className="text-content">
                     <h2>¿Quiénes Somos?</h2>
                     <p>
-                        Aquí va una pequeña descripción sobre tu sección. Puedes hablar de tu equipo, misión, visión o cualquier cosa relevante. Este texto está diseñado para enganchar al usuario y dar información clara.
+                        Aquí va una pequeña descripción sobre tu sección. Puedes hablar de tu equipo, misión, visión o cualquier cosa relevante.
+                        <br />
+                        <Link to="/GestionProveedores">Proveedores</Link>
+                        <br />
+                        <Link to="/GestionTrabajadores">Trabajadores</Link>
+                        <br />
+                        <Link to="/GestionVentas">Ventas</Link>
                     </p>
                 </div>
                 <div className="image-content">
