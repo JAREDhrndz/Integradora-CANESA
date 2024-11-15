@@ -13,7 +13,7 @@ const Menu = () => {
         <div>
             {/* Contenedor del logo */}
             <div className="logo-container">
-                <img src="assets/Logo.png" alt="Logo Constructora Canese" className="logo" />
+                <img/>
             </div>
 
             {/* Título del menú */}

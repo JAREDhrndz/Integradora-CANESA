@@ -1,70 +1,72 @@
-/* src/section2.css */
-#section2 {
-    background-color: #222; /* Fondo oscuro */
-    color: white; /* Texto blanco */
-    padding: 40px;
-    width: 100%;
-    box-sizing: border-box;
-    margin: 0;
-}
-
-#section2-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-#text-section2 {
-    flex: 1;
-    padding-right: 20px;
-    max-width: 600px; /* Limita el ancho del texto */
-}
-
-#section2-title {
-    font-size: 2.5rem;
-    margin-bottom: 15px;
-    color: #fff;
-}
-
-#section2-description {
-    font-size: 1.2rem;
-    line-height: 1.6;
-    color: #ddd; /* Color gris claro */
-}
-
-#image-section2 {
-    flex: 1;
-    position: relative;
-    overflow: hidden;
-    height: 100%; /* Asegura que la imagen tenga la altura completa de su contenedor */
+/* section2.css */
+.section2 {
     display: flex;
     justify-content: center;
     align-items: center;
+    min-height: 100vh;
 }
 
-#section2-image {
+.image-container {
+    position: relative;
+    width: 80%; /* Ajusta el ancho del contenedor */
+    max-width: 600px; /* Puedes ajustar el valor máximo según tus necesidades */
+    height: 300px; /* Define la altura para que sea más rectangular */
+    cursor: pointer;
+    perspective: 1000px; /* Para dar el efecto de rotación */
+    border-radius: 10px; /* Bordes redondeados para el contenedor */
+}
+
+.image-front, .image-back {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    height: auto;
-    object-fit: cover; /* Ajusta la imagen sin distorsión */
-    border-radius: 10px;
-    transition: transform 0.3s ease-in-out;
+    height: 100%;
+    backface-visibility: hidden;
+    transition: transform 0.6s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    border-radius: 10px; /* Bordes redondeados para las imágenes */
 }
 
-#image-section2:hover #section2-image {
-    transform: scale(1.05); /* La imagen aumenta cuando se pasa el ratón */
+.image-front img, .image-back img {
+    width: 100%; /* Ocupa todo el ancho del contenedor */
+    height: 100%; /* Ocupa toda la altura del contenedor */
+    object-fit: cover; /* Asegura que la imagen cubra el área sin distorsión */
 }
 
-@media (max-width: 768px) {
-    #section2-content {
-        flex-direction: column;
-        align-items: center; /* Centra el contenido en pantallas más pequeñas */
-    }
+.image-back {
+    transform: rotateY(180deg); /* Al principio, la parte posterior está rotada */
+}
 
-    #image-section2 {
-        width: 100%;
-        height: auto;
-    }
+.image-container.rotated .image-front {
+    transform: rotateY(180deg); /* Cuando se rota, la parte frontal gira */
+}
+
+.image-container.rotated .image-back {
+    transform: rotateY(0); /* La parte posterior aparece cuando la imagen se rota */
+}
+
+.text-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    text-align: center;
+    z-index: 1;
+}
+
+.text-overlay h2 {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.text-overlay p {
+    font-size: 1rem;
+    font-style: italic;
+    max-width: 90%;
 }

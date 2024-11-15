@@ -12,7 +12,7 @@ const Section1 = () => {
                 <div className="text-content">
                     <h2>¿Quiénes Somos?</h2>
                     <p>
-                        Aquí va una pequeña descripción sobre tu sección. Puedes hablar de tu equipo, misión, visión o cualquier cosa relevante.
+                    En Inmobiliaria y Constructora CANESA S.A. de C.V., nos especializamos en la construcción de viviendas de calidad en Durango. Fundada en 2024, nos caracterizamos por nuestra ética, compromiso y respeto por el desarrollo ordenado de la ciudad, siempre buscando la satisfacción total de nuestros clientes.
                     </p>
                 </div>
                 <div className="image-content" id='banner1'>

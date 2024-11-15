@@ -1,21 +1,31 @@
-// src/Section2.js
-import React from 'react';
-import './section2.css'; // Asegúrate de que esté en minúsculas
+import React, { useState } from 'react';
+import './section2.css';
+import misionImage from './assets/mision.jpg'; 
+import visionImage from './assets/vision.jpg'; 
 
 const Section2 = () => {
+    const [isRotated, setIsRotated] = useState(false);
+
+    const handleClick = () => {
+        setIsRotated(!isRotated);
+    };
+
     return (
-        <div className="section2" id="section2">
-            <div className="section2-content" id="section2-content">
-                <div className="text-section2" id="text-section2">
-                    <h2 id="section2-title">Nuestra Misión</h2>
-                    <p id="section2-description">
-                        Aquí va una descripción sobre la misión de tu proyecto o empresa. 
-                        Este texto debe ser claro y transmitir los valores que deseas que 
-                        tu audiencia entienda.
-                    </p>
+        <div className="section2">
+            <div className={`image-container ${isRotated ? 'rotated' : ''}`} onClick={handleClick}>
+                <div className="image-front">
+                    <img src={misionImage} alt="Misión" />
+                    <div className="text-overlay">
+                        <h2>Misión</h2>
+                        <p>Texto con la misión de la empresa...</p>
+                    </div>
                 </div>
-                <div className="image-section2" id="image-section2">
-                    <img src="/assets/image-2.jpg" alt="Imagen Misión" id="section2-image" />
+                <div className="image-back">
+                    <img src={visionImage} alt="Visión" />
+                    <div className="text-overlay">
+                        <h2>Visión</h2>
+                        <p>Texto con la visión de la empresa...</p>
+                    </div>
                 </div>
             </div>
         </div>

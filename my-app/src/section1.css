@@ -1,14 +1,16 @@
 /* src/section1.css */
 .section1 {
-    background-color: black; /* Fondo negro */
-    color: white; /* Texto blanco */
-    padding: 0; /* Eliminamos padding */
-    margin: 0; /* Eliminamos margin */
-    display: flex; /* Usamos flexbox para centrar el contenido */
-    align-items: center; /* Centra el contenido verticalmente */
-    justify-content: center; /* Centra el contenido horizontalmente */
-    height: 100vh; /* Hace que la sección ocupe el 100% de la altura de la ventana */
+    background-color: black;
+    color: white;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    transform: translateY(-90px); /* Ajusta el valor para mover hacia arriba */
 }
+
 
 .section-content {
     display: flex;
@@ -21,7 +23,6 @@
 
 .text-content {
     flex: 1;
-    padding-right: 20px;
     max-width: 500px; /* Limita el ancho del texto */
     text-align: center; /* Centra el texto dentro del contenedor */
 }
@@ -30,12 +31,18 @@
     font-size: 2.5rem;
     margin-bottom: 15px;
     color: #b48250;
+    font-family: "Merriweather", serif;
+    font-weight: 400;
+    font-style: regular;
 }
 
 .text-content p {
     font-size: 1.2rem;
     line-height: 1.6;
-    color: #ddd; /* Color gris claro para el texto */
+    color: white;
+    font-family: "Merriweather", serif;
+    font-weight: 400;
+    font-style: italic;
 }
 
 #banner1 {

@@ -6,7 +6,6 @@ import AOS from 'aos';
 import './MainPage.css';
 import Navbar from './navbar';
 import downIcon from './assets/down_icon.png';
-import sectionImage from './assets/image-1.jpg';
 
 const MainPage = () => {
     useEffect(() => {
