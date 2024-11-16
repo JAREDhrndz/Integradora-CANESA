@@ -5,12 +5,20 @@ import Mainpage from './Mainpage';
 import Section1 from './section1';
 import Login from './Login';
 import Navbar from './navbar';
+
+
 import GestionTrabajadores from './GestionTrabajadores';
 import GestionVentas from './GestionVentas';
 import GestionProveedores from './GestionProveedores';
+import GestionServicios from './GestionServicios';
+import GestionClientes from './GestionClientes';
+
+
 import './App.css';
 import Section2 from './section2';
 import Menu from './menu';
+import Citas from './citas';
+import Historial from './Historial';
 
 function App() {
     return (
@@ -28,10 +36,16 @@ function App() {
                     } 
                 />
                 <Route path="/login" element={<Login />} />
+
                 <Route path="/GestionTrabajadores" element={<GestionTrabajadores />} />
                 <Route path="/GestionVentas" element={<GestionVentas />} />
                 <Route path="/GestionProveedores" element={<GestionProveedores />} />
+                <Route path="/GestionServicios" element={<GestionServicios />} />
+                <Route path="/GestionClientes" element={<GestionClientes />} />
+
                 <Route path="/menu" element={<Menu />} />
+                <Route path="/citas" element={<Citas />} />
+                <Route path="/Hsitorial" element={<Historial />} />
             </Routes>
         </div>
     );

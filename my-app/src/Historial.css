@@ -1,0 +1,56 @@
+/* src/historial.css */
+#historial-container {
+    padding: 20px;
+}
+
+#historial-title {
+    text-align: center;
+}
+
+#menu-options {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+.menu-item {
+    padding: 10px 20px;
+    margin: 5px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.menu-item:hover {
+    background-color: #45a049;
+}
+
+#record-list {
+    margin-top: 20px;
+}
+
+#records-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+#records-table th, #records-table td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+#records-table th {
+    background-color: #f2f2f2;
+}
+
+#records-table td {
+    background-color: #f9f9f9;
+}
+
+#records-table tr:hover {
+    background-color: #ddd;
+}

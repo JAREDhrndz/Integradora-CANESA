@@ -93,6 +93,7 @@ button:hover {
     text-align: center;
     margin-top: 10px;
     color: white;
+    font-size: 15px;
 }
 
 #registro-enlace, #login-enlace {

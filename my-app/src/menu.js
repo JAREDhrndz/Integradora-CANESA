@@ -26,11 +26,9 @@ const Menu = () => {
                 <Link to="/GestionProveedores" className="menu-item">Proveedores</Link>
                 <Link to="/GestionTrabajadores" className="menu-item">Trabajadores</Link>
                 <Link to="/GestionVentas" className="menu-item">Ventas</Link>
-                
-                {/* Tres opciones adicionales (ajusta según necesidades) */}
-                <a href="/servicios.html" className="menu-item">Opcion 4</a>
-                <a href="/reportes.html" className="menu-item">Opcion 5</a>
-                <a href="/perfil.html" className="menu-item">Opcion 6</a>
+                <Link to="/GestionServicios" className="menu-item">Gestion de Servicios</Link>
+                <Link to="/GestionClientes" className="menu-item">Gestion de Clientes</Link>
+                <Link to="/Hsitorial" className="menu-item">Historial de Cambios</Link>
             </div>
 
             {/* Botón de regresar */}
