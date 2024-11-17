@@ -1,4 +1,3 @@
-// src/GestionClientes.js
 import React, { useState, useEffect } from 'react';
 import './GestionClientes.css';
 
@@ -12,6 +11,7 @@ const GestionClientes = () => {
         direccion: '',
         correo_electronico: '',
     });
+    const [mostrarFormulario, setMostrarFormulario] = useState(false); // Controlar si mostramos el formulario o la lista
 
     // Función para obtener la lista de clientes
     const fetchClientes = async () => {
@@ -93,60 +93,102 @@ const GestionClientes = () => {
     return (
         <div className="gestion-clientes">
             <h2>Gestión de Clientes</h2>
-            <form onSubmit={handleSubmit} id='form-cliente'>
-                <input type="number" name="num_usuario" placeholder="ID del Cliente" value={formData.num_usuario} onChange={handleChange} required />
-                <select name="tipo_usuario" value={formData.tipo_usuario} onChange={handleChange} required>
-                    <option value="Cliente">Cliente</option>
-                    <option value="Administrador">Administrador</option>
-                    <option value="SuperAdministrador">Super Administrador</option>
-                </select>
-                <input type="text" name="nombre" placeholder="Nombre" value={formData.nombre} onChange={handleChange} required />
-                <input type="text" name="telefono" placeholder="Teléfono" value={formData.telefono} onChange={handleChange} required />
-                <input type="text" name="direccion" placeholder="Dirección" value={formData.direccion} onChange={handleChange} required />
-                <input type="email" name="correo_electronico" placeholder="Correo Electrónico" value={formData.correo_electronico} onChange={handleChange} required />
-                <button type="submit">Guardar</button>
-                <button type="button" onClick={() => setFormData({ num_usuario: '', tipo_usuario: 'Cliente', nombre: '', telefono: '', direccion: '', correo_electronico: '' })}>Limpiar</button>
-            </form>
 
-            <div className="clientes-list">
-                <h3>Lista de Clientes</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Tipo</th>
-                            <th>Nombre</th>
-                            <th>Teléfono</th>
-                            <th>Dirección</th>
-                            <th>Correo</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {clientes.map(cliente => (
-                            <tr key={cliente.num_usuario}>
-                                <td>{cliente.num_usuario}</td>
-                                <td>{cliente.tipo_usuario}</td>
-                                <td>{cliente.nombre}</td>
-                                <td>{cliente.telefono}</td>
-                                <td>{cliente.direccion}</td>
-                                <td>{cliente.correo_electronico}</td>
-                                <td>
-                                    <button onClick={() => handleDelete(cliente.num_usuario)}>Eliminar</button>
-                                    <button onClick={() => setFormData({
-                                        num_usuario: cliente.num_usuario,
-                                        tipo_usuario: cliente.tipo_usuario,
-                                        nombre: cliente.nombre,
-                                        telefono: cliente.telefono,
-                                        direccion: cliente.direccion,
-                                        correo_electronico: cliente.correo_electronico,
-                                    })}>Actualizar</button>
-                                </td>
+            {/* Botón para insertar cliente */}
+            <button onClick={() => setMostrarFormulario(true)}>Insertar Nuevo Cliente</button>
+
+            {/* Mostrar formulario para insertar o actualizar cliente */}
+            {mostrarFormulario ? (
+                <form onSubmit={handleSubmit} id='form-cliente'>
+                    <input
+                        type="number"
+                        name="num_usuario"
+                        placeholder="ID del Cliente"
+                        value={formData.num_usuario}
+                        onChange={handleChange}
+                    />
+                    <select name="tipo_usuario" value={formData.tipo_usuario} onChange={handleChange} required>
+                        <option value="Cliente">Cliente</option>
+                        <option value="Administrador">Administrador</option>
+                        <option value="SuperAdministrador">Super Administrador</option>
+                    </select>
+                    <input
+                        type="text"
+                        name="nombre"
+                        placeholder="Nombre"
+                        value={formData.nombre}
+                        onChange={handleChange}
+                        required
+                    />
+                    <input
+                        type="text"
+                        name="telefono"
+                        placeholder="Teléfono"
+                        value={formData.telefono}
+                        onChange={handleChange}
+                        required
+                    />
+                    <input
+                        type="text"
+                        name="direccion"
+                        placeholder="Dirección"
+                        value={formData.direccion}
+                        onChange={handleChange}
+                        required
+                    />
+                    <input
+                        type="email"
+                        name="correo_electronico"
+                        placeholder="Correo Electrónico"
+                        value={formData.correo_electronico}
+                        onChange={handleChange}
+                        required
+                    />
+                    <button type="submit">Guardar</button>
+                    <button type="button" onClick={() => setFormData({ num_usuario: '', tipo_usuario: 'Cliente', nombre: '', telefono: '', direccion: '', correo_electronico: '' })}>Limpiar</button>
+                    <button type="button" onClick={() => setMostrarFormulario(false)}>Regresar</button>
+                </form>
+            ) : (
+                <div className="clientes-list">
+                    <h3>Lista de Clientes</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Tipo</th>
+                                <th>Nombre</th>
+                                <th>Teléfono</th>
+                                <th>Dirección</th>
+                                <th>Correo</th>
+                                <th>Acciones</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
+                        </thead>
+                        <tbody>
+                            {clientes.map(cliente => (
+                                <tr key={cliente.num_usuario}>
+                                    <td>{cliente.num_usuario}</td>
+                                    <td>{cliente.tipo_usuario}</td>
+                                    <td>{cliente.nombre}</td>
+                                    <td>{cliente.telefono}</td>
+                                    <td>{cliente.direccion}</td>
+                                    <td>{cliente.correo_electronico}</td>
+                                    <td>
+                                        <button onClick={() => handleDelete(cliente.num_usuario)}>Eliminar</button>
+                                        <button onClick={() => setFormData({
+                                            num_usuario: cliente.num_usuario,
+                                            tipo_usuario: cliente.tipo_usuario,
+                                            nombre: cliente.nombre,
+                                            telefono: cliente.telefono,
+                                            direccion: cliente.direccion,
+                                            correo_electronico: cliente.correo_electronico,
+                                        })}>Actualizar</button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+            )}
         </div>
     );
 };

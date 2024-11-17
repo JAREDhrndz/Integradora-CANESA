@@ -11,6 +11,7 @@ const GestionTrabajadores = () => {
         telefono: '',
         correo: '',
     });
+    const [showForm, setShowForm] = useState(false); // Estado para alternar entre lista y formulario
 
     const fetchTrabajadores = async () => {
         try {
@@ -49,8 +50,12 @@ const GestionTrabajadores = () => {
             });
 
             const result = await response.json();
-            if (result.status === "success") fetchTrabajadores();
-            else console.error('Error:', result.message);
+            if (result.status === "success") {
+                fetchTrabajadores();
+                setShowForm(false); // Regresar a la lista después de agregar/actualizar
+            } else {
+                console.error('Error:', result.message);
+            }
         } catch (error) {
             console.error('Error:', error);
         }
@@ -79,55 +84,62 @@ const GestionTrabajadores = () => {
     return (
         <div className="gestion-trabajadores">
             <h2>Gestión de Trabajadores</h2>
-            <form onSubmit={handleSubmit}>
-                <input type="number" name="id" placeholder="ID del Trabajador" value={formData.id} onChange={handleChange} />
-                <input type="text" name="nombre" placeholder="Nombre" value={formData.nombre} onChange={handleChange} required />
-                <input type="text" name="cargo" placeholder="Cargo" value={formData.cargo} onChange={handleChange} required />
-                <input type="text" name="telefono" placeholder="Teléfono" value={formData.telefono} onChange={handleChange} required />
-                <input type="email" name="correo" placeholder="Correo Electrónico" value={formData.correo} onChange={handleChange} required />
-                <button type="submit">{formData.id ? 'Actualizar' : 'Agregar'}</button>
-                <button type="button" onClick={() => setFormData({ id: '', nombre: '', cargo: '', telefono: '', correo: '' })}>Limpiar</button>
-            </form>
-
-            <div className="trabajadores-list">
-                <h3>Lista de Trabajadores</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Nombre</th>
-                            <th>Cargo</th>
-                            <th>Teléfono</th>
-                            <th>Correo</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {trabajadores.map(trabajador => (
-                            <tr key={trabajador.id_trabajador}>
-                                <td>{trabajador.id_trabajador}</td>
-                                <td>{trabajador.nombre_trabajador}</td>
-                                <td>{trabajador.cargo_trabajador}</td>
-                                <td>{trabajador.telefono_trabajador}</td>
-                                <td>{trabajador.correo_trabajador}</td>
-                                <td>
-                                    <button onClick={() => handleDelete(trabajador.id_trabajador)}>Eliminar</button>
-                                    <button onClick={() => setFormData({
-                                        id: trabajador.id_trabajador,
-                                        nombre: trabajador.nombre_trabajador,
-                                        cargo: trabajador.cargo_trabajador,
-                                        telefono: trabajador.telefono_trabajador,
-                                        correo: trabajador.correo_trabajador,
-                                    })}>Editar</button>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
+            {!showForm ? (
+                <>
+                    <button onClick={() => setShowForm(true)}>Agregar Registro</button>
+                    <div className="trabajadores-list">
+                        <h3>Lista de Trabajadores</h3>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nombre</th>
+                                    <th>Cargo</th>
+                                    <th>Teléfono</th>
+                                    <th>Correo</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {trabajadores.map(trabajador => (
+                                    <tr key={trabajador.id_trabajador}>
+                                        <td>{trabajador.id_trabajador}</td>
+                                        <td>{trabajador.nombre_trabajador}</td>
+                                        <td>{trabajador.cargo_trabajador}</td>
+                                        <td>{trabajador.telefono_trabajador}</td>
+                                        <td>{trabajador.correo_trabajador}</td>
+                                        <td>
+                                            <button onClick={() => handleDelete(trabajador.id_trabajador)}>Eliminar</button>
+                                            <button onClick={() => {
+                                                setFormData({
+                                                    id: trabajador.id_trabajador,
+                                                    nombre: trabajador.nombre_trabajador,
+                                                    cargo: trabajador.cargo_trabajador,
+                                                    telefono: trabajador.telefono_trabajador,
+                                                    correo: trabajador.correo_trabajador,
+                                                });
+                                                setShowForm(true);
+                                            }}>Editar</button>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                </>
+            ) : (
+                <form onSubmit={handleSubmit}>
+                    <input type="number" name="id" placeholder="ID del Trabajador" value={formData.id} onChange={handleChange} />
+                    <input type="text" name="nombre" placeholder="Nombre" value={formData.nombre} onChange={handleChange} required />
+                    <input type="text" name="cargo" placeholder="Cargo" value={formData.cargo} onChange={handleChange} required />
+                    <input type="text" name="telefono" placeholder="Teléfono" value={formData.telefono} onChange={handleChange} required />
+                    <input type="email" name="correo" placeholder="Correo Electrónico" value={formData.correo} onChange={handleChange} required />
+                    <button type="submit">{formData.id ? 'Actualizar' : 'Agregar'}</button>
+                    <button type="button" onClick={() => setShowForm(false)}>Regresar</button>
+                </form>
+            )}
         </div>
     );
 };
 
 export default GestionTrabajadores;
-
