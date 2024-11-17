@@ -15,7 +15,7 @@ const GestionVentas = () => {
 
     const fetchVentas = async () => {
         try {
-            const response = await fetch('/Integradora-CANESA-2/my-app/backend/getVentas.php');
+            const response = await fetch('http://localhost/my-app/backend/getVentas.php');
             if (!response.ok) throw new Error('Error al obtener datos');
             const data = await response.json();
             setVentas(data);
@@ -26,7 +26,7 @@ const GestionVentas = () => {
 
     const fetchTrabajadores = async () => {
         try {
-            const response = await fetch('/Integradora-CANESA-2/my-app/backend/getTrabajadores.php');
+            const response = await fetch('http://localhost/my-app/backend/getTrabajadores.php');
             if (!response.ok) throw new Error('Error al obtener trabajadores');
             const data = await response.json();
             setTrabajadores(data);
@@ -47,7 +47,7 @@ const GestionVentas = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch('/Integradora-CANESA-2/my-app/backend/procesar_ventas.php', {
+            const response = await fetch('http://localhost/my-app/backend/procesar_ventas.php', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ ...formData, action: 'insert' }),
@@ -66,7 +66,7 @@ const GestionVentas = () => {
 
     const handleDelete = async (nombre_venta) => {
         try {
-            await fetch('/Integradora-CANESA-2/my-app/backend/procesar_ventas.php', {
+            await fetch('http://localhost/my-app/backend/procesar_ventas.php', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ nombre_venta, action: 'delete' }),

@@ -24,10 +24,22 @@ const Citas = () => {
     cargarServicios();
   }, []);
 
-  const manejarEnvio = (e) => {
+  const manejarEnvio = async (e) => {
     e.preventDefault();
+
     const nuevaCita = { nombre, telefono, descripcion, servicio };
-    console.log('Cita registrada:', nuevaCita);
+
+    // Enviar los datos al backend (PHP)
+    const response = await fetch('registrarCita.php', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: new URLSearchParams(nuevaCita).toString(),
+    });
+
+    const data = await response.text();
+    console.log('Respuesta del servidor:', data);
   };
 
   return (
