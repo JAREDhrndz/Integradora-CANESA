@@ -1,122 +1,145 @@
-
-
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
-@import url('https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css');
-
-/* Estilo del body */
-body {
-    font-family: 'Poppins', sans-serif;
-    background-color: #332629;
-    color: #DB9146;
-    margin: 0;
-    padding: 0;
-}
-
-/* Contenedor principal */
 #container {
-    width: 90%;
-    margin: 50px auto;
-    background: linear-gradient(to right, #5C5448, #704214);
+    font-family: Arial, sans-serif;
+    color: #f1f1f1;
+    background-color: #111;
     padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-    animation: fadeIn 1s ease-in-out;
+    max-width: 900px;
+    margin: 0 auto;
 }
 
-/* Estilo de la cabecera con imagen */
 #logo {
     display: block;
-    width: 150px;
-    margin: 0 auto;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    margin-bottom: 30px;
+    margin: 0 auto 20px;
+    max-width: 200px;
 }
 
 #title {
+    color: #f1f1f1;
+    font-size: 24px;
     text-align: center;
-    color: #fff;
     margin-bottom: 20px;
 }
 
-/* Estilo de la tabla */
+#btn-add {
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 10px 20px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    width: auto;
+    display: block;
+    margin: 0 auto 20px;
+}
+
+#btn-add:hover {
+    background-color: #388e3c;
+}
+
+#form-add-update {
+    background-color: #222;
+    padding: 20px;
+    border-radius: 4px;
+    border: 1px solid #333;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+#form-add-update label {
+    color: #f1f1f1;
+    font-size: 14px;
+}
+
+#form-add-update input {
+    padding: 10px;
+    border: 1px solid #444;
+    border-radius: 4px;
+    background-color: #333;
+    color: #f1f1f1;
+    font-size: 14px;
+    width: 100%;
+}
+
+#form-add-update input[type="submit"] {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    font-size: 16px;
+}
+
+#form-add-update input[type="submit"]:hover {
+    background-color: #388e3c;
+}
+
+#form-add-update button {
+    background-color: #f39c12;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+    width: auto;
+    align-self: center;
+}
+
+#form-add-update button:hover {
+    background-color: #e67e22;
+}
+
 #tabla-proveedores {
     width: 100%;
     border-collapse: collapse;
-    margin-bottom: 20px;
-}
-
-#tabla-proveedores, th, td {
-    border: 1px solid #DB9146;
-}
-
-th, td {
-    padding: 15px;
-    text-align: left;
-}
-
-th {
-    background-color: #704214;
-    color: white;
-}
-
-td {
-    background-color: #5C5448;
-    color: #e6dfd7;
-}
-
-/* Estilo del formulario */
-#form-add-update, #form-delete {
-    background-color: #5C5448;
-    padding: 20px;
-    border-radius: 5px;
-    margin-bottom: 20px;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-}
-
-label {
-    display: block;
-    margin-bottom: 10px;
-    color: #DB9146;
-}
-
-input[type="text"],
-input[type="email"],
-input[type="tel"] {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-input[type="submit"] {
-    background-color: #DB9146;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-right: 5px;
-}
-
-input[type="submit"]:hover {
-    background-color: #704214;
-}
-
-/* Contenedor del botón de regreso */
-#back-button-container {
-    display: flex;
-    justify-content: center;
     margin-top: 20px;
 }
 
-/* Animación de FadeIn */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
+#tabla-proveedores th,
+#tabla-proveedores td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #333;
+}
+
+#tabla-proveedores th {
+    background-color: #222;
+    color: #f1f1f1;
+}
+
+#tabla-proveedores td {
+    background-color: #333;
+    color: #f1f1f1;
+}
+
+#tabla-proveedores button {
+    padding: 6px 12px;
+    background-color: #b48351;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: background-color 0.3s ease;
+}
+
+#tabla-proveedores button:hover {
+    background-color: #9c6b3f;
+}
+
+#tabla-proveedores button.eliminar {
+    background-color: #e74c3c;
+}
+
+#tabla-proveedores button.eliminar:hover {
+    background-color: #c0392b;
+}
+
+#tabla-proveedores button.editar {
+    background-color: #f39c12;
+}
+
+#tabla-proveedores button.editar:hover {
+    background-color: #e67e22;
 }

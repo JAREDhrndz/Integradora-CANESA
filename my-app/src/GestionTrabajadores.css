@@ -1,70 +1,122 @@
-/* src/GestionTrabajadores.css */
-.gestion-trabajadores {
-    background: linear-gradient(to right, #5C5448, #704214);
+#gestion-trabajadores {
+    font-family: Arial, sans-serif;
+    color: #f1f1f1;
+    background-color: #111;
     padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-    color: #DB9146;
-    font-family: 'Poppins', sans-serif;
+    max-width: 900px;
+    margin: 0 auto;
+    border-radius: 8px;
 }
 
-h2, h3 {
-    text-align: center;
-    color: #fff;
-}
-
-#form2 {
-    background-color: #5C5448;
-    padding: 20px;
-    border-radius: 5px;
+#gestion-trabajadores h2 {
+    color: #f1f1f1;
+    font-size: 22px;
     margin-bottom: 20px;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
 }
 
-input[type="number"],
-input[type="text"],
-input[type="email"] {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+#gestion-trabajadores h3 {
+    color: #f1f1f1;
+    font-size: 18px;
+    margin-bottom: 15px;
+    text-align: center;
 }
 
-button {
-    background-color: #DB9146;
-    color: white;
-    border: none;
-    padding: 10px;
-    border-radius: 5px;
-    cursor: pointer;
+#gestion-trabajadores .trabajadores-list {
+    margin-top: 20px;
 }
 
-button:hover {
-    background-color: #704214;
-}
-
-.trabajadores-list table {
+#gestion-trabajadores table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
 }
 
-th, td {
-    padding: 15px;
+#gestion-trabajadores th,
+#gestion-trabajadores td {
+    padding: 10px;
     text-align: left;
+    border-bottom: 1px solid #333;
 }
 
-th {
-    background-color: #704214;
+#gestion-trabajadores th {
+    background-color: #222;
+    font-size: 14px;
+}
+
+#gestion-trabajadores td {
+    background-color: #333;
+    color: #f1f1f1;
+}
+
+#gestion-trabajadores button {
+    padding: 6px 12px;
+    background-color: #b48351;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: background-color 0.3s ease;
+    width: auto;
+}
+
+#gestion-trabajadores button:hover {
+    background-color: #9c6b3f;
+}
+
+#gestion-trabajadores button.eliminar {
+    background-color: #e74c3c;
+}
+
+#gestion-trabajadores button.eliminar:hover {
+    background-color: #c0392b;
+}
+
+#gestion-trabajadores button.editar {
+    background-color: #f39c12;
+}
+
+#gestion-trabajadores button.editar:hover {
+    background-color: #e67e22;
+}
+
+#gestion-trabajadores form {
+    margin-top: 30px;
+    background-color: #222;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+#gestion-trabajadores input {
+    margin: 5px 0;
+    padding: 10px;
+    width: 200px;
+    border: 1px solid #444;
+    border-radius: 4px;
+    background-color: #333;
+    color: #f1f1f1;
+    font-size: 14px;
+}
+
+#gestion-trabajadores input[type="submit"] {
+    background-color: #4caf50;
     color: white;
+    border: none;
+    font-size: 14px;
+    width: 100%;
+    padding: 10px;
 }
 
-td {
-    background-color: #5C5448;
-    color: #e6dfd7;
+#gestion-trabajadores input[type="submit"]:hover {
+    background-color: #388e3c;
 }
 
-button {
-    padding: 5px 10px;
+#gestion-trabajadores button[type="button"] {
+    background-color: #999;
+    margin-top: 10px;
+}
+
+#gestion-trabajadores button[type="button"]:hover {
+    background-color: #777;
 }

@@ -1,116 +1,112 @@
-/* src/GestionVentas.css */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
-@import url('https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css');
-
 #gestion-ventas-container {
-    font-family: 'Poppins', sans-serif;
-    background-color: #332629;
-    color: #DB9146;
-    margin: 0;
-    padding: 0;
-    width: 90%;
-    margin: 50px auto;
-}
-
-#logo {
-    display: block;
-    width: 150px;
-    margin: 0 auto;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    margin-bottom: 30px;
-}
-
-#titulo-ventas {
-    text-align: center;
-    color: #fff;
-    margin-bottom: 20px;
-}
-
-#form-ventas,
-#form-eliminar-venta {
-    background-color: #5C5448;
+    font-family: Arial, sans-serif;
+    color: #f1f1f1;
+    background-color: #111;
     padding: 20px;
-    border-radius: 5px;
+    max-width: 900px;
+    margin: 0 auto;
+    border-radius: 8px;
+}
+
+#gestion-ventas-container h2 {
+    color: #f1f1f1;
+    font-size: 24px;
     margin-bottom: 20px;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
 }
 
-label {
-    display: block;
-    margin-bottom: 10px;
-    color: #DB9146;
-}
-
-input[type="text"],
-input[type="date"] {
-    width: 97%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-input[type="submit"] {
-    background-color: #DB9146;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-right: 5px;
-}
-
-input[type="submit"]:hover {
-    background-color: #704214;
-}
-
-.btn-group {
-    display: flex;
-    justify-content: space-around;
-    margin-top: 20px;
-}
-
-#tabla-ventas {
+#gestion-ventas-container table {
     width: 100%;
     border-collapse: collapse;
-    margin-bottom: 20px;
-}
-
-#tabla-ventas, #tabla-ventas th, #tabla-ventas td {
-    border: 1px solid #DB9146;
-}
-
-#tabla-ventas th, #tabla-ventas td {
-    padding: 15px;
-    text-align: left;
-}
-
-#tabla-ventas th {
-    background-color: #704214;
-    color: white;
-}
-
-#tabla-ventas td {
-    background-color: #5C5448;
-    color: #e6dfd7;
-}
-
-.back-button-container {
-    display: flex;
-    justify-content: center;
     margin-top: 20px;
 }
 
-.btn-back {
-    background-color: #DB9146;
+#gestion-ventas-container table th,
+#gestion-ventas-container table td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #333;
+}
+
+#gestion-ventas-container table th {
+    background-color: #222;
+    color: #fff;
+}
+
+#gestion-ventas-container table td {
+    background-color: #333;
+    color: #f1f1f1;
+}
+
+#gestion-ventas-container table tr:hover {
+    background-color: #444;
+}
+
+#gestion-ventas-container button {
+    padding: 8px 16px;
+    background-color: #b48351;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+#gestion-ventas-container button:hover {
+    background-color: #9c6b3f;
+}
+
+#gestion-ventas-container button.btn-back {
+    background-color: #e74c3c;
+}
+
+#gestion-ventas-container button.btn-back:hover {
+    background-color: #c0392b;
+}
+
+#gestion-ventas-container button.btn-add {
+    background-color: #4caf50;
+}
+
+#gestion-ventas-container button.btn-add:hover {
+    background-color: #388e3c;
+}
+
+#form-ventas label {
+    font-size: 14px;
+    color: #f1f1f1;
+    margin: 10px 0 5px;
+    display: block;
+}
+
+#form-ventas input,
+#form-ventas select {
+    padding: 8px;
+    width: 100%;
+    border: 1px solid #444;
+    border-radius: 4px;
+    background-color: #333;
+    color: #f1f1f1;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+#form-ventas button {
+    background-color: #4caf50;
     color: white;
     border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 14px;
     cursor: pointer;
 }
 
-.btn-back:hover {
-    background-color: #704214;
+#form-ventas button:hover {
+    background-color: #388e3c;
+}
+
+#gestion-ventas-container .btn-add,
+#gestion-ventas-container .btn-back {
+    margin-bottom: 20px;
 }

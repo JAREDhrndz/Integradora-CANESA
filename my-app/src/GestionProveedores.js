@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import './GestionProveedores.css';
 
 const GestionProveedores = () => {
     const [proveedores, setProveedores] = useState([]);
@@ -10,7 +11,6 @@ const GestionProveedores = () => {
     });
     const [isAdding, setIsAdding] = useState(false);
 
-    // Función para obtener la lista de proveedores
     const fetchProveedores = async () => {
         try {
             const response = await fetch('http://localhost/backend/getProveedores.php');
@@ -82,15 +82,12 @@ const GestionProveedores = () => {
 
     return (
         <div id="container" className="animate__animated animate__fadeIn">
-            <img id="logo" src="assets/Logo.png" alt="Logo Constructora Canese" />
             <h2 id="title">Registro de Proveedores</h2>
 
-            {/* Botón para agregar proveedor */}
             {!isAdding && (
                 <button id="btn-add" onClick={toggleForm}>Agregar Proveedor</button>
             )}
 
-            {/* Formulario para agregar/actualizar proveedor */}
             {isAdding && (
                 <form id="form-add-update" onSubmit={handleSubmit}>
                     <label id="label-nombre">Nombre del Proveedor:</label>
@@ -106,11 +103,10 @@ const GestionProveedores = () => {
                     <input id="input-detalles" type="text" name="detalles" value={formData.detalles} onChange={handleChange} required />
 
                     <input id="submit-agregar" type="submit" value={isAdding ? "Agregar" : "Actualizar"} />
-                    <button type="button" onClick={toggleForm}>Regresar</button>
+                    <button type="button" id="btn-regresar" onClick={toggleForm}>Regresar</button>
                 </form>
             )}
 
-            {/* Tabla de proveedores */}
             {!isAdding && (
                 <table id="tabla-proveedores">
                     <thead>
@@ -124,14 +120,14 @@ const GestionProveedores = () => {
                     </thead>
                     <tbody>
                         {proveedores.map(proveedor => (
-                            <tr key={proveedor.N_proveedor}> {/* Usamos N_proveedor como key */}
-                                <td>{proveedor.Nombre}</td>
-                                <td>{proveedor.Correo_Electronico}</td>
-                                <td>{proveedor.Telefono}</td>
-                                <td>{proveedor.Detalles}</td>
+                            <tr key={proveedor.N_proveedor}>
+                                <td id={`td-nombre-${proveedor.N_proveedor}`}>{proveedor.Nombre}</td>
+                                <td id={`td-correo_electronico-${proveedor.N_proveedor}`}>{proveedor.Correo_Electronico}</td>
+                                <td id={`td-telefono-${proveedor.N_proveedor}`}>{proveedor.Telefono}</td>
+                                <td id={`td-detalles-${proveedor.N_proveedor}`}>{proveedor.Detalles}</td>
                                 <td>
-                                    <button onClick={() => handleDelete(proveedor.Nombre)}>Eliminar</button>
-                                    <button onClick={() => {
+                                    <button id={`btn-eliminar-${proveedor.N_proveedor}`} onClick={() => handleDelete(proveedor.Nombre)}>Eliminar</button>
+                                    <button id={`btn-editar-${proveedor.N_proveedor}`} onClick={() => {
                                         setFormData({
                                             nombre: proveedor.Nombre,
                                             correo_electronico: proveedor.Correo_Electronico,

@@ -104,12 +104,12 @@ const GestionVentas = () => {
             <h2 id="titulo-ventas">Gestión de Ventas</h2>
 
             {showForm ? (
-                <div>
-                    <button className="btn-back" onClick={() => setShowForm(false)}>
+                <div id="form-container">
+                    <button id="btn-back" onClick={() => setShowForm(false)}>
                         Regresar
                     </button>
                     <form id="form-ventas" onSubmit={handleSubmit}>
-                        <label htmlFor="descripcion">Descripción de la venta:</label>
+                        <label htmlFor="descripcion" id="label-descripcion">Descripción de la venta:</label>
                         <input
                             type="text"
                             id="descripcion"
@@ -119,7 +119,7 @@ const GestionVentas = () => {
                             required
                         />
 
-                        <label htmlFor="tipo_de_pago">Tipo de Pago:</label>
+                        <label htmlFor="tipo_de_pago" id="label-tipo_pago">Tipo de Pago:</label>
                         <select
                             id="tipo_de_pago"
                             name="tipo_de_pago"
@@ -132,7 +132,7 @@ const GestionVentas = () => {
                             <option value="Tarjeta">Tarjeta</option>
                         </select>
 
-                        <label htmlFor="total_pagado">Total Pagado:</label>
+                        <label htmlFor="total_pagado" id="label-total_pagado">Total Pagado:</label>
                         <input
                             type="number"
                             id="total_pagado"
@@ -142,7 +142,7 @@ const GestionVentas = () => {
                             required
                         />
 
-                        <label htmlFor="fecha">Fecha:</label>
+                        <label htmlFor="fecha" id="label-fecha">Fecha:</label>
                         <input
                             type="datetime-local"
                             id="fecha"
@@ -152,7 +152,7 @@ const GestionVentas = () => {
                             required
                         />
 
-                        <label htmlFor="num_usuario">Número de Usuario:</label>
+                        <label htmlFor="num_usuario" id="label-num_usuario">Número de Usuario:</label>
                         <input
                             type="number"
                             id="num_usuario"
@@ -162,7 +162,7 @@ const GestionVentas = () => {
                             required
                         />
 
-                        <label htmlFor="id_proveedor_servicio">Proveedor de Servicio:</label>
+                        <label htmlFor="id_proveedor_servicio" id="label-id_proveedor">Proveedor de Servicio:</label>
                         <input
                             type="number"
                             id="id_proveedor_servicio"
@@ -172,7 +172,7 @@ const GestionVentas = () => {
                             required
                         />
 
-                        <label htmlFor="num_empleado">Número de Empleado:</label>
+                        <label htmlFor="num_empleado" id="label-num_empleado">Número de Empleado:</label>
                         <input
                             type="number"
                             id="num_empleado"
@@ -182,25 +182,25 @@ const GestionVentas = () => {
                             required
                         />
 
-                        <button type="submit">Agregar Venta</button>
+                        <button type="submit" id="submit-venta">Agregar Venta</button>
                     </form>
                 </div>
             ) : (
-                <div>
-                    <button className="btn-add" onClick={() => setShowForm(true)}>
+                <div id="tabla-container">
+                    <button id="btn-add" onClick={() => setShowForm(true)}>
                         Agregar Registro
                     </button>
                     <table id="tabla-ventas">
                         <thead>
                             <tr>
-                                <th>Descripción</th>
-                                <th>Tipo de Pago</th>
-                                <th>Total Pagado</th>
-                                <th>Fecha</th>
-                                <th>Usuario</th>
-                                <th>Proveedor</th>
-                                <th>Empleado</th>
-                                <th>Acciones</th>
+                                <th id="col-descripcion">Descripción</th>
+                                <th id="col-tipo_pago">Tipo de Pago</th>
+                                <th id="col-total_pagado">Total Pagado</th>
+                                <th id="col-fecha">Fecha</th>
+                                <th id="col-usuario">Usuario</th>
+                                <th id="col-proveedor">Proveedor</th>
+                                <th id="col-empleado">Empleado</th>
+                                <th id="col-acciones">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -214,7 +214,12 @@ const GestionVentas = () => {
                                     <td>{venta.Id_proveedor_servicio}</td>
                                     <td>{venta.Num_empleado}</td>
                                     <td>
-                                        <button onClick={() => handleDelete(venta.Descripcion)}>Eliminar</button>
+                                        <button
+                                            id={`btn-eliminar-${index}`}
+                                            onClick={() => handleDelete(venta.Descripcion)}
+                                        >
+                                            Eliminar
+                                        </button>
                                     </td>
                                 </tr>
                             ))}

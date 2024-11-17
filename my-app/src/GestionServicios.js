@@ -82,14 +82,14 @@ const GestionServicios = () => {
     };
 
     return (
-        <div className="gestion-servicios">
-            <h2>Gestión de Servicios</h2>
+        <div id="gestion-servicios-container">
+            <h2 id="gestion-servicios-title">Gestión de Servicios</h2>
             {!showForm ? (
                 <>
-                    <button onClick={() => setShowForm(true)}>Insertar Nuevo Servicio</button>
-                    <div className="servicios-list">
-                        <h3>Lista de Servicios</h3>
-                        <table>
+                    <button id="insertar-servicio-btn" onClick={() => setShowForm(true)}>Insertar Nuevo Servicio</button>
+                    <div id="servicios-list">
+                        <h3 id="servicios-list-title">Lista de Servicios</h3>
+                        <table id="servicios-table">
                             <thead>
                                 <tr>
                                     <th>ID</th>
@@ -108,8 +108,8 @@ const GestionServicios = () => {
                                             <td>{servicio.descripcion}</td>
                                             <td>{servicio.costo}</td>
                                             <td>
-                                                <button onClick={() => handleDelete(servicio.id)}>Eliminar</button>
-                                                <button onClick={() => setFormData({
+                                                <button className="eliminar-btn" onClick={() => handleDelete(servicio.id)}>Eliminar</button>
+                                                <button className="editar-btn" onClick={() => setFormData({
                                                     id: servicio.id,
                                                     nombre: servicio.nombre,
                                                     descripcion: servicio.descripcion,
@@ -129,14 +129,14 @@ const GestionServicios = () => {
                 </>
             ) : (
                 <>
-                    <button onClick={() => setShowForm(false)}>Regresar</button>
-                    <form onSubmit={handleSubmit}>
-                        <input type="number" name="id" placeholder="ID (solo para actualizar)" value={formData.id} onChange={handleChange} />
-                        <input type="text" name="nombre" placeholder="Nombre del servicio" value={formData.nombre} onChange={handleChange} required />
-                        <input type="text" name="descripcion" placeholder="Descripción" value={formData.descripcion} onChange={handleChange} required />
-                        <input type="number" step="0.01" name="costo" placeholder="Costo" value={formData.costo} onChange={handleChange} required />
-                        <button type="submit">{formData.id ? 'Actualizar' : 'Agregar'}</button>
-                        <button type="button" onClick={() => setFormData({ id: '', nombre: '', descripcion: '', costo: '' })}>Limpiar</button>
+                    <button id="regresar-btn" onClick={() => setShowForm(false)}>Regresar</button>
+                    <form id="form-servicio" onSubmit={handleSubmit}>
+                        <input id="id-servicio-input" type="number" name="id" placeholder="ID (solo para actualizar)" value={formData.id} onChange={handleChange} />
+                        <input id="nombre-servicio-input" type="text" name="nombre" placeholder="Nombre del servicio" value={formData.nombre} onChange={handleChange} required />
+                        <input id="descripcion-servicio-input" type="text" name="descripcion" placeholder="Descripción" value={formData.descripcion} onChange={handleChange} required />
+                        <input id="costo-servicio-input" type="number" step="0.01" name="costo" placeholder="Costo" value={formData.costo} onChange={handleChange} required />
+                        <button id="submit-servicio-btn" type="submit">{formData.id ? 'Actualizar' : 'Agregar'}</button>
+                        <button id="limpiar-servicio-btn" type="button" onClick={() => setFormData({ id: '', nombre: '', descripcion: '', costo: '' })}>Limpiar</button>
                     </form>
                 </>
             )}

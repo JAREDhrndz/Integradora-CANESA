@@ -81,14 +81,14 @@ const GestionTrabajadores = () => {
     };
 
     return (
-        <div className="gestion-trabajadores">
-            <h2>Gestión de Trabajadores</h2>
+        <div id="gestion-trabajadores">
+            <h2 id="gestion-title">Gestión de Trabajadores</h2>
             {!showForm ? (
                 <>
-                    <button onClick={() => setShowForm(true)}>Agregar Registro</button>
-                    <div className="trabajadores-list">
-                        <h3>Lista de Trabajadores</h3>
-                        <table>
+                    <button id="add-btn" onClick={() => setShowForm(true)}>Agregar Registro</button>
+                    <div id="trabajadores-list">
+                        <h3 id="trabajadores-list-title">Lista de Trabajadores</h3>
+                        <table id="trabajadores-table">
                             <thead>
                                 <tr>
                                     <th>ID</th>
@@ -108,8 +108,8 @@ const GestionTrabajadores = () => {
                                         <td>{trabajador.Telefono}</td>
                                         <td>{trabajador.Correo_Electronico}</td>
                                         <td>
-                                            <button onClick={() => handleDelete(trabajador.Numero_empleado)}>Eliminar</button>
-                                            <button onClick={() => {
+                                            <button id={`delete-btn-${trabajador.Numero_empleado}`} onClick={() => handleDelete(trabajador.Numero_empleado)}>Eliminar</button>
+                                            <button id={`edit-btn-${trabajador.Numero_empleado}`} onClick={() => {
                                                 setFormData({
                                                     id: trabajador.Numero_empleado,
                                                     nombre: trabajador.Nombre,
@@ -127,14 +127,14 @@ const GestionTrabajadores = () => {
                     </div>
                 </>
             ) : (
-                <form onSubmit={handleSubmit}>
-                    <input type="number" name="id" placeholder="ID del Trabajador" value={formData.id} onChange={handleChange} />
-                    <input type="text" name="nombre" placeholder="Nombre" value={formData.nombre} onChange={handleChange} required />
-                    <input type="text" name="cargo" placeholder="Cargo" value={formData.cargo} onChange={handleChange} required />
-                    <input type="text" name="telefono" placeholder="Teléfono" value={formData.telefono} onChange={handleChange} required />
-                    <input type="email" name="correo" placeholder="Correo Electrónico" value={formData.correo} onChange={handleChange} required />
-                    <button type="submit">{formData.id ? 'Actualizar' : 'Agregar'}</button>
-                    <button type="button" onClick={() => setShowForm(false)}>Regresar</button>
+                <form id="trabajador-form" onSubmit={handleSubmit}>
+                    <input id="input-id" type="number" name="id" placeholder="ID del Trabajador" value={formData.id} onChange={handleChange} />
+                    <input id="input-nombre" type="text" name="nombre" placeholder="Nombre" value={formData.nombre} onChange={handleChange} required />
+                    <input id="input-cargo" type="text" name="cargo" placeholder="Cargo" value={formData.cargo} onChange={handleChange} required />
+                    <input id="input-telefono" type="text" name="telefono" placeholder="Teléfono" value={formData.telefono} onChange={handleChange} required />
+                    <input id="input-correo" type="email" name="correo" placeholder="Correo Electrónico" value={formData.correo} onChange={handleChange} required />
+                    <button id="submit-btn" type="submit">{formData.id ? 'Actualizar' : 'Agregar'}</button>
+                    <button id="cancel-btn" type="button" onClick={() => setShowForm(false)}>Regresar</button>
                 </form>
             )}
         </div>
