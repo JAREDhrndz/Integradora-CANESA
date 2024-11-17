@@ -1,4 +1,3 @@
-// src/GestionTrabajadores.js
 import React, { useState, useEffect } from 'react';
 import './GestionTrabajadores.css';
 
@@ -102,21 +101,21 @@ const GestionTrabajadores = () => {
                             </thead>
                             <tbody>
                                 {trabajadores.map(trabajador => (
-                                    <tr key={trabajador.id_trabajador}>
-                                        <td>{trabajador.id_trabajador}</td>
-                                        <td>{trabajador.nombre_trabajador}</td>
-                                        <td>{trabajador.cargo_trabajador}</td>
-                                        <td>{trabajador.telefono_trabajador}</td>
-                                        <td>{trabajador.correo_trabajador}</td>
+                                    <tr key={trabajador.Numero_empleado}>
+                                        <td>{trabajador.Numero_empleado}</td>
+                                        <td>{trabajador.Nombre}</td>
+                                        <td>{trabajador.Cargo}</td>
+                                        <td>{trabajador.Telefono}</td>
+                                        <td>{trabajador.Correo_Electronico}</td>
                                         <td>
-                                            <button onClick={() => handleDelete(trabajador.id_trabajador)}>Eliminar</button>
+                                            <button onClick={() => handleDelete(trabajador.Numero_empleado)}>Eliminar</button>
                                             <button onClick={() => {
                                                 setFormData({
-                                                    id: trabajador.id_trabajador,
-                                                    nombre: trabajador.nombre_trabajador,
-                                                    cargo: trabajador.cargo_trabajador,
-                                                    telefono: trabajador.telefono_trabajador,
-                                                    correo: trabajador.correo_trabajador,
+                                                    id: trabajador.Numero_empleado,
+                                                    nombre: trabajador.Nombre,
+                                                    cargo: trabajador.Cargo,
+                                                    telefono: trabajador.Telefono,
+                                                    correo: trabajador.Correo_Electronico,
                                                 });
                                                 setShowForm(true);
                                             }}>Editar</button>

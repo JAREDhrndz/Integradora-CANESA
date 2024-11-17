@@ -100,23 +100,29 @@ const GestionServicios = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {servicios.map(servicio => (
-                                    <tr key={servicio.id}>
-                                        <td>{servicio.id}</td>
-                                        <td>{servicio.nombre}</td>
-                                        <td>{servicio.descripcion}</td>
-                                        <td>{servicio.costo}</td>
-                                        <td>
-                                            <button onClick={() => handleDelete(servicio.id)}>Eliminar</button>
-                                            <button onClick={() => setFormData({
-                                                id: servicio.id,
-                                                nombre: servicio.nombre,
-                                                descripcion: servicio.descripcion,
-                                                costo: servicio.costo,
-                                            })}>Editar</button>
-                                        </td>
+                                {Array.isArray(servicios) && servicios.length > 0 ? (
+                                    servicios.map(servicio => (
+                                        <tr key={servicio.id}>
+                                            <td>{servicio.id}</td>
+                                            <td>{servicio.nombre}</td>
+                                            <td>{servicio.descripcion}</td>
+                                            <td>{servicio.costo}</td>
+                                            <td>
+                                                <button onClick={() => handleDelete(servicio.id)}>Eliminar</button>
+                                                <button onClick={() => setFormData({
+                                                    id: servicio.id,
+                                                    nombre: servicio.nombre,
+                                                    descripcion: servicio.descripcion,
+                                                    costo: servicio.costo,
+                                                })}>Editar</button>
+                                            </td>
+                                        </tr>
+                                    ))
+                                ) : (
+                                    <tr>
+                                        <td colSpan="5">No se encontraron servicios</td>
                                     </tr>
-                                ))}
+                                )}
                             </tbody>
                         </table>
                     </div>

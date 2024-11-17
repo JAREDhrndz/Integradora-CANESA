@@ -5,18 +5,23 @@ const GestionVentas = () => {
     const [ventas, setVentas] = useState([]);
     const [trabajadores, setTrabajadores] = useState([]);
     const [formData, setFormData] = useState({
-        nombre_venta: '',
-        trabajador: '',
+        descripcion: '',
+        tipo_de_pago: '',
+        total_pagado: '',
         fecha: '',
-        cliente: '',
-        servicios: '',
+        num_usuario: '',
+        id_proveedor_servicio: '',
+        num_empleado: '',
     });
     const [showForm, setShowForm] = useState(false);
 
+    // Función para obtener ventas
     const fetchVentas = async () => {
         try {
-            const response = await fetch('http://localhost/my-app/backend/getVentas.php');
-            if (!response.ok) throw new Error('Error al obtener datos');
+            const response = await fetch('http://localhost/backend/getVentas.php');
+            if (!response.ok) {
+                throw new Error('Error al obtener datos');
+            }
             const data = await response.json();
             setVentas(data);
         } catch (error) {
@@ -24,10 +29,13 @@ const GestionVentas = () => {
         }
     };
 
+    // Función para obtener trabajadores
     const fetchTrabajadores = async () => {
         try {
-            const response = await fetch('http://localhost/my-app/backend/getTrabajadores.php');
-            if (!response.ok) throw new Error('Error al obtener trabajadores');
+            const response = await fetch('http://localhost/backend/getTrabajadores.php');
+            if (!response.ok) {
+                throw new Error('Error al obtener trabajadores');
+            }
             const data = await response.json();
             setTrabajadores(data);
         } catch (error) {
@@ -36,42 +44,55 @@ const GestionVentas = () => {
     };
 
     useEffect(() => {
-        fetchVentas();
-        fetchTrabajadores();
+        fetchVentas(); // Cargar las ventas al inicio
+        fetchTrabajadores(); // Cargar los trabajadores al inicio
     }, []);
 
+    // Actualizar datos del formulario
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
+    // Enviar datos del formulario
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch('http://localhost/my-app/backend/procesar_ventas.php', {
+            const response = await fetch('http://localhost/backend/procesar_ventas.php', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ ...formData, action: 'insert' }),
             });
             if (response.ok) {
-                await fetchVentas();
-                setFormData({ nombre_venta: '', trabajador: '', fecha: '', cliente: '', servicios: '' });
+                fetchVentas(); // Recargar las ventas
+                setFormData({
+                    descripcion: '',
+                    tipo_de_pago: '',
+                    total_pagado: '',
+                    fecha: '',
+                    num_usuario: '',
+                    id_proveedor_servicio: '',
+                    num_empleado: '',
+                });
                 setShowForm(false);
             } else {
                 throw new Error('Error al agregar la venta');
             }
         } catch (error) {
-            console.error('Error en el submit:', error);
+            console.error('Error al agregar venta:', error);
         }
     };
 
-    const handleDelete = async (nombre_venta) => {
+    // Eliminar venta
+    const handleDelete = async (descripcion) => {
         try {
-            await fetch('http://localhost/my-app/backend/procesar_ventas.php', {
+            const response = await fetch('http://localhost/backend/procesar_ventas.php', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ nombre_venta, action: 'delete' }),
+                body: JSON.stringify({ descripcion, action: 'delete' }),
             });
-            await fetchVentas();
+            if (response.ok) {
+                fetchVentas(); // Recargar las ventas
+            }
         } catch (error) {
             console.error('Error al eliminar venta:', error);
         }
@@ -88,35 +109,42 @@ const GestionVentas = () => {
                         Regresar
                     </button>
                     <form id="form-ventas" onSubmit={handleSubmit}>
-                        <label htmlFor="nombre_venta">Venta (Proyecto):</label>
+                        <label htmlFor="descripcion">Descripción de la venta:</label>
                         <input
                             type="text"
-                            id="nombre_venta"
-                            name="nombre_venta"
-                            value={formData.nombre_venta}
+                            id="descripcion"
+                            name="descripcion"
+                            value={formData.descripcion}
                             onChange={handleChange}
                             required
                         />
 
-                        <label htmlFor="trabajador">Trabajador:</label>
+                        <label htmlFor="tipo_de_pago">Tipo de Pago:</label>
                         <select
-                            id="trabajador"
-                            name="trabajador"
-                            value={formData.trabajador}
+                            id="tipo_de_pago"
+                            name="tipo_de_pago"
+                            value={formData.tipo_de_pago}
                             onChange={handleChange}
                             required
                         >
-                            <option value="">Selecciona un trabajador</option>
-                            {trabajadores.map((trabajador) => (
-                                <option key={trabajador.id_trabajador} value={trabajador.id_trabajador}>
-                                    {trabajador.nombre_trabajador}
-                                </option>
-                            ))}
+                            <option value="">Selecciona un tipo de pago</option>
+                            <option value="Efectivo">Efectivo</option>
+                            <option value="Tarjeta">Tarjeta</option>
                         </select>
+
+                        <label htmlFor="total_pagado">Total Pagado:</label>
+                        <input
+                            type="number"
+                            id="total_pagado"
+                            name="total_pagado"
+                            value={formData.total_pagado}
+                            onChange={handleChange}
+                            required
+                        />
 
                         <label htmlFor="fecha">Fecha:</label>
                         <input
-                            type="date"
+                            type="datetime-local"
                             id="fecha"
                             name="fecha"
                             value={formData.fecha}
@@ -124,22 +152,32 @@ const GestionVentas = () => {
                             required
                         />
 
-                        <label htmlFor="cliente">Cliente:</label>
+                        <label htmlFor="num_usuario">Número de Usuario:</label>
                         <input
-                            type="text"
-                            id="cliente"
-                            name="cliente"
-                            value={formData.cliente}
+                            type="number"
+                            id="num_usuario"
+                            name="num_usuario"
+                            value={formData.num_usuario}
                             onChange={handleChange}
                             required
                         />
 
-                        <label htmlFor="servicios">Servicios:</label>
+                        <label htmlFor="id_proveedor_servicio">Proveedor de Servicio:</label>
                         <input
-                            type="text"
-                            id="servicios"
-                            name="servicios"
-                            value={formData.servicios}
+                            type="number"
+                            id="id_proveedor_servicio"
+                            name="id_proveedor_servicio"
+                            value={formData.id_proveedor_servicio}
+                            onChange={handleChange}
+                            required
+                        />
+
+                        <label htmlFor="num_empleado">Número de Empleado:</label>
+                        <input
+                            type="number"
+                            id="num_empleado"
+                            name="num_empleado"
+                            value={formData.num_empleado}
                             onChange={handleChange}
                             required
                         />
@@ -155,24 +193,28 @@ const GestionVentas = () => {
                     <table id="tabla-ventas">
                         <thead>
                             <tr>
-                                <th>Venta</th>
-                                <th>Trabajador</th>
+                                <th>Descripción</th>
+                                <th>Tipo de Pago</th>
+                                <th>Total Pagado</th>
                                 <th>Fecha</th>
-                                <th>Cliente</th>
-                                <th>Servicios</th>
+                                <th>Usuario</th>
+                                <th>Proveedor</th>
+                                <th>Empleado</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
                             {ventas.map((venta, index) => (
                                 <tr key={index}>
-                                    <td>{venta.nombre_venta}</td>
-                                    <td>{venta.trabajador}</td>
-                                    <td>{venta.fecha}</td>
-                                    <td>{venta.cliente}</td>
-                                    <td>{venta.servicios}</td>
+                                    <td>{venta.Descripcion}</td>
+                                    <td>{venta.Tipo_de_Pago}</td>
+                                    <td>{venta.Total_pagado}</td>
+                                    <td>{venta.Fecha}</td>
+                                    <td>{venta.Num_usuario}</td>
+                                    <td>{venta.Id_proveedor_servicio}</td>
+                                    <td>{venta.Num_empleado}</td>
                                     <td>
-                                        <button onClick={() => handleDelete(venta.nombre_venta)}>Eliminar</button>
+                                        <button onClick={() => handleDelete(venta.Descripcion)}>Eliminar</button>
                                     </td>
                                 </tr>
                             ))}
@@ -185,4 +227,3 @@ const GestionVentas = () => {
 };
 
 export default GestionVentas;
-

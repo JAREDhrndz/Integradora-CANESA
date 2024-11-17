@@ -1,0 +1,76 @@
+#gestion-usuarios {
+    font-family: Arial, sans-serif;
+    color: #f1f1f1; /* Texto claro */
+    background-color: #111; /* Fondo oscuro */
+    padding: 15px;
+    max-width: 800px; /* Limitar el ancho */
+    margin: 0 auto; /* Centrar el contenido */
+}
+
+#gestion-usuarios h1 {
+    color: #f1f1f1; /* Título en blanco */
+    font-size: 18px; /* Tamaño de fuente más pequeño */
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+#gestion-usuarios ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+#gestion-usuarios li {
+    display: flex;
+    align-items: center; /* Alinea el contenido verticalmente */
+    justify-content: space-between; /* Espacio entre el texto y los botones */
+    margin: 5px 0;
+    padding: 8px;
+    border: 1px solid #333; /* Borde gris oscuro */
+    background-color: #222; /* Fondo de lista oscuro */
+    border-radius: 4px;
+}
+
+#gestion-usuarios li p {
+    font-size: 10px; /* Reducir el tamaño de la tipografía en los párrafos */
+    flex-grow: 1; /* Toma el espacio restante */
+}
+
+#gestion-usuarios button {
+    margin-left: 10px; /* Espacio entre los botones */
+    padding: 6px 12px; /* Botones más pequeños */
+    background-color: #5c6bc0; /* Botón color suave y sobrio */
+    color: #fff; /* Texto blanco */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px; /* Fuente más pequeña en los botones */
+    transition: background-color 0.3s ease;
+    width: auto; /* Asegurarse de que el ancho de los botones se ajuste al contenido */
+}
+
+#gestion-usuarios button:hover {
+    background-color: #3f51b5; /* Color más oscuro en hover */
+}
+
+#gestion-usuarios input {
+    margin: 5px 0;
+    padding: 6px;
+    width: 180px; /* Campos de entrada más pequeños */
+    border: 1px solid #444; /* Borde gris */
+    border-radius: 4px;
+    background-color: #333; /* Fondo gris oscuro */
+    color: #f1f1f1; /* Texto claro */
+    font-size: 14px; /* Texto más pequeño */
+}
+
+#gestion-usuarios input[type="submit"] {
+    background-color: #4caf50; /* Verde suave para el botón de guardar */
+    color: white;
+    border: none;
+    font-size: 14px;
+}
+
+#gestion-usuarios input[type="submit"]:hover {
+    background-color: #388e3c; /* Verde más oscuro al hacer hover */
+}

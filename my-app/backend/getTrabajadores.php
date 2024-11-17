@@ -8,6 +8,7 @@ $user = 'root'; // Cambia a tu nombre de usuario
 $password = ''; // Cambia a tu contraseña
 $dbname = 'canesa'; // Cambia al nombre de tu base de datos
 
+
 // Crear conexión
 $conn = new mysqli($host, $user, $password, $dbname);
 
@@ -20,8 +21,8 @@ if ($conn->connect_error) {
 // Configuración del conjunto de caracteres
 $conn->set_charset("utf8mb4");
 
-// Consulta para obtener trabajadores
-$sql = "SELECT id_trabajador, nombre_trabajador, cargo_trabajador, telefono_trabajador, correo_trabajador FROM trabajadores";
+// Consulta para obtener los trabajadores (ajustada a los nombres de los campos correctos)
+$sql = "SELECT Numero_empleado, Nombre, Cargo, Telefono, Correo_Electronico FROM trabajadores";
 $result = $conn->query($sql);
 
 // Verificar si hay resultados

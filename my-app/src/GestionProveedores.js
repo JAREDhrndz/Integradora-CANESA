@@ -3,9 +3,10 @@ import React, { useState, useEffect } from 'react';
 const GestionProveedores = () => {
     const [proveedores, setProveedores] = useState([]);
     const [formData, setFormData] = useState({
-        nombre_proveedor: '',
-        contacto: '',
+        nombre: '',
+        correo_electronico: '',
         telefono: '',
+        detalles: '',
     });
     const [isAdding, setIsAdding] = useState(false);
 
@@ -31,7 +32,7 @@ const GestionProveedores = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const { nombre_proveedor, contacto, telefono } = formData;
+        const { nombre, correo_electronico, telefono, detalles } = formData;
 
         try {
             const url = isAdding
@@ -43,7 +44,7 @@ const GestionProveedores = () => {
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
                 },
-                body: new URLSearchParams({ nombre_proveedor, contacto, telefono }),
+                body: new URLSearchParams({ nombre, correo_electronico, telefono, detalles }),
             });
 
             const result = await response.json();
@@ -53,17 +54,17 @@ const GestionProveedores = () => {
             console.error('Error:', error);
         }
 
-        setFormData({ nombre_proveedor: '', contacto: '', telefono: '' });
+        setFormData({ nombre: '', correo_electronico: '', telefono: '', detalles: '' });
     };
 
-    const handleDelete = async (nombre_proveedor) => {
+    const handleDelete = async (nombre) => {
         try {
             const response = await fetch('http://localhost/backend/deleteProveedor.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
                 },
-                body: new URLSearchParams({ nombre_proveedor }),
+                body: new URLSearchParams({ nombre }),
             });
 
             const result = await response.json();
@@ -76,7 +77,7 @@ const GestionProveedores = () => {
 
     const toggleForm = () => {
         setIsAdding(!isAdding);
-        setFormData({ nombre_proveedor: '', contacto: '', telefono: '' });
+        setFormData({ nombre: '', correo_electronico: '', telefono: '', detalles: '' });
     };
 
     return (
@@ -92,14 +93,17 @@ const GestionProveedores = () => {
             {/* Formulario para agregar/actualizar proveedor */}
             {isAdding && (
                 <form id="form-add-update" onSubmit={handleSubmit}>
-                    <label id="label-nombre-proveedor">Nombre del Proveedor:</label>
-                    <input id="input-nombre-proveedor" type="text" name="nombre_proveedor" value={formData.nombre_proveedor} onChange={handleChange} required />
+                    <label id="label-nombre">Nombre del Proveedor:</label>
+                    <input id="input-nombre" type="text" name="nombre" value={formData.nombre} onChange={handleChange} required />
 
-                    <label id="label-contacto">Contacto (Email):</label>
-                    <input id="input-contacto" type="email" name="contacto" value={formData.contacto} onChange={handleChange} required />
+                    <label id="label-correo_electronico">Correo Electrónico:</label>
+                    <input id="input-correo_electronico" type="email" name="correo_electronico" value={formData.correo_electronico} onChange={handleChange} required />
 
                     <label id="label-telefono">Teléfono:</label>
                     <input id="input-telefono" type="tel" name="telefono" value={formData.telefono} onChange={handleChange} required />
+
+                    <label id="label-detalles">Detalles:</label>
+                    <input id="input-detalles" type="text" name="detalles" value={formData.detalles} onChange={handleChange} required />
 
                     <input id="submit-agregar" type="submit" value={isAdding ? "Agregar" : "Actualizar"} />
                     <button type="button" onClick={toggleForm}>Regresar</button>
@@ -111,25 +115,28 @@ const GestionProveedores = () => {
                 <table id="tabla-proveedores">
                     <thead>
                         <tr>
-                            <th id="th-proveedor">Proveedor</th>
-                            <th id="th-contacto">Contacto</th>
+                            <th id="th-nombre">Nombre</th>
+                            <th id="th-correo_electronico">Correo Electrónico</th>
                             <th id="th-telefono">Teléfono</th>
+                            <th id="th-detalles">Detalles</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
                         {proveedores.map(proveedor => (
-                            <tr key={proveedor.nombre_proveedor}>
-                                <td>{proveedor.nombre_proveedor}</td>
-                                <td>{proveedor.contacto}</td>
-                                <td>{proveedor.telefono}</td>
+                            <tr key={proveedor.N_proveedor}> {/* Usamos N_proveedor como key */}
+                                <td>{proveedor.Nombre}</td>
+                                <td>{proveedor.Correo_Electronico}</td>
+                                <td>{proveedor.Telefono}</td>
+                                <td>{proveedor.Detalles}</td>
                                 <td>
-                                    <button onClick={() => handleDelete(proveedor.nombre_proveedor)}>Eliminar</button>
+                                    <button onClick={() => handleDelete(proveedor.Nombre)}>Eliminar</button>
                                     <button onClick={() => {
                                         setFormData({
-                                            nombre_proveedor: proveedor.nombre_proveedor,
-                                            contacto: proveedor.contacto,
-                                            telefono: proveedor.telefono,
+                                            nombre: proveedor.Nombre,
+                                            correo_electronico: proveedor.Correo_Electronico,
+                                            telefono: proveedor.Telefono,
+                                            detalles: proveedor.Detalles,
                                         });
                                         setIsAdding(false);
                                     }}>Editar</button>
@@ -139,7 +146,6 @@ const GestionProveedores = () => {
                     </tbody>
                 </table>
             )}
-
         </div>
     );
 };

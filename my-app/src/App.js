@@ -11,7 +11,7 @@ import GestionTrabajadores from './GestionTrabajadores';
 import GestionVentas from './GestionVentas';
 import GestionProveedores from './GestionProveedores';
 import GestionServicios from './GestionServicios';
-import GestionClientes from './GestionClientes';
+import GestionUsuarios from './GestionUsuarios';
 
 
 import './App.css';
@@ -41,7 +41,7 @@ function App() {
                 <Route path="/GestionVentas" element={<GestionVentas />} />
                 <Route path="/GestionProveedores" element={<GestionProveedores />} />
                 <Route path="/GestionServicios" element={<GestionServicios />} />
-                <Route path="/GestionClientes" element={<GestionClientes />} />
+                <Route path="/GestionUsuarios" element={<GestionUsuarios />} />
 
                 <Route path="/menu" element={<Menu />} />
                 <Route path="/citas" element={<Citas />} />

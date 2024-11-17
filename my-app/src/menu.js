@@ -27,7 +27,7 @@ const Menu = () => {
                 <Link to="/GestionTrabajadores" className="menu-item">Trabajadores</Link>
                 <Link to="/GestionVentas" className="menu-item">Ventas</Link>
                 <Link to="/GestionServicios" className="menu-item">Gestion de Servicios</Link>
-                <Link to="/GestionClientes" className="menu-item">Gestion de Clientes</Link>
+                <Link to="/GestionUsuarios" className="menu-item">Gestion de Usuarios</Link>
                 <Link to="/Hsitorial" className="menu-item">Historial de Cambios</Link>
             </div>
 

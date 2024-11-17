@@ -2,7 +2,7 @@
 $host = 'localhost';
 $user = 'root'; // Nombre de usuario predeterminado para XAMPP
 $password = ''; // Contraseña predeterminada (vacía)
-$dbname = 'CANESA'; // Cambiar al nombre de tu base de datos
+$dbname = 'canesa'; // Cambiar al nombre de tu base de datos
 
 // Crear conexión
 $conn = new mysqli($host, $user, $password, $dbname);
