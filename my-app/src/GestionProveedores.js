@@ -59,7 +59,7 @@ const GestionProveedores = () => {
 
     const handleDelete = async (nombre) => {
         try {
-            const response = await fetch('http://localhost/backend/deleteProveedor.php', {
+            const response = await fetch('http://localhost/backend/delProveedores.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
