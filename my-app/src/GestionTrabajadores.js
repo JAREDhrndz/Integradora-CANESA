@@ -1,30 +1,29 @@
 import React, { useState, useEffect } from 'react';
-import './GestionTrabajadores.css';
+import './GestionProveedores.css';
 
-const GestionTrabajadores = () => {
-    const [trabajadores, setTrabajadores] = useState([]);
+const GestionProveedores = () => {
+    const [proveedores, setProveedores] = useState([]);
     const [formData, setFormData] = useState({
-        id: '',
         nombre: '',
-        cargo: '',
+        correo_electronico: '',
         telefono: '',
-        correo: '',
+        detalles: '',
     });
-    const [showForm, setShowForm] = useState(false); // Estado para alternar entre lista y formulario
+    const [isAdding, setIsAdding] = useState(false); // Se usa para mostrar el formulario
 
-    const fetchTrabajadores = async () => {
+    const fetchProveedores = async () => {
         try {
-            const response = await fetch('http://localhost/backend/getTrabajadores.php');
-            if (!response.ok) throw new Error('Error al obtener los trabajadores');
+            const response = await fetch('http://localhost/backend/getProveedores.php');
+            if (!response.ok) throw new Error('Error al obtener los proveedores');
             const data = await response.json();
-            setTrabajadores(data);
+            setProveedores(data);
         } catch (error) {
-            console.error('Error fetching trabajadores:', error);
+            console.error('Error fetching proveedores:', error);
         }
     };
 
     useEffect(() => {
-        fetchTrabajadores();
+        fetchProveedores();
     }, []);
 
     const handleChange = (e) => {
@@ -33,25 +32,27 @@ const GestionTrabajadores = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const { id, nombre, cargo, telefono, correo } = formData;
+        const { nombre, correo_electronico, telefono, detalles } = formData;
+
+        console.log('Form data being submitted:', formData);  // Log para verificar los datos
 
         try {
-            const url = id
-                ? 'http://localhost/backend/updateTrabajador.php'
-                : 'http://localhost/backend/addTrabajador.php';
+            const url = isAdding
+                ? 'http://localhost/backend/addProveedor.php'
+                : 'http://localhost/backend/updateProveedor.php';
 
             const response = await fetch(url, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
                 },
-                body: new URLSearchParams({ id, nombre, cargo, telefono, correo }),
+                body: new URLSearchParams({ nombre, correo_electronico, telefono, detalles }),
             });
 
             const result = await response.json();
             if (result.status === "success") {
-                fetchTrabajadores();
-                setShowForm(false); // Regresar a la lista después de agregar/actualizar
+                fetchProveedores();
+                console.log('Proveedor actualizado');
             } else {
                 console.error('Error:', result.message);
             }
@@ -59,86 +60,102 @@ const GestionTrabajadores = () => {
             console.error('Error:', error);
         }
 
-        setFormData({ id: '', nombre: '', cargo: '', telefono: '', correo: '' });
+        // Limpiar el formulario después de enviar
+        setFormData({ nombre: '', correo_electronico: '', telefono: '', detalles: '' });
     };
 
-    const handleDelete = async (id) => {
+    const handleDelete = async (nombre) => {
         try {
-            const response = await fetch('http://localhost/backend/deleteTrabajador.php', {
+            const response = await fetch('http://localhost/backend/deleteProveedor.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
                 },
-                body: new URLSearchParams({ id }),
+                body: new URLSearchParams({ nombre }),
             });
 
             const result = await response.json();
-            if (result.status === "success") fetchTrabajadores();
-            else console.error('Error eliminando trabajador:', result.message);
+            if (result.status === "success") fetchProveedores();
+            else console.error('Error eliminando proveedor:', result.message);
         } catch (error) {
-            console.error('Error eliminando trabajador:', error);
+            console.error('Error eliminando proveedor:', error);
         }
     };
 
+    const toggleForm = () => {
+        setIsAdding(!isAdding); // Cambiar el estado de "Agregar/Editar"
+        setFormData({ nombre: '', correo_electronico: '', telefono: '', detalles: '' }); // Limpiar el formulario
+    };
+
+    const handleEdit = (proveedor) => {
+        setFormData({
+            nombre: proveedor.Nombre,
+            correo_electronico: proveedor.Correo_Electronico,
+            telefono: proveedor.Telefono,
+            detalles: proveedor.Detalles,
+        });
+        setIsAdding(false); // Mostrar el formulario de edición en lugar de agregar
+    };
+
     return (
-        <div id="gestion-trabajadores">
-            <h2 id="gestion-title">Gestión de Trabajadores</h2>
-            {!showForm ? (
-                <>
-                    <button id="add-btn" onClick={() => setShowForm(true)}>Agregar Registro</button>
-                    <div id="trabajadores-list">
-                        <h3 id="trabajadores-list-title">Lista de Trabajadores</h3>
-                        <table id="trabajadores-table">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Nombre</th>
-                                    <th>Cargo</th>
-                                    <th>Teléfono</th>
-                                    <th>Correo</th>
-                                    <th>Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {trabajadores.map(trabajador => (
-                                    <tr key={trabajador.Numero_empleado}>
-                                        <td>{trabajador.Numero_empleado}</td>
-                                        <td>{trabajador.Nombre}</td>
-                                        <td>{trabajador.Cargo}</td>
-                                        <td>{trabajador.Telefono}</td>
-                                        <td>{trabajador.Correo_Electronico}</td>
-                                        <td>
-                                            <button id={`delete-btn-${trabajador.Numero_empleado}`} onClick={() => handleDelete(trabajador.Numero_empleado)}>Eliminar</button>
-                                            <button id={`edit-btn-${trabajador.Numero_empleado}`} onClick={() => {
-                                                setFormData({
-                                                    id: trabajador.Numero_empleado,
-                                                    nombre: trabajador.Nombre,
-                                                    cargo: trabajador.Cargo,
-                                                    telefono: trabajador.Telefono,
-                                                    correo: trabajador.Correo_Electronico,
-                                                });
-                                                setShowForm(true);
-                                            }}>Editar</button>
-                                        </td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    </div>
-                </>
-            ) : (
-                <form id="trabajador-form" onSubmit={handleSubmit}>
-                    <input id="input-id" type="number" name="id" placeholder="ID del Trabajador" value={formData.id} onChange={handleChange} />
-                    <input id="input-nombre" type="text" name="nombre" placeholder="Nombre" value={formData.nombre} onChange={handleChange} required />
-                    <input id="input-cargo" type="text" name="cargo" placeholder="Cargo" value={formData.cargo} onChange={handleChange} required />
-                    <input id="input-telefono" type="text" name="telefono" placeholder="Teléfono" value={formData.telefono} onChange={handleChange} required />
-                    <input id="input-correo" type="email" name="correo" placeholder="Correo Electrónico" value={formData.correo} onChange={handleChange} required />
-                    <button id="submit-btn" type="submit">{formData.id ? 'Actualizar' : 'Agregar'}</button>
-                    <button id="cancel-btn" type="button" onClick={() => setShowForm(false)}>Regresar</button>
+        <div id="container" className="animate__animated animate__fadeIn">
+            <h2 id="title">Registro de Proveedores</h2>
+
+            {/* Mostrar el botón para agregar proveedor solo si no está en el modo de edición */}
+            {!isAdding && (
+                <button id="btn-add" onClick={toggleForm}>Agregar Proveedor</button>
+            )}
+
+            {/* Mostrar el formulario ya sea para agregar o editar */}
+            {(isAdding || !isAdding) && (
+                <form id="form-add-update" onSubmit={handleSubmit}>
+                    <label id="label-nombre">Nombre del Proveedor:</label>
+                    <input id="input-nombre" type="text" name="nombre" value={formData.nombre} onChange={handleChange} required />
+
+                    <label id="label-correo_electronico">Correo Electrónico:</label>
+                    <input id="input-correo_electronico" type="email" name="correo_electronico" value={formData.correo_electronico} onChange={handleChange} required />
+
+                    <label id="label-telefono">Teléfono:</label>
+                    <input id="input-telefono" type="tel" name="telefono" value={formData.telefono} onChange={handleChange} required />
+
+                    <label id="label-detalles">Detalles:</label>
+                    <input id="input-detalles" type="text" name="detalles" value={formData.detalles} onChange={handleChange} required />
+
+                    <input id="submit-agregar" type="submit" value={isAdding ? "Agregar" : "Actualizar"} />
+                    <button type="button" id="btn-regresar" onClick={toggleForm}>Regresar</button>
                 </form>
+            )}
+
+            {/* Tabla de proveedores */}
+            {!isAdding && (
+                <table id="tabla-proveedores">
+                    <thead>
+                        <tr>
+                            <th id="th-nombre">Nombre</th>
+                            <th id="th-correo_electronico">Correo Electrónico</th>
+                            <th id="th-telefono">Teléfono</th>
+                            <th id="th-detalles">Detalles</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {proveedores.map(proveedor => (
+                            <tr key={proveedor.N_proveedor}>
+                                <td id={`td-nombre-${proveedor.N_proveedor}`}>{proveedor.Nombre}</td>
+                                <td id={`td-correo_electronico-${proveedor.N_proveedor}`}>{proveedor.Correo_Electronico}</td>
+                                <td id={`td-telefono-${proveedor.N_proveedor}`}>{proveedor.Telefono}</td>
+                                <td id={`td-detalles-${proveedor.N_proveedor}`}>{proveedor.Detalles}</td>
+                                <td>
+                                    <button id={`btn-eliminar-${proveedor.N_proveedor}`} onClick={() => handleDelete(proveedor.Nombre)}>Eliminar</button>
+                                    <button id={`btn-editar-${proveedor.N_proveedor}`} onClick={() => handleEdit(proveedor)}>Editar</button>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
             )}
         </div>
     );
 };
 
-export default GestionTrabajadores;
+export default GestionProveedores;
