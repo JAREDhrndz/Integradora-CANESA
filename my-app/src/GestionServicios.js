@@ -12,7 +12,6 @@ const GestionServicios = () => {
     });
     const [showForm, setShowForm] = useState(false);
 
-    // Función para obtener la lista de servicios
     const fetchServicios = async () => {
         try {
             const response = await fetch('http://localhost/backend/getServicios.php');
@@ -109,12 +108,15 @@ const GestionServicios = () => {
                                             <td>{servicio.costo}</td>
                                             <td>
                                                 <button className="eliminar-btn" onClick={() => handleDelete(servicio.id)}>Eliminar</button>
-                                                <button className="editar-btn" onClick={() => setFormData({
-                                                    id: servicio.id,
-                                                    nombre: servicio.nombre,
-                                                    descripcion: servicio.descripcion,
-                                                    costo: servicio.costo,
-                                                })}>Editar</button>
+                                                <button className="editar-btn" onClick={() => {
+                                                    setFormData({
+                                                        id: servicio.id,
+                                                        nombre: servicio.nombre,
+                                                        descripcion: servicio.descripcion,
+                                                        costo: servicio.costo,
+                                                    });
+                                                    setShowForm(true);
+                                                }}>Editar</button>
                                             </td>
                                         </tr>
                                     ))

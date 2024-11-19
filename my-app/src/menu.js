@@ -1,4 +1,3 @@
-// src/Menu.js
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './menu.css';
@@ -13,34 +12,70 @@ const Menu = () => {
         <div>
             {/* Contenedor del logo */}
             <div className="logo-container">
-                <img/>
+                <img />
             </div>
 
             {/* Título del menú */}
-            <h2 id="menu-title">Menú Principal</h2>
-            <h3 id="menu-subtitle">Apartados</h3>
+            <h2 id="menu-title">GESTION</h2>
 
             {/* Contenedor del menú */}
-            <div id="menu-container" className="menu-container animate__animated animate__fadeIn">
-                {/* Primeras tres opciones */}
-                <Link to="/GestionProveedores" className="menu-item">Proveedores</Link>
-                <Link to="/GestionTrabajadores" className="menu-item">Trabajadores</Link>
-                <Link to="/GestionVentas" className="menu-item">Ventas</Link>
-                <Link to="/GestionServicios" className="menu-item">Gestion de Servicios</Link>
-                <Link to="/GestionUsuarios" className="menu-item">Gestion de Usuarios</Link>
-                <Link to="/Hsitorial" className="menu-item">Historial de Cambios</Link>
-            </div>
+                <div id="menu-container" className="menu-container animate__animated animate__fadeIn">
 
-            {/* Botón de regresar */}
-            <div id="back-button-container" className="back-button-container">
-                <button
-                    id="back-button"
-                    className="btn-back"
-                    onClick={() => window.location.href = 'index.html'}
-                >
-                    Regresar al Menú
-                </button>
-            </div>
+                    <Link to="/GestionProveedores" className="menu-item gradient-button blue">
+                        <span className="icon icon-1"></span>
+                        <span className="gradient-border"></span>
+                        <span className="gradient-border2"></span>
+                        <span className="button-background"></span>
+                        <span className="button-text">PROVEEDORES</span> 
+                        <span className="button-text2">Gestion de Ventas</span> 
+                    </Link>
+
+                    <Link to="/GestionTrabajadores" className="menu-item gradient-button orange">
+                        <span className="icon icon-2"></span>
+                        <span className="gradient-border"></span>
+                        <span className="gradient-border2"></span>
+                        <span className="button-background"></span>
+                        <span className="button-text">TRABAJADORES</span> 
+                        <span className="button-text2">Gestion de Ventas</span> 
+                    </Link>
+
+                    <Link to="/GestionVentas" className="menu-item gradient-button green">
+                        <span className="icon icon-3"></span>
+                        <span className="gradient-border"></span>
+                        <span className="gradient-border2"></span>
+                        <span className="button-background"></span>
+                        <span className="button-text">VENTAS</span> 
+                        <span className="button-text2">Gestion de Ventas</span> 
+                    </Link>
+
+                    <Link to="/GestionServicios" className="menu-item gradient-button purple">
+                        <span className="icon icon-4"></span>
+                        <span className="gradient-border"></span>
+                        <span className="gradient-border2"></span>
+                        <span className="button-background"></span>
+                        <span className="button-text">SERVICIOS</span>
+                        <span className="button-text2">Gestion de Ventas</span>  
+                    </Link>
+
+                    <Link to="/GestionUsuarios" className="menu-item gradient-button red">
+                        <span className="icon icon-5"></span>
+                        <span className="gradient-border"></span>
+                        <span className="gradient-border2"></span>
+                        <span className="button-background"></span>
+                        <span className="button-text">USUARIOS</span> 
+                        <span className="button-text2">Gestion de Ventas</span> 
+                    </Link>
+
+                    <Link to="/Historial" className="menu-item gradient-button blue">
+                        <span className="icon icon-6"></span>
+                        <span className="gradient-border"></span>
+                        <span className="gradient-border2"></span>
+                        <span className="button-background"></span>
+                        <span className="button-text">HISTORIAL</span> 
+                        <span className="button-text2">Gestion de Ventas</span> 
+                    </Link>
+
+                </div>
         </div>
     );
 };

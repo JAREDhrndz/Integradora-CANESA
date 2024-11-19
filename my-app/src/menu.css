@@ -1,67 +1,178 @@
-/* Contenedor del menú */
+/* Centra el contenedor de los botones y los distribuye en dos filas */
 #menu-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 columnas fijas */
-    gap: 20px; /* Espacio entre los elementos */
-    justify-items: center; /* Centra los elementos dentro de sus celdas */
-    margin-bottom: 40px;
-    width: 100%;
-    max-width: 1200px; /* Limita el ancho máximo */
-    padding: 30px;
-    margin-left: auto; /* Centra el contenedor horizontalmente */
-    margin-right: auto; /* Centra el contenedor horizontalmente */
-}
-
-/* Elementos del menú */
-#menu-container .menu-item {
-    display: block;
-    background-color: #333333; /* Fondo oscuro para los elementos */
-    color: #A79F91; /* Color dorado suave para el texto */
-    padding: 20px;
-    border: 1px solid #4A4A4A; /* Borde sutil para resaltar */
-    border-radius: 8px; /* Bordes más redondeados */
-    text-decoration: none;
-    transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s ease-in-out;
-    width: 100%;  /* Asegura que ocupe todo el ancho disponible dentro de su celda */
-    max-width: 300px; /* Limita el ancho máximo de los elementos del menú */
-    box-sizing: border-box;  /* Asegura que el padding no afecte el tamaño del elemento */
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-wrap: wrap; /* Permite que los botones se distribuyan en múltiples filas */
+    justify-content: center; /* Centra los botones horizontalmente */
+    gap: 30px; /* Espacio entre los botones */
+    margin-top: 110px; /* Ajusta el margen superior si es necesario */
+    max-width: 980px; /* Limita el ancho máximo */
+    width: 100%; /* Permite que el contenedor ocupe el 100% del ancho disponible */
+    margin-left: auto; /* Centra el contenedor en el eje horizontal */
+    margin-right: auto; /* Centra el contenedor en el eje horizontal */
 }
 
-/* Hover en los elementos del menú */
-#menu-container .menu-item:hover {
-    background-color: #A79F91; /* Color dorado suave al pasar el mouse */
-    color: #1C1C1C; /* Texto oscuro cuando se hace hover */
-    transform: scale(1.05);
-    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2); /* Sombra sutil para darle profundidad */
+#menu-title {
+    font-size: 130px;
+    position: absolute;
+    color: transparent; /* Hace el texto transparente para que se vea el fondo */
+    z-index: -5;
+    margin-top: 0px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-image: linear-gradient(to bottom, rgb(38, 38, 38) 30%, rgb(0, 0, 0) 70%);
+    background-clip: text; /* Aplica el degradado solo al texto */
+    padding-bottom: 10px;
 }
 
-/* Contenedor del botón de regresar */
-#back-button-container {
-    margin-top: 30px;
-    text-align: center;
-    width: 100%; /* Asegura que ocupe todo el ancho disponible */
-}
 
-/* Estilos para el botón de regresar */
-#back-button-container #back-button {
-    background-color: #4A4A4A; /* Un gris oscuro más elegante para el botón */
-    color: #E0E0E0;
+
+
+
+/* Estilo de los botones */
+.gradient-button {
+    position: relative;
+    width: 200px; /* Aumenta el ancho */
+    height: 220px; /* Aumenta la altura */
+    background-color: #000;
+    color: white;
+    font-size: 18px; /* Aumenta el tamaño de la fuente */
+    font-family: Arial, sans-serif;
     border: none;
-    padding: 12px 18px;
-    border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s;
-    font-size: 1.1em;
-    font-weight: 500;
-    width: auto;  /* El ancho del botón se ajusta al contenido */
-    margin: 0 auto;  /* Centra el botón */
+    outline: none;
+    z-index: 0;
+    border-radius: 8px;
+    display: inline-block;
+    text-align: center; /* Centra el texto */
+    padding: 0; /* Elimina el relleno para que el tamaño sea controlado solo por width y height */
+    text-decoration: none;
+    transition: all 0.5s ease-in-out;
 }
 
-/* Hover en el botón de regresar */
-#back-button-container #back-button:hover {
-    background-color: #333333; /* Fondo más oscuro cuando se hace hover */
-    transform: scale(1.05);
+.button-text {
+    position: absolute;
+    bottom: 50px; 
+    left: 25px;
+    z-index: 2;
+    color: white;
+    text-decoration: none; 
+    display: flex;
+    align-items: center;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    letter-spacing: 2px;
+}
+
+.button-text2 {
+    position: absolute;
+    bottom: 25px; 
+    left: 25px;
+    z-index: 2;
+    color: rgb(108, 108, 108); 
+    text-decoration: none; 
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 200;
+}
+
+
+
+/* Bordes con gradiente */
+.gradient-border, .gradient-border2 {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background-image: linear-gradient(to right top, #b48351, #c2894c, #d08f47, #de9641, #ec9c3a, #f1993a, #f7963a, #fc933b, #f88744, #f27b4c, #ea7153, #e16859);
+    z-index: -1;
+    border-radius: 10px;
+    text-decoration: none;
+}
+
+.gradient-border {
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out; 
+}
+
+.button-background {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #000;
+    z-index: 2;
+    border-radius: 8px;
+    text-decoration: none;
+}
+
+.gradient-button:hover .gradient-border {
+    filter: blur(15px);
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.gradient-button:hover .button-text {
+    color: #b48351;
+}
+
+
+.gradient-button:active {
+    transform: scale(0.95);
+}
+
+.menu-item {
+    position: relative; /* Asegura que el contenedor del botón sea el padre relativo */
+    display: inline-block;
+    padding: 20px 40px;
+    background-color: #000;
+    color: white;
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    border-radius: 8px;
+    z-index: 0;
+    text-decoration: none;
+}
+
+.menu-item .icon {
+    position: absolute;
+    top: 15px; /* Ajusta la distancia desde el borde superior */
+    left: 15px; /* Ajusta la distancia desde el borde izquierdo */
+    width: 25px; /* Tamaño del icono */
+    height: 25px; /* Tamaño del icono */
+    background-size: cover;
+    z-index: 3;
+}
+
+.icon-1 {
+    background-image: url('./assets/icons/icon-1.png');
+}
+
+.icon-2 {
+    background-image: url('./assets/icons/icon-2.png');
+}
+
+.icon-3 {
+    background-image: url('./assets/icons/icon-3.png');
+}
+
+.icon-4 {
+    background-image: url('./assets/icons/icon-4.png');
+}
+
+.icon-5 {
+    background-image: url('./assets/icons/icon-5.png');
+}
+
+.icon-6 {
+    background-image: url('./assets/icons/icon-6.png');
 }

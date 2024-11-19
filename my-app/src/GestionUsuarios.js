@@ -5,7 +5,7 @@ const GestionUsuarios = () => {
     const [usuarios, setUsuarios] = useState([]);
     const [formData, setFormData] = useState({
         num_usuario: '',
-        tipo_usuario: 'Usuario',
+        tipo_usuario: 'Cliente', // Valor por defecto
         nombre: '',
         telefono: '',
         direccion: '',
@@ -33,14 +33,70 @@ const GestionUsuarios = () => {
 
     // Handle delete usuario
     const handleDelete = async (num_usuario) => {
-        console.log(`Eliminar usuario con num_usuario: ${num_usuario}`);
-        // Aquí va el código para eliminar el usuario (similar a como lo hacías antes)
+        try {
+            const response = await fetch('http://localhost/backend/deleteUsuario.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams({ num_usuario }),
+            });
+            const result = await response.json();
+            if (result.status === "success") {
+                fetchUsuarios();
+            } else {
+                console.error('Error al eliminar usuario:', result.message);
+            }
+        } catch (error) {
+            console.error('Error al eliminar usuario:', error);
+        }
     };
 
     // Manejar el formulario
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(formData); // Mostrar los datos del formulario en la consola
+        const { num_usuario, tipo_usuario, nombre, telefono, direccion, correo_electronico } = formData;
+
+        try {
+            const url = num_usuario
+                ? 'http://localhost/backend/updateUsuario.php'
+                : 'http://localhost/backend/addUsuario.php';
+
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams({ num_usuario, tipo_usuario, nombre, telefono, direccion, correo_electronico }),
+            });
+
+            const result = await response.json();
+            if (result.status === "success") {
+                fetchUsuarios();
+                setIsAdding(false);
+            } else {
+                console.error('Error:', result.message);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    };
+
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
+
+    // Rellenar los campos del formulario para editar
+    const handleEdit = (usuario) => {
+        setFormData({
+            num_usuario: usuario.Num_Usuario,
+            tipo_usuario: usuario.Tipo_usuario,
+            nombre: usuario.Nombre,
+            telefono: usuario.Telefono,
+            direccion: usuario.Direccion,
+            correo_electronico: usuario.Correo_Electronico,
+        });
+        setIsAdding(true); // Abrir el formulario
     };
 
     return (
@@ -57,29 +113,53 @@ const GestionUsuarios = () => {
                 <div>
                     <form onSubmit={handleSubmit}>
                         <input
+                            type="hidden"
+                            name="num_usuario"
+                            value={formData.num_usuario}
+                            onChange={handleChange}
+                        />
+                        <input
                             type="text"
+                            name="nombre"
                             placeholder="Nombre"
                             value={formData.nombre}
-                            onChange={(e) => setFormData({ ...formData, nombre: e.target.value })}
+                            onChange={handleChange}
+                            required
                         />
                         <input
                             type="text"
+                            name="telefono"
                             placeholder="Teléfono"
                             value={formData.telefono}
-                            onChange={(e) => setFormData({ ...formData, telefono: e.target.value })}
+                            onChange={handleChange}
+                            required
                         />
                         <input
                             type="text"
+                            name="direccion"
                             placeholder="Dirección"
                             value={formData.direccion}
-                            onChange={(e) => setFormData({ ...formData, direccion: e.target.value })}
+                            onChange={handleChange}
+                            required
                         />
                         <input
                             type="email"
+                            name="correo_electronico"
                             placeholder="Correo Electrónico"
                             value={formData.correo_electronico}
-                            onChange={(e) => setFormData({ ...formData, correo_electronico: e.target.value })}
+                            onChange={handleChange}
+                            required
                         />
+                        <select
+                            name="tipo_usuario"
+                            value={formData.tipo_usuario}
+                            onChange={handleChange}
+                            required
+                        >
+                            <option value="Administrador">Administrador</option>
+                            <option value="Cliente">Cliente</option>
+                            <option value="SuperAdministrador">SuperAdministrador</option>
+                        </select>
                         <button type="submit">Guardar</button>
                     </form>
                     <button onClick={() => setIsAdding(false)}>Regresar a la lista</button>
@@ -96,9 +176,10 @@ const GestionUsuarios = () => {
                                 <p><strong>Teléfono:</strong> {usuario.Telefono}</p>
                                 <p><strong>Dirección:</strong> {usuario.Direccion}</p>
                                 <p><strong>Correo:</strong> {usuario.Correo_Electronico}</p>
+                                <p><strong>Tipo de Usuario:</strong> {usuario.Tipo_usuario}</p>
                                 
                                 <button onClick={() => handleDelete(usuario.Num_Usuario)}>Eliminar</button>
-                                <button onClick={() => setFormData(usuario)}>Actualizar</button>
+                                <button onClick={() => handleEdit(usuario)}>Actualizar</button>
                             </li>
                         ))
                     ) : (
@@ -111,4 +192,5 @@ const GestionUsuarios = () => {
 };
 
 export default GestionUsuarios;
+
 

@@ -1,112 +1,49 @@
-#gestion-ventas-container {
-    font-family: Arial, sans-serif;
-    color: #f1f1f1;
-    background-color: #111;
+#gestion-ventas {
     padding: 20px;
-    max-width: 900px;
-    margin: 0 auto;
-    border-radius: 8px;
-}
-
-#gestion-ventas-container h2 {
-    color: #f1f1f1;
+    background-color: #000; /* Fondo negro */
+    color: #fff; /* Texto blanco */
+  }
+  
+  #titulo-ventas {
     font-size: 24px;
     margin-bottom: 20px;
-    text-align: center;
-}
-
-#gestion-ventas-container table {
+    color: #fff; /* Blanco para el título */
+  }
+  
+  #tabla-ventas {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
-}
-
-#gestion-ventas-container table th,
-#gestion-ventas-container table td {
-    padding: 12px;
-    text-align: left;
-    border: 1px solid #333;
-}
-
-#gestion-ventas-container table th {
-    background-color: #222;
-    color: #fff;
-}
-
-#gestion-ventas-container table td {
-    background-color: #333;
-    color: #f1f1f1;
-}
-
-#gestion-ventas-container table tr:hover {
-    background-color: #444;
-}
-
-#gestion-ventas-container button {
-    padding: 8px 16px;
-    background-color: #b48351;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: background-color 0.3s ease;
-}
-
-#gestion-ventas-container button:hover {
-    background-color: #9c6b3f;
-}
-
-#gestion-ventas-container button.btn-back {
-    background-color: #e74c3c;
-}
-
-#gestion-ventas-container button.btn-back:hover {
-    background-color: #c0392b;
-}
-
-#gestion-ventas-container button.btn-add {
-    background-color: #4caf50;
-}
-
-#gestion-ventas-container button.btn-add:hover {
-    background-color: #388e3c;
-}
-
-#form-ventas label {
-    font-size: 14px;
-    color: #f1f1f1;
-    margin: 10px 0 5px;
-    display: block;
-}
-
-#form-ventas input,
-#form-ventas select {
+  }
+  
+  #tabla-ventas th,
+  #tabla-ventas td {
     padding: 8px;
-    width: 100%;
-    border: 1px solid #444;
-    border-radius: 4px;
-    background-color: #333;
-    color: #f1f1f1;
-    font-size: 14px;
-    margin-bottom: 10px;
-}
-
-#form-ventas button {
-    background-color: #4caf50;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 4px;
-    font-size: 14px;
-    cursor: pointer;
-}
-
-#form-ventas button:hover {
-    background-color: #388e3c;
-}
-
-#gestion-ventas-container .btn-add,
-#gestion-ventas-container .btn-back {
-    margin-bottom: 20px;
-}
+    text-align: left;
+    border: 1px solid #444; /* Borde gris oscuro */
+  }
+  
+  #tabla-ventas th {
+    background-color: #333; /* Fondo gris oscuro para los encabezados */
+    color: #fff; /* Texto blanco en los encabezados */
+  }
+  
+  #tabla-ventas tbody tr:nth-child(even) {
+    background-color: #444; /* Fondo gris oscuro para filas pares */
+  }
+  
+  #tabla-ventas tbody tr:nth-child(odd) {
+    background-color: #555; /* Fondo gris medio para filas impares */
+  }
+  
+  #id-venta, #descripcion-venta, #tipo-pago-venta, #total-pagado-venta,
+  #fecha-venta, #usuario-venta, #proveedor-venta, #empleado-venta {
+    word-wrap: break-word;
+    color: #fff; /* Texto blanco */
+  }
+  
+  #no-ventas {
+    text-align: center;
+    font-style: italic;
+    color: #bbb; /* Gris claro para el mensaje de no hay ventas */
+  }
+  
