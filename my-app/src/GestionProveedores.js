@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './GestionProveedores.css';
+import './formularios.css';
 
 const GestionProveedores = () => {
     const [proveedores, setProveedores] = useState([]);
@@ -9,9 +9,9 @@ const GestionProveedores = () => {
         telefono: '',
         detalles: '',
     });
-    const [isFormVisible, setIsFormVisible] = useState(false); // Controla la visibilidad del formulario
-    const [isAdding, setIsAdding] = useState(true); // Determina si el formulario es para agregar o editar
-    const [proveedorId, setProveedorId] = useState(null); // Guarda el id del proveedor a actualizar
+    const [isFormVisible, setIsFormVisible] = useState(false);
+    const [isAdding, setIsAdding] = useState(true);
+    const [proveedorId, setProveedorId] = useState(null);
 
     const fetchProveedores = async () => {
         try {
@@ -47,7 +47,7 @@ const GestionProveedores = () => {
                     'Content-Type': 'application/x-www-form-urlencoded',
                 },
                 body: new URLSearchParams({
-                    id: proveedorId, // Solo en la actualización
+                    id: proveedorId,
                     nombre,
                     correo_electronico,
                     telefono,
@@ -56,9 +56,9 @@ const GestionProveedores = () => {
             });
 
             const result = await response.json();
-            if (result.status === "success") {
+            if (result.status === 'success') {
                 fetchProveedores();
-                setIsFormVisible(false); // Ocultar el formulario después de guardar
+                setIsFormVisible(false);
             } else {
                 console.error('Error:', result.message);
             }
@@ -66,10 +66,9 @@ const GestionProveedores = () => {
             console.error('Error:', error);
         }
 
-        // Limpiar el formulario después de enviar
         setFormData({ nombre: '', correo_electronico: '', telefono: '', detalles: '' });
-        setIsAdding(true); // Volver al modo agregar
-        setProveedorId(null); // Resetear el id
+        setIsAdding(true);
+        setProveedorId(null);
     };
 
     const handleDelete = async (nombre) => {
@@ -83,7 +82,7 @@ const GestionProveedores = () => {
             });
 
             const result = await response.json();
-            if (result.status === "success") fetchProveedores();
+            if (result.status === 'success') fetchProveedores();
             else console.error('Error eliminando proveedor:', result.message);
         } catch (error) {
             console.error('Error eliminando proveedor:', error);
@@ -91,10 +90,10 @@ const GestionProveedores = () => {
     };
 
     const toggleForm = () => {
-        setIsFormVisible(!isFormVisible); // Alternar la visibilidad del formulario
-        setIsAdding(true); // Siempre que se abra el formulario, será para agregar
-        setFormData({ nombre: '', correo_electronico: '', telefono: '', detalles: '' }); // Limpiar el formulario
-        setProveedorId(null); // Resetear el id
+        setIsFormVisible(!isFormVisible);
+        setIsAdding(true);
+        setFormData({ nombre: '', correo_electronico: '', telefono: '', detalles: '' });
+        setProveedorId(null);
     };
 
     const handleEdit = (proveedor) => {
@@ -104,63 +103,72 @@ const GestionProveedores = () => {
             telefono: proveedor.Telefono,
             detalles: proveedor.Detalles,
         });
-        setProveedorId(proveedor.N_proveedor); // Guardar el id del proveedor que se va a editar
-        setIsAdding(false); // Mostrar el formulario de edición en lugar de agregar
-        setIsFormVisible(true); // Mostrar el formulario de edición
+        setProveedorId(proveedor.N_proveedor);
+        setIsAdding(false);
+        setIsFormVisible(true);
     };
 
     return (
-        <div id="container" className="animate__animated animate__fadeIn">
-            <h2 id="title">Registro de Proveedores</h2>
+        <div className="container">
+            <h1 className="title">Gestión de Proveedores</h1>
 
             {/* Mostrar el botón para agregar proveedor solo si no está en el modo de edición */}
             {!isFormVisible && (
-                <button id="btn-add" onClick={toggleForm}>Agregar Proveedor</button>
+                <button className="btn-add" onClick={toggleForm}>
+                    <span className="icon icon-1"></span>
+                    <span className="gradient-insert"></span>
+                    <span className="gradient-insert2"></span>
+                    <span className="insert-background"></span>
+                    <span className="button-insert">Insertar Registro</span>
+                </button>
             )}
 
             {/* Mostrar el formulario de agregar o editar solo cuando isFormVisible es true */}
             {isFormVisible && (
-                <form id="form-add-update" onSubmit={handleSubmit}>
-                    <label id="label-nombre">Nombre del Proveedor:</label>
-                    <input id="input-nombre" type="text" name="nombre" value={formData.nombre} onChange={handleChange} required />
+                <form className="form-add-update" onSubmit={handleSubmit}>
+                    <label>Nombre del Proveedor:</label>
+                    <input type="text" name="nombre" value={formData.nombre} onChange={handleChange} required />
 
-                    <label id="label-correo_electronico">Correo Electrónico:</label>
-                    <input id="input-correo_electronico" type="email" name="correo_electronico" value={formData.correo_electronico} onChange={handleChange} required />
+                    <label>Correo Electrónico:</label>
+                    <input type="email" name="correo_electronico" value={formData.correo_electronico} onChange={handleChange} required />
 
-                    <label id="label-telefono">Teléfono:</label>
-                    <input id="input-telefono" type="tel" name="telefono" value={formData.telefono} onChange={handleChange} required />
+                    <label>Teléfono:</label>
+                    <input type="tel" name="telefono" value={formData.telefono} onChange={handleChange} required />
 
-                    <label id="label-detalles">Detalles:</label>
-                    <input id="input-detalles" type="text" name="detalles" value={formData.detalles} onChange={handleChange} required />
+                    <label>Detalles:</label>
+                    <input type="text" name="detalles" value={formData.detalles} onChange={handleChange} required />
 
-                    {/* Mostrar el botón de guardar solo si es para editar */}
-                    <input id="submit-agregar" type="submit" value={isAdding ? "Agregar" : "Guardar"} />
-                    <button type="button" id="btn-regresar" onClick={toggleForm}>Regresar</button>
+                    <input type="submit" value={isAdding ? "Agregar" : "Guardar"} />
+                    <button type="button" onClick={toggleForm}>Regresar</button>
                 </form>
             )}
 
             {/* Tabla de proveedores */}
             {!isFormVisible && (
-                <table id="tabla-proveedores">
+                <table className="table">
                     <thead>
                         <tr>
-                            <th id="th-nombre">Nombre</th>
-                            <th id="th-correo_electronico">Correo Electrónico</th>
-                            <th id="th-telefono">Teléfono</th>
-                            <th id="th-detalles">Detalles</th>
+                            <th>Nombre</th>
+                            <th>Correo Electrónico</th>
+                            <th>Teléfono</th>
+                            <th>Detalles</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {proveedores.map(proveedor => (
+                        {proveedores.map((proveedor) => (
                             <tr key={proveedor.N_proveedor}>
-                                <td id={`td-nombre-${proveedor.N_proveedor}`}>{proveedor.Nombre}</td>
-                                <td id={`td-correo_electronico-${proveedor.N_proveedor}`}>{proveedor.Correo_Electronico}</td>
-                                <td id={`td-telefono-${proveedor.N_proveedor}`}>{proveedor.Telefono}</td>
-                                <td id={`td-detalles-${proveedor.N_proveedor}`}>{proveedor.Detalles}</td>
+                                <td>{proveedor.Nombre}</td>
+                                <td>{proveedor.Correo_Electronico}</td>
+                                <td>{proveedor.Telefono}</td>
+                                <td>{proveedor.Detalles}</td>
                                 <td>
-                                    <button id={`btn-eliminar-${proveedor.N_proveedor}`} onClick={() => handleDelete(proveedor.Nombre)}>Eliminar</button>
-                                    <button id={`btn-editar-${proveedor.N_proveedor}`} onClick={() => handleEdit(proveedor)}>Editar</button>
+                                    <button className="edit" onClick={() => handleEdit(proveedor)}>
+                                        <span className="icon icon-edit"></span> Editar
+                                    </button>
+                                    <button className="delete" onClick={() => handleDelete(proveedor.Nombre)}>
+                                        <span className="icon icon-delete"></span> Eliminar
+                                    </button>
                                 </td>
                             </tr>
                         ))}

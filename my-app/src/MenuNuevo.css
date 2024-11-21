@@ -1,0 +1,167 @@
+/* Centra el contenedor de los botones y los distribuye en dos filas */
+#new-menu-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 110px;
+    max-width: 980px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#new-menu-title {
+    font-size: 130px;
+    position: absolute;
+    color: transparent;
+    z-index: -5;
+    margin-top: 0px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-image: linear-gradient(to bottom, rgb(38, 38, 38) 30%, rgb(0, 0, 0) 70%);
+    background-clip: text;
+    padding-bottom: 10px;
+}
+
+/* Estilo de los botones */
+.new-gradient-button {
+    position: relative;
+    width: 200px;
+    height: 220px;
+    background-color: #000;
+    color: white;
+    font-size: 18px;
+    font-family: Arial, sans-serif;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    z-index: 0;
+    border-radius: 8px;
+    display: inline-block;
+    text-align: center;
+    padding: 0;
+    text-decoration: none;
+    transition: all 0.5s ease-in-out;
+}
+
+.new-button-text {
+    position: absolute;
+    bottom: 50px;
+    left: 25px;
+    z-index: 2;
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    letter-spacing: 2px;
+}
+
+.new-button-text2 {
+    position: absolute;
+    bottom: 25px;
+    left: 25px;
+    z-index: 2;
+    color: rgb(108, 108, 108);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 200;
+}
+
+/* Bordes con gradiente */
+.new-gradient-border, .new-gradient-border2 {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background-image: linear-gradient(to right top, #004fc0, #0074da, #0096e9, #00b7f0, #00d5f3, #00dbf6, #00e0fa, #00e6fd, #00d4ff, #00c1ff, #00acff, #0095ff);
+    z-index: -1;
+    border-radius: 10px;
+    text-decoration: none;
+}
+
+.new-gradient-border {
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out; 
+}
+
+.new-button-background {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #000;
+    z-index: 2;
+    border-radius: 8px;
+    text-decoration: none;
+}
+
+.new-gradient-button:hover .new-gradient-border {
+    filter: blur(15px);
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.new-gradient-button:hover .new-button-text {
+    color: #68b5f8;
+}
+
+.new-gradient-button:active {
+    transform: scale(0.95);
+}
+
+.new-menu-item {
+    position: relative;
+    display: inline-block;
+    padding: 20px 40px;
+    background-color: #000;
+    color: white;
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    border-radius: 8px;
+    z-index: 0;
+    text-decoration: none;
+}
+
+.new-menu-item .icon {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    width: 25px;
+    height: 25px;
+    background-size: cover;
+    z-index: 3;
+}
+
+.new-icon-1 {
+    background-image: url('./assets/icons/icon-1.png');
+}
+
+.new-icon-2 {
+    background-image: url('./assets/icons/icon-2.png');
+}
+
+.new-icon-3 {
+    background-image: url('./assets/icons/icon-3.png');
+}
+
+.new-icon-4 {
+    background-image: url('./assets/icons/icon-4.png');
+}
+
+.new-icon-5 {
+    background-image: url('./assets/icons/icon-5.png');
+}

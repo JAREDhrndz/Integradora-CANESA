@@ -47,6 +47,7 @@ const Navbar = () => {
                     <Link to="/citas">Citas</Link>
                     <Link to="/login">Login</Link>
                     <Link to="/menu">Menú</Link>
+                    <Link to="/MenuNuevo">Menú Secundario</Link>
                 </div>
             )}
         </nav>

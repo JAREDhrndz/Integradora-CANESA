@@ -53,9 +53,9 @@ label {
 input {
     width: 100%; /* Asegura que los inputs ocupen el 100% del contenedor */
     padding: 8px;
-    border: 1px solid #b48250;
+    border: 1px solid #898989;
     border-radius: 4px;
-    background-color: #b4825026;
+    background-color: #43434326;
     color: white;
     margin-bottom: 10px; /* Espaciado entre los campos */
     box-sizing: border-box; /* Asegura que el padding no afecte al ancho total */

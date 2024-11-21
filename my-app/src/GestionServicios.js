@@ -1,6 +1,5 @@
-// src/GestionServicios.js
 import React, { useState, useEffect } from 'react';
-import './GestionServicios.css';
+import './formularios.css';
 
 const GestionServicios = () => {
     const [servicios, setServicios] = useState([]);
@@ -81,66 +80,122 @@ const GestionServicios = () => {
     };
 
     return (
-        <div id="gestion-servicios-container">
-            <h2 id="gestion-servicios-title">Gestión de Servicios</h2>
+        <div id="gestion-servicios" className="container">
+            <h1 id="titulo-servicios" className="title">Gestión de Servicios</h1>
+
             {!showForm ? (
                 <>
-                    <button id="insertar-servicio-btn" onClick={() => setShowForm(true)}>Insertar Nuevo Servicio</button>
-                    <div id="servicios-list">
-                        <h3 id="servicios-list-title">Lista de Servicios</h3>
-                        <table id="servicios-table">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Nombre</th>
-                                    <th>Descripción</th>
-                                    <th>Costo</th>
-                                    <th>Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {Array.isArray(servicios) && servicios.length > 0 ? (
-                                    servicios.map(servicio => (
-                                        <tr key={servicio.id}>
-                                            <td>{servicio.id}</td>
-                                            <td>{servicio.nombre}</td>
-                                            <td>{servicio.descripcion}</td>
-                                            <td>{servicio.costo}</td>
-                                            <td>
-                                                <button className="eliminar-btn" onClick={() => handleDelete(servicio.id)}>Eliminar</button>
-                                                <button className="editar-btn" onClick={() => {
-                                                    setFormData({
-                                                        id: servicio.id,
-                                                        nombre: servicio.nombre,
-                                                        descripcion: servicio.descripcion,
-                                                        costo: servicio.costo,
-                                                    });
-                                                    setShowForm(true);
-                                                }}>Editar</button>
-                                            </td>
-                                        </tr>
-                                    ))
-                                ) : (
-                                    <tr>
-                                        <td colSpan="5">No se encontraron servicios</td>
+                    <button className="btn-add" onClick={() => setShowForm(true)}>
+                        <span className="icon icon-1"></span>
+                        <span className="gradient-insert"></span>
+                        <span className="gradient-insert2"></span>
+                        <span className="insert-background"></span>
+                        <span className="button-insert">Insertar Nuevo Servicio</span>
+                    </button>
+                    
+                    <table className="table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>Descripción</th>
+                                <th>Costo</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {Array.isArray(servicios) && servicios.length > 0 ? (
+                                servicios.map((servicio) => (
+                                    <tr key={servicio.id}>
+                                        <td>{servicio.id}</td>
+                                        <td>{servicio.nombre}</td>
+                                        <td>{servicio.descripcion}</td>
+                                        <td>{servicio.costo}</td>
+                                        <td>
+                                            <button className="edit" onClick={() => {
+                                                setFormData({
+                                                    id: servicio.id,
+                                                    nombre: servicio.nombre,
+                                                    descripcion: servicio.descripcion,
+                                                    costo: servicio.costo,
+                                                });
+                                                setShowForm(true);
+                                            }}>Editar</button>
+                                            <button className="delete" onClick={() => handleDelete(servicio.id)}>Eliminar</button>
+                                        </td>
                                     </tr>
-                                )}
-                            </tbody>
-                        </table>
-                    </div>
+                                ))
+                            ) : (
+                                <tr>
+                                    <td colSpan="5">No se encontraron servicios</td>
+                                </tr>
+                            )}
+                        </tbody>
+                    </table>
                 </>
             ) : (
-                <>
-                    <button id="regresar-btn" onClick={() => setShowForm(false)}>Regresar</button>
-                    <form id="form-servicio" onSubmit={handleSubmit}>
-                        <input id="id-servicio-input" type="number" name="id" placeholder="ID (solo para actualizar)" value={formData.id} onChange={handleChange} />
-                        <input id="nombre-servicio-input" type="text" name="nombre" placeholder="Nombre del servicio" value={formData.nombre} onChange={handleChange} required />
-                        <input id="descripcion-servicio-input" type="text" name="descripcion" placeholder="Descripción" value={formData.descripcion} onChange={handleChange} required />
-                        <input id="costo-servicio-input" type="number" step="0.01" name="costo" placeholder="Costo" value={formData.costo} onChange={handleChange} required />
-                        <button id="submit-servicio-btn" type="submit">{formData.id ? 'Actualizar' : 'Agregar'}</button>
-                        <button id="limpiar-servicio-btn" type="button" onClick={() => setFormData({ id: '', nombre: '', descripcion: '', costo: '' })}>Limpiar</button>
+                <div className="form-add-update">
+                    <h2 className="title">{formData.id ? 'Actualizar Servicio' : 'Agregar Nuevo Servicio'}</h2>
+                    <form onSubmit={handleSubmit}>
+                        <label htmlFor="id">ID (solo para actualizar):</label>
+                        <input
+                            type="number"
+                            name="id"
+                            value={formData.id}
+                            onChange={handleChange}
+                            placeholder="ID"
+                        />
+
+                        <label htmlFor="nombre">Nombre del servicio:</label>
+                        <input
+                            type="text"
+                            name="nombre"
+                            value={formData.nombre}
+                            onChange={handleChange}
+                            placeholder="Nombre"
+                            required
+                        />
+
+                        <label htmlFor="descripcion">Descripción:</label>
+                        <input
+                            type="text"
+                            name="descripcion"
+                            value={formData.descripcion}
+                            onChange={handleChange}
+                            placeholder="Descripción"
+                            required
+                        />
+
+                        <label htmlFor="costo">Costo:</label>
+                        <input
+                            type="number"
+                            name="costo"
+                            value={formData.costo}
+                            onChange={handleChange}
+                            placeholder="Costo"
+                            step="0.01"
+                            required
+                        />
+
+                        <div className="btn-container-form">
+                            <button type="submit" className="btn-update">
+                                <span className="icon icon-1"></span>
+                                <span className="gradient-update"></span>
+                                <span className="gradient-update2"></span>
+                                <span className="insert-background"></span>
+                                <span className="button-update">{formData.id ? 'Actualizar Servicio' : 'Agregar Servicio'}</span>
+                            </button>
+
+                            <button type="button" className="btn-add" onClick={() => setShowForm(false)}>
+                                <span className="icon icon-1"></span>
+                                <span className="gradient-back"></span>
+                                <span className="gradient-back2"></span>
+                                <span className="insert-background"></span>
+                                <span className="button-back">Regresar a la lista</span>
+                            </button>
+                        </div>
                     </form>
-                </>
+                </div>
             )}
         </div>
     );

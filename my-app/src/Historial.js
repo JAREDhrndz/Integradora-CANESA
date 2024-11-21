@@ -24,18 +24,26 @@ const Historial = () => {
     return (
         <div id="historial-container" className="historial-container">
             <h2 id="historial-title">Historial de Cambios</h2>
+
             <div id="menu-options" className="menu-options">
-                <button id="menu-item-proveedores" className="menu-item" onClick={() => handleClick('proveedores')}>Proveedores</button>
-                <button id="menu-item-trabajadores" className="menu-item" onClick={() => handleClick('trabajadores')}>Trabajadores</button>
-                <button id="menu-item-ventas" className="menu-item" onClick={() => handleClick('ventas')}>Ventas</button>
-                <button id="menu-item-servicios" className="menu-item" onClick={() => handleClick('servicios')}>Servicios</button>
-                <button id="menu-item-clientes" className="menu-item" onClick={() => handleClick('clientes')}>Clientes</button>
+                {['proveedores', 'trabajadores', 'ventas', 'servicios', 'clientes'].map((table) => (
+                    <button
+                        key={table}
+                        id={`menu-item-${table}`}
+                        className="menu-item"
+                        onClick={() => handleClick(table)}
+                    >
+                        {table.charAt(0).toUpperCase() + table.slice(1)}
+                    </button>
+                ))}
             </div>
 
             <div id="record-list" className="record-list">
                 {selectedTable && (
                     <div id={`records-${selectedTable}`}>
-                        <h3 id="record-list-title">Registros de {selectedTable.charAt(0).toUpperCase() + selectedTable.slice(1)}</h3>
+                        <h3 id="record-list-title">
+                            Registros de {selectedTable.charAt(0).toUpperCase() + selectedTable.slice(1)}
+                        </h3>
                         <table id="records-table" className="records-table">
                             <thead>
                                 <tr>
@@ -46,7 +54,9 @@ const Historial = () => {
                             </thead>
                             <tbody>
                                 {records.length === 0 ? (
-                                    <tr><td colSpan="3">No hay registros disponibles</td></tr>
+                                    <tr>
+                                        <td colSpan="3">No hay registros disponibles</td>
+                                    </tr>
                                 ) : (
                                     records.map((record, index) => (
                                         <tr key={index}>

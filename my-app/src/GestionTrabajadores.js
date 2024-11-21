@@ -1,29 +1,29 @@
 import React, { useState, useEffect } from 'react';
-import './GestionProveedores.css';
+import './formularios.css';  // Asegúrate de que esta línea esté correcta
 
-const GestionProveedores = () => {
-    const [proveedores, setProveedores] = useState([]);
+const GestionTrabajadores = () => {
+    const [trabajadores, setTrabajadores] = useState([]);
     const [formData, setFormData] = useState({
         nombre: '',
-        correo_electronico: '',
+        cargo: '',
         telefono: '',
-        detalles: '',
+        correo_electronico: '',
     });
-    const [isAdding, setIsAdding] = useState(false); // Se usa para mostrar el formulario
+    const [isAdding, setIsAdding] = useState(false); // Para mostrar u ocultar el formulario
 
-    const fetchProveedores = async () => {
+    const fetchTrabajadores = async () => {
         try {
-            const response = await fetch('http://localhost/backend/getProveedores.php');
-            if (!response.ok) throw new Error('Error al obtener los proveedores');
+            const response = await fetch('http://localhost/backend/getTrabajadores.php');
+            if (!response.ok) throw new Error('Error al obtener los trabajadores');
             const data = await response.json();
-            setProveedores(data);
+            setTrabajadores(data);
         } catch (error) {
-            console.error('Error fetching proveedores:', error);
+            console.error('Error fetching trabajadores:', error);
         }
     };
 
     useEffect(() => {
-        fetchProveedores();
+        fetchTrabajadores();
     }, []);
 
     const handleChange = (e) => {
@@ -32,27 +32,24 @@ const GestionProveedores = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const { nombre, correo_electronico, telefono, detalles } = formData;
-
-        console.log('Form data being submitted:', formData);  // Log para verificar los datos
+        const { nombre, cargo, telefono, correo_electronico } = formData;
 
         try {
             const url = isAdding
-                ? 'http://localhost/backend/addProveedor.php'
-                : 'http://localhost/backend/updateProveedor.php';
+                ? 'http://localhost/backend/addTrabajador.php'
+                : 'http://localhost/backend/updateTrabajador.php';
 
             const response = await fetch(url, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
                 },
-                body: new URLSearchParams({ nombre, correo_electronico, telefono, detalles }),
+                body: new URLSearchParams({ nombre, cargo, telefono, correo_electronico }),
             });
 
             const result = await response.json();
             if (result.status === "success") {
-                fetchProveedores();
-                console.log('Proveedor actualizado');
+                fetchTrabajadores(); // Actualizar la lista
             } else {
                 console.error('Error:', result.message);
             }
@@ -61,93 +58,144 @@ const GestionProveedores = () => {
         }
 
         // Limpiar el formulario después de enviar
-        setFormData({ nombre: '', correo_electronico: '', telefono: '', detalles: '' });
+        setFormData({ nombre: '', cargo: '', telefono: '', correo_electronico: '' });
     };
 
-    const handleDelete = async (nombre) => {
+    const handleDelete = async (numeroEmpleado) => {
         try {
-            const response = await fetch('http://localhost/backend/deleteProveedor.php', {
+            const response = await fetch('http://localhost/backend/deleteTrabajador.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
                 },
-                body: new URLSearchParams({ nombre }),
+                body: new URLSearchParams({ numero_empleado: numeroEmpleado }),
             });
 
             const result = await response.json();
-            if (result.status === "success") fetchProveedores();
-            else console.error('Error eliminando proveedor:', result.message);
+            if (result.status === "success") {
+                fetchTrabajadores(); // Actualizar la lista
+            } else {
+                console.error('Error eliminando trabajador:', result.message);
+            }
         } catch (error) {
-            console.error('Error eliminando proveedor:', error);
+            console.error('Error eliminando trabajador:', error);
         }
     };
 
     const toggleForm = () => {
-        setIsAdding(!isAdding); // Cambiar el estado de "Agregar/Editar"
-        setFormData({ nombre: '', correo_electronico: '', telefono: '', detalles: '' }); // Limpiar el formulario
+        setIsAdding(!isAdding); // Alternar entre agregar y editar
+        setFormData({ nombre: '', cargo: '', telefono: '', correo_electronico: '' }); // Limpiar el formulario
     };
 
-    const handleEdit = (proveedor) => {
+    const handleEdit = (trabajador) => {
         setFormData({
-            nombre: proveedor.Nombre,
-            correo_electronico: proveedor.Correo_Electronico,
-            telefono: proveedor.Telefono,
-            detalles: proveedor.Detalles,
+            nombre: trabajador.Nombre,
+            cargo: trabajador.Cargo,
+            telefono: trabajador.Telefono,
+            correo_electronico: trabajador.Correo_Electronico,
         });
-        setIsAdding(false); // Mostrar el formulario de edición en lugar de agregar
+        setIsAdding(false); // Activar el formulario de edición
     };
 
     return (
-        <div id="container" className="animate__animated animate__fadeIn">
-            <h2 id="title">Registro de Proveedores</h2>
+        <div id="container" className="container">
+            <h2 id="title" className="title">Gestión de Trabajadores</h2>
 
-            {/* Mostrar el botón para agregar proveedor solo si no está en el modo de edición */}
+            {/* Mostrar el botón para agregar trabajador solo si no está en el modo de edición */}
             {!isAdding && (
-                <button id="btn-add" onClick={toggleForm}>Agregar Proveedor</button>
+                <button className="btn-add" onClick={toggleForm}>
+                    <span className="icon icon-1"></span>
+                    <span className="gradient-insert"></span>
+                    <span className="gradient-insert2"></span>
+                    <span className="insert-background"></span>
+                    <span className="button-insert">Agregar Trabajador</span>
+                </button>
             )}
 
-            {/* Mostrar el formulario ya sea para agregar o editar */}
-            {(isAdding || !isAdding) && (
-                <form id="form-add-update" onSubmit={handleSubmit}>
-                    <label id="label-nombre">Nombre del Proveedor:</label>
-                    <input id="input-nombre" type="text" name="nombre" value={formData.nombre} onChange={handleChange} required />
+            {/* Mostrar el formulario de agregar/editar trabajador */}
+            {isAdding !== null && (
+                <div className={`form-add-update ${isAdding ? '' : 'hidden'}`}>
+                    <h2 className="title">{isAdding ? 'Agregar Trabajador' : 'Actualizar Trabajador'}</h2>
+                    <form onSubmit={handleSubmit}>
+                        <label htmlFor="nombre">Nombre:</label>
+                        <input
+                            type="text"
+                            name="nombre"
+                            value={formData.nombre}
+                            onChange={handleChange}
+                            required
+                        />
 
-                    <label id="label-correo_electronico">Correo Electrónico:</label>
-                    <input id="input-correo_electronico" type="email" name="correo_electronico" value={formData.correo_electronico} onChange={handleChange} required />
+                        <label htmlFor="cargo">Cargo:</label>
+                        <input
+                            type="text"
+                            name="cargo"
+                            value={formData.cargo}
+                            onChange={handleChange}
+                            required
+                        />
 
-                    <label id="label-telefono">Teléfono:</label>
-                    <input id="input-telefono" type="tel" name="telefono" value={formData.telefono} onChange={handleChange} required />
+                        <label htmlFor="telefono">Teléfono:</label>
+                        <input
+                            type="tel"
+                            name="telefono"
+                            value={formData.telefono}
+                            onChange={handleChange}
+                            required
+                        />
 
-                    <label id="label-detalles">Detalles:</label>
-                    <input id="input-detalles" type="text" name="detalles" value={formData.detalles} onChange={handleChange} required />
+                        <label htmlFor="correo_electronico">Correo Electrónico:</label>
+                        <input
+                            type="email"
+                            name="correo_electronico"
+                            value={formData.correo_electronico}
+                            onChange={handleChange}
+                            required
+                        />
 
-                    <input id="submit-agregar" type="submit" value={isAdding ? "Agregar" : "Actualizar"} />
-                    <button type="button" id="btn-regresar" onClick={toggleForm}>Regresar</button>
-                </form>
+                        <div className="btn-container-form">
+                            <button type="submit" className="btn-update">
+                                <span className="icon icon-1"></span>
+                                <span className="gradient-update"></span>
+                                <span className="gradient-update2"></span>
+                                <span className="insert-background"></span>
+                                <span className="button-update">{isAdding ? 'Agregar' : 'Actualizar'}</span>
+                            </button>
+
+                            <button type="button" className="btn-add" onClick={toggleForm}>
+                                <span className="icon icon-1"></span>
+                                <span className="gradient-back"></span>
+                                <span className="gradient-back2"></span>
+                                <span className="insert-background"></span>
+                                <span className="button-back">Regresar</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
             )}
 
-            {/* Tabla de proveedores */}
+            {/* Tabla de trabajadores */}
             {!isAdding && (
-                <table id="tabla-proveedores">
+                <table className="table">
                     <thead>
                         <tr>
-                            <th id="th-nombre">Nombre</th>
-                            <th id="th-correo_electronico">Correo Electrónico</th>
-                            <th id="th-telefono">Teléfono</th>
-                            <th id="th-detalles">Detalles</th>
+                            <th>Nombre</th>
+                            <th>Cargo</th>
+                            <th>Teléfono</th>
+                            <th>Correo Electrónico</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {proveedores.map(proveedor => (
-                            <tr key={proveedor.N_proveedor}>
-                                <td id={`td-nombre-${proveedor.N_proveedor}`}>{proveedor.Nombre}</td>
-                                <td id={`td-correo_electronico-${proveedor.N_proveedor}`}>{proveedor.Correo_Electronico}</td>
-                                <td id={`td-telefono-${proveedor.N_proveedor}`}>{proveedor.Telefono}</td>
-                                <td id={`td-detalles-${proveedor.N_proveedor}`}>{proveedor.Detalles}</td>
+                        {trabajadores.map((trabajador) => (
+                            <tr key={trabajador.Numero_empleado}>
+                                <td>{trabajador.Nombre}</td>
+                                <td>{trabajador.Cargo}</td>
+                                <td>{trabajador.Telefono}</td>
+                                <td>{trabajador.Correo_Electronico}</td>
                                 <td>
-                                    <button id={`btn-eliminar-${proveedor.N_proveedor}`} onClick={() => handleDelete(proveedor.Nombre)}>Eliminar</button>
-                                    <button id={`btn-editar-${proveedor.N_proveedor}`} onClick={() => handleEdit(proveedor)}>Editar</button>
+                                    <button className="btn-edit" onClick={() => handleEdit(trabajador)}>Editar</button>
+                                    <button className="btn-delete" onClick={() => handleDelete(trabajador.Numero_empleado)}>Eliminar</button>
                                 </td>
                             </tr>
                         ))}
@@ -158,4 +206,4 @@ const GestionProveedores = () => {
     );
 };
 
-export default GestionProveedores;
+export default GestionTrabajadores;

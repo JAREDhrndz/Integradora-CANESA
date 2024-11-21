@@ -17,6 +17,7 @@ import GestionUsuarios from './GestionUsuarios';
 import './App.css';
 import Section2 from './section2';
 import Menu from './menu';
+import MenuNew from './MenuNuevo';
 import Citas from './citas';
 import Historial from './Historial';
 
@@ -44,8 +45,9 @@ function App() {
                 <Route path="/GestionUsuarios" element={<GestionUsuarios />} />
 
                 <Route path="/menu" element={<Menu />} />
+                <Route path="/MenuNuevo" element={<MenuNew/>} />
                 <Route path="/citas" element={<Citas />} />
-                <Route path="/Hsitorial" element={<Historial />} />
+                <Route path="/Historial" element={<Historial />} />
             </Routes>
         </div>
     );

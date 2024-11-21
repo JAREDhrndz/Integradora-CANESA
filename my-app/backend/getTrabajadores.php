@@ -1,13 +1,12 @@
 <?php
-header("Access-Control-Allow-Origin: *"); // Permite solicitudes desde cualquier origen
-header("Access-Control-Allow-Methods: GET, POST, OPTIONS"); // Métodos permitidos
-header("Access-Control-Allow-Headers: Content-Type"); // Encabezados permitidos
+header("Access-Control-Allow-Origin: *"); 
+header("Access-Control-Allow-Methods: GET, POST, OPTIONS"); 
+header("Access-Control-Allow-Headers: Content-Type"); 
 
 $host = 'localhost';
-$user = 'root'; // Cambia a tu nombre de usuario
-$password = ''; // Cambia a tu contraseña
-$dbname = 'canesa'; // Cambia al nombre de tu base de datos
-
+$user = 'root'; 
+$password = ''; 
+$dbname = 'canesa'; 
 
 // Crear conexión
 $conn = new mysqli($host, $user, $password, $dbname);

@@ -1,0 +1,418 @@
+/* Estilo general para todo el contenedor */
+.container {
+    font-family: Arial, sans-serif;
+    color: #f1f1f1;
+    background-color: #111;
+    padding: 20px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* Título del formulario */
+.title {
+    color: #f1f1f1;
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.hidden {
+    display: none;
+}
+
+
+/* Botón de agregar (Insertar nuevo registro) */
+.btn-add {
+    background-color: #4caf50;
+    color: #f1f1f1;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 10px 20px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    display: block;
+    margin: 0 auto 20px;
+}
+
+.btn-add:hover {
+    background-color: #388e3c;
+}
+
+/* Estilo para formularios de agregar o actualizar registros */
+.form-general {
+    background-color: #222;
+    padding: 20px;
+    border-radius: 4px;
+    border: 1px solid #333;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Etiquetas de los campos de formulario */
+.form-general label {
+    color: #f1f1f1;
+    font-size: 14px;
+}
+
+/* Estilo para los campos de entrada del formulario */
+.form-general input,
+.form-general select {
+    padding: 10px;
+    border: 1px solid #444;
+    border-radius: 4px;
+    background-color: #333;
+    color: #f1f1f1;
+    font-size: 14px;
+    width: 100%;
+}
+
+/* Botón para regresar a la lista */
+.form-general button {
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+    width: auto;
+    align-self: center;
+}
+
+.form-general button:hover {
+    background-color: #ffffff;
+}
+
+/* Estilo para las tablas de registros */
+.table-general {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.table-general th,
+.table-general td {
+    padding: 12px;  /* Aumento de padding para mayor espacio */
+    text-align: left;
+    border: 1px solid #444;  /* Color de borde visible */
+}
+
+.table-general th {
+    background-color: #222;
+    color: #f1f1f1;
+    border-bottom: 2px solid #444;  /* Borde más grueso en los encabezados */
+}
+
+.table-general td {
+    background-color: #333;
+    color: #f1f1f1;
+}
+
+/* Estilo de los botones en la tabla */
+.table-general button {
+    padding: 6px 12px;
+    background-color: #b48351;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: background-color 0.3s ease;
+}
+
+.table-general button:hover {
+    background-color: #9c6b3f;
+}
+
+/* Estilo para los botones de eliminar y editar */
+.table-general button.delete {
+    background-color: #e74c3c;
+}
+
+.table-general button.delete:hover {
+    background-color: #c0392b;
+}
+
+.table-general button.edit {
+    background-color: #f39c12;
+}
+
+.table-general button.edit:hover {
+    background-color: #e67e22;
+}
+
+/* Estilo para la fila de "No hay ventas registradas" */
+.table-general .no-records {
+    text-align: center;
+    background-color: #444;
+    color: #f1f1f1;
+    font-style: italic;
+    padding: 15px;
+}
+
+
+/* BOTON INSERT */
+.btn-add {
+    position: relative;
+    width: 195px; /* Aumenta el ancho */
+    height: 50px; /* Aumenta la altura */
+    background-color: #000;
+    color: white;
+    font-size: 18px;
+    font-family: Arial, sans-serif;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    z-index: 0;
+    border-radius: 8px;
+    display: inline-block;
+    padding: 0;
+    text-decoration: none;
+    transition: all 0.5s ease-in-out;
+}
+
+.btn-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+
+.button-insert {
+    position: absolute;
+    top: 50%; /* Centrado vertical */
+    left: 50%; /* Centrado horizontal */
+    transform: translate(-50%, -50%); /* Ajuste para centrar exactamente */
+    z-index: 2;
+    color: white;
+    text-decoration: none; 
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Asegura que el texto esté centrado */
+    font-weight: 400;
+    font-size: 16px;
+    white-space: nowrap; /* Evita el salto de línea */
+}
+
+/* Bordes con gradiente */
+.gradient-insert, .gradient-insert2 {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background-image: linear-gradient(to right top, #02b800, #0bc50e, #13d119, #19de23, #1eeb2c, #16ef3d, #0df34c, #00f759, #00f26b, #00ed7a, #00e787, #00e192);
+    z-index: -1;
+    border-radius: 10px;
+    text-decoration: none;
+}
+
+.gradient-insert {
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out; 
+}
+
+.insert-background {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #000;
+    z-index: 2;
+    border-radius: 8px;
+    text-decoration: none;
+}
+
+.btn-add:hover .gradient-insert {
+    filter: blur(15px);
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.btn-add:hover .button-insert {
+    color: #30ff34;
+}
+
+.btn-add:active {
+    transform: scale(0.95);
+}
+
+
+/* Contenedor de los botones */
+.btn-container-form {
+    display: flex;
+    justify-content: center; /* Centra los botones horizontalmente */
+    gap: 20px; /* Espacio entre los botones */
+    width: 100%; /* Asegura que ocupe el ancho completo */
+}
+
+/* Estilo del botón de Actualizar/Vender */
+.btn-update {
+    position: relative;
+    width: auto; /* Ajuste automático según el contenido */
+    min-width: 195px; /* Mínimo ancho */
+    height: 50px;
+    background-color: #007bff; /* Color de fondo para 'Actualizar/Vender' */
+    color: white;
+    font-size: 18px;
+    font-family: Arial, sans-serif;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    z-index: 0;
+    border-radius: 8px;
+    display: inline-block;
+    padding: 0 10px; /* Espacio adicional para el contenido */
+    text-decoration: none;
+    transition: all 0.5s ease-in-out;
+}
+
+.button-update {
+    position: absolute;
+    top: 50%; /* Centrado vertical */
+    left: 50%; /* Centrado horizontal */
+    transform: translate(-50%, -50%); /* Ajuste para centrar exactamente */
+    z-index: 2;
+    color: white;
+    text-decoration: none; 
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Asegura que el texto esté centrado */
+    font-weight: 400;
+    font-size: 16px;
+    white-space: nowrap; /* Evita el salto de línea */
+}
+
+/* Bordes con gradiente */
+.gradient-update, .gradient-update2 {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background-image: linear-gradient(to right top, #004fc0, #0074da, #0096e9, #00b7f0, #00d5f3, #00dbf6, #00e0fa, #00e6fd, #00d4ff, #00c1ff, #00acff, #0095ff);
+    z-index: -1;
+    border-radius: 10px;
+    text-decoration: none;
+}
+
+.gradient-update {
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out; 
+}
+
+.insert-background {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #000;
+    z-index: 2;
+    border-radius: 8px;
+    text-decoration: none;
+}
+
+.btn-update:hover .gradient-update {
+    filter: blur(15px);
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.btn-update:hover .button-update {
+    color: #13effb;
+}
+
+.btn-update:active {
+    transform: scale(0.95);
+}
+
+
+/* Estilo del botón de Regresar */
+.btn-add {
+    position: relative;
+    width: auto; /* Ajuste automático según el contenido */
+    min-width: 195px; /* Mínimo ancho */
+    height: 50px;
+    background-color: #e74c3c; /* Color de fondo para 'Regresar' */
+    color: white;
+    font-size: 18px;
+    font-family: Arial, sans-serif;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    z-index: 0;
+    border-radius: 8px;
+    display: inline-block;
+    padding: 0 10px; /* Espacio adicional para el contenido */
+    text-decoration: none;
+    transition: all 0.5s ease-in-out;
+}
+
+.button-back {
+    position: absolute;
+    top: 50%; /* Centrado vertical */
+    left: 50%; /* Centrado horizontal */
+    transform: translate(-50%, -50%); /* Ajuste para centrar exactamente */
+    z-index: 2;
+    color: white;
+    text-decoration: none; 
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Asegura que el texto esté centrado */
+    font-weight: 400;
+    font-size: 16px;
+    white-space: nowrap; /* Evita el salto de línea */
+}
+
+/* Bordes con gradiente */
+.gradient-back, .gradient-back2 {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background-image: linear-gradient(to right top, #b48351, #c2894c, #d08f47, #de9641, #ec9c3a, #f1993a, #f7963a, #fc933b, #f88744, #f27b4c, #ea7153, #e16859);
+    z-index: -1;
+    border-radius: 10px;
+    text-decoration: none;
+}
+
+.gradient-back {
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out; 
+}
+
+.insert-background {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #000;
+    z-index: 2;
+    border-radius: 8px;
+    text-decoration: none;
+}
+
+.btn-add:hover .gradient-back {
+    filter: blur(15px);
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.btn-add:hover .button-back {
+    color: #f1c40f;
+}
+
+.btn-add:active {
+    transform: scale(0.95);
+}
