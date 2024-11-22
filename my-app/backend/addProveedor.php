@@ -13,14 +13,14 @@ $correo_electronico = $_POST['correo_electronico'];
 $telefono = $_POST['telefono'];
 $detalles = $_POST['detalles'];
 
-$query = "UPDATE proveedores SET Correo_Electronico = ?, Telefono = ?, Detalles = ? WHERE Nombre = ?";
+$query = "INSERT INTO proveedores (Nombre, Correo_Electronico, Telefono, Detalles) VALUES (?, ?, ?, ?)";
 $stmt = $conexion->prepare($query);
-$stmt->bind_param("ssss", $correo_electronico, $telefono, $detalles, $nombre);
+$stmt->bind_param("ssss", $nombre, $correo_electronico, $telefono, $detalles);
 
 if ($stmt->execute()) {
-    echo json_encode(["status" => "success", "message" => "Proveedor actualizado exitosamente"]);
+    echo json_encode(["status" => "success", "message" => "Proveedor agregado exitosamente"]);
 } else {
-    echo json_encode(["status" => "error", "message" => "Error al actualizar proveedor"]);
+    echo json_encode(["status" => "error", "message" => "Error al agregar proveedor"]);
 }
 
 $stmt->close();

@@ -416,3 +416,31 @@
 .btn-add:active {
     transform: scale(0.95);
 }
+
+
+/* Botón general con ícono */
+.btn-icon {
+    background-color: transparent; /* Sin color de fondo */
+    border: none; /* Sin bordes */
+    padding: 0; /* Sin espacio alrededor */
+    margin: 0 5px; /* Separación entre botones */
+    cursor: pointer; /* Manito al pasar */
+    display: inline-flex; /* Alineación de los íconos */
+    align-items: center;
+    justify-content: center;
+    width: 32px; /* Tamaño del botón cuadrado */
+    height: 32px;
+    transition: transform 0.2s ease; /* Animación suave al pasar */
+}
+
+.btn-icon img {
+    width: 100%; /* Imagen ocupa todo el botón */
+    height: 100%;
+    object-fit: cover; /* Mantener proporciones del ícono */
+}
+
+/* Efecto hover */
+.btn-icon:hover {
+    transform: scale(1.1); /* Aumenta ligeramente el tamaño */
+    opacity: 0.8; /* Más tenue al pasar */
+}

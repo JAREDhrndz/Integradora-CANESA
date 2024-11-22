@@ -1,9 +1,9 @@
 <?php
 // Configuración de la conexión a la base de datos
 $host = 'localhost';
-$user = 'root';
-$password = '';
-$database = 'canesa'; 
+$user = 'root'; // Cambia por tu usuario
+$password = ''; // Cambia por tu contraseña
+$database = 'canesa'; // Cambia por el nombre de tu base de datos
 
 $conn = new mysqli($host, $user, $password, $database);
 

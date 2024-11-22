@@ -1,20 +1,19 @@
 <?php
-$host = 'localhost';
-$user = 'root'; // Nombre de usuario predeterminado para XAMPP
-$password = ''; // Contraseña predeterminada (vacía)
-$dbname = 'canesa'; // Cambiar al nombre de tu base de datos
+// Configuración del tipo de contenido
+header('Content-Type: application/json');
 
-// Crear conexión
-$conn = new mysqli($host, $user, $password, $dbname);
+// Configuración de la conexión
+$host = "localhost";
+$username = "root";
+$password = "";
+$dbname = "canesa";
 
-// Verificar conexión
-if ($conn->connect_error) {
-    error_log("Conexión fallida: " . $conn->connect_error); // Registra el error en el archivo de log
-    die("Error en la conexión a la base de datos. Por favor, inténtalo más tarde.");
+try {
+    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    return $pdo; // Asegúrate de retornar el objeto PDO
+} catch (PDOException $e) {
+    echo json_encode(["status" => "error", "message" => "Error en la conexión a la base de datos: " . $e->getMessage()]);
+    exit;
 }
-
-// Opcional: Configuración de conjunto de caracteres
-$conn->set_charset("utf8mb4"); // Configura el juego de caracteres a UTF-8
-
-// Resto del código que necesites para interactuar con la base de datos
 ?>

@@ -1,29 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import './formularios.css';
 
-const GestionServicios = () => {
-    const [servicios, setServicios] = useState([]);
+const GestionProveedores = () => {
+    const [proveedores, setProveedores] = useState([]);
     const [formData, setFormData] = useState({
-        id: '',
         nombre: '',
-        descripcion: '',
-        costo: '',
+        correo_electronico: '',
+        telefono: '',
+        detalles: '',
     });
-    const [showForm, setShowForm] = useState(false);
+    const [isFormVisible, setIsFormVisible] = useState(false);
+    const [isAdding, setIsAdding] = useState(true);
+    const [proveedorId, setProveedorId] = useState(null);
 
-    const fetchServicios = async () => {
+    const fetchProveedores = async () => {
         try {
-            const response = await fetch('http://localhost/backend/getServicios.php');
-            if (!response.ok) throw new Error('Error al obtener los servicios');
+            const response = await fetch('http://localhost/backend/getProveedores.php');
+            if (!response.ok) throw new Error('Error al obtener los proveedores');
             const data = await response.json();
-            setServicios(data);
+            setProveedores(data);
         } catch (error) {
-            console.error('Error fetching servicios:', error);
+            console.error('Error fetching proveedores:', error);
         }
     };
 
     useEffect(() => {
-        fetchServicios();
+        fetchProveedores();
     }, []);
 
     const handleChange = (e) => {
@@ -32,25 +34,31 @@ const GestionServicios = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const { id, nombre, descripcion, costo } = formData;
+        const { nombre, correo_electronico, telefono, detalles } = formData;
 
         try {
-            const url = id
-                ? 'http://localhost/backend/updateServicio.php'
-                : 'http://localhost/backend/addServicio.php';
+            const url = isAdding
+                ? 'http://localhost/backend/addProveedor.php'
+                : 'http://localhost/backend/updateProveedor.php';
 
             const response = await fetch(url, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
                 },
-                body: new URLSearchParams({ id, nombre, descripcion, costo }),
+                body: new URLSearchParams({
+                    id: proveedorId,
+                    nombre,
+                    correo_electronico,
+                    telefono,
+                    detalles,
+                }),
             });
 
             const result = await response.json();
-            if (result.status === "success") {
-                fetchServicios();
-                setShowForm(false);
+            if (result.status === 'success') {
+                fetchProveedores();
+                setIsFormVisible(false);
             } else {
                 console.error('Error:', result.message);
             }
@@ -58,122 +66,101 @@ const GestionServicios = () => {
             console.error('Error:', error);
         }
 
-        setFormData({ id: '', nombre: '', descripcion: '', costo: '' });
+        setFormData({ nombre: '', correo_electronico: '', telefono: '', detalles: '' });
+        setIsAdding(true);
+        setProveedorId(null);
     };
 
-    const handleDelete = async (id) => {
+    const handleDelete = async (nombre) => {
         try {
-            const response = await fetch('http://localhost/backend/deleteServicio.php', {
+            const response = await fetch('http://localhost/backend/delProveedores.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
                 },
-                body: new URLSearchParams({ id }),
+                body: new URLSearchParams({ nombre }),
             });
 
             const result = await response.json();
-            if (result.status === "success") fetchServicios();
-            else console.error('Error eliminando servicio:', result.message);
+            if (result.status === 'success') fetchProveedores();
+            else console.error('Error eliminando proveedor:', result.message);
         } catch (error) {
-            console.error('Error eliminando servicio:', error);
+            console.error('Error eliminando proveedor:', error);
         }
     };
 
+    const toggleForm = () => {
+        setIsFormVisible(!isFormVisible);
+        setIsAdding(true);
+        setFormData({ nombre: '', correo_electronico: '', telefono: '', detalles: '' });
+        setProveedorId(null);
+    };
+
+    const handleEdit = (proveedor) => {
+        setFormData({
+            nombre: proveedor.Nombre,
+            correo_electronico: proveedor.Correo_Electronico,
+            telefono: proveedor.Telefono,
+            detalles: proveedor.Detalles,
+        });
+        setProveedorId(proveedor.N_proveedor);
+        setIsAdding(false);
+        setIsFormVisible(true);
+    };
+
     return (
-        <div id="gestion-servicios" className="container">
-            <h1 id="titulo-servicios" className="title">Gestión de Servicios</h1>
+        <div className="container">
+            <h1 className="title">Gestión de Proveedores</h1>
 
-            {!showForm ? (
-                <>
-                    <button className="btn-add" onClick={() => setShowForm(true)}>
-                        <span className="icon icon-1"></span>
-                        <span className="gradient-insert"></span>
-                        <span className="gradient-insert2"></span>
-                        <span className="insert-background"></span>
-                        <span className="button-insert">Insertar Nuevo Servicio</span>
-                    </button>
-                    
-                    <table className="table">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Nombre</th>
-                                <th>Descripción</th>
-                                <th>Costo</th>
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {Array.isArray(servicios) && servicios.length > 0 ? (
-                                servicios.map((servicio) => (
-                                    <tr key={servicio.id}>
-                                        <td>{servicio.id}</td>
-                                        <td>{servicio.nombre}</td>
-                                        <td>{servicio.descripcion}</td>
-                                        <td>{servicio.costo}</td>
-                                        <td>
-                                            <button className="edit" onClick={() => {
-                                                setFormData({
-                                                    id: servicio.id,
-                                                    nombre: servicio.nombre,
-                                                    descripcion: servicio.descripcion,
-                                                    costo: servicio.costo,
-                                                });
-                                                setShowForm(true);
-                                            }}>Editar</button>
-                                            <button className="delete" onClick={() => handleDelete(servicio.id)}>Eliminar</button>
-                                        </td>
-                                    </tr>
-                                ))
-                            ) : (
-                                <tr>
-                                    <td colSpan="5">No se encontraron servicios</td>
-                                </tr>
-                            )}
-                        </tbody>
-                    </table>
-                </>
-            ) : (
+            {/* Mostrar el botón para agregar proveedor solo si no está en el modo de edición */}
+            {!isFormVisible && (
+                <button className="btn-add" onClick={toggleForm}>
+                    <span className="icon icon-1"></span>
+                    <span className="gradient-insert"></span>
+                    <span className="gradient-insert2"></span>
+                    <span className="insert-background"></span>
+                    <span className="button-insert">Insertar Nuevo Proveedor</span>
+                </button>
+            )}
+
+            {/* Mostrar el formulario de agregar o editar solo cuando isFormVisible es true */}
+            {isFormVisible && (
                 <div className="form-add-update">
-                    <h2 className="title">{formData.id ? 'Actualizar Servicio' : 'Agregar Nuevo Servicio'}</h2>
+                    <h2 className="title">{isAdding ? 'Agregar Proveedor' : 'Actualizar Proveedor'}</h2>
                     <form onSubmit={handleSubmit}>
-                        <label htmlFor="id">ID (solo para actualizar):</label>
-                        <input
-                            type="number"
-                            name="id"
-                            value={formData.id}
-                            onChange={handleChange}
-                            placeholder="ID"
-                        />
-
-                        <label htmlFor="nombre">Nombre del servicio:</label>
+                        <label>Nombre del Proveedor:</label>
                         <input
                             type="text"
                             name="nombre"
                             value={formData.nombre}
                             onChange={handleChange}
-                            placeholder="Nombre"
                             required
                         />
 
-                        <label htmlFor="descripcion">Descripción:</label>
+                        <label>Correo Electrónico:</label>
+                        <input
+                            type="email"
+                            name="correo_electronico"
+                            value={formData.correo_electronico}
+                            onChange={handleChange}
+                            required
+                        />
+
+                        <label>Teléfono:</label>
+                        <input
+                            type="tel"
+                            name="telefono"
+                            value={formData.telefono}
+                            onChange={handleChange}
+                            required
+                        />
+
+                        <label>Detalles:</label>
                         <input
                             type="text"
-                            name="descripcion"
-                            value={formData.descripcion}
+                            name="detalles"
+                            value={formData.detalles}
                             onChange={handleChange}
-                            placeholder="Descripción"
-                            required
-                        />
-
-                        <label htmlFor="costo">Costo:</label>
-                        <input
-                            type="number"
-                            name="costo"
-                            value={formData.costo}
-                            onChange={handleChange}
-                            placeholder="Costo"
-                            step="0.01"
                             required
                         />
 
@@ -183,10 +170,12 @@ const GestionServicios = () => {
                                 <span className="gradient-update"></span>
                                 <span className="gradient-update2"></span>
                                 <span className="insert-background"></span>
-                                <span className="button-update">{formData.id ? 'Actualizar Servicio' : 'Agregar Servicio'}</span>
+                                <span className="button-update">
+                                    {isAdding ? 'Agregar Proveedor' : 'Actualizar Proveedor'}
+                                </span>
                             </button>
 
-                            <button type="button" className="btn-add" onClick={() => setShowForm(false)}>
+                            <button type="button" className="btn-add" onClick={toggleForm}>
                                 <span className="icon icon-1"></span>
                                 <span className="gradient-back"></span>
                                 <span className="gradient-back2"></span>
@@ -197,8 +186,46 @@ const GestionServicios = () => {
                     </form>
                 </div>
             )}
+
+            {/* Tabla de proveedores */}
+            {!isFormVisible && (
+                <table className="table">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Correo Electrónico</th>
+                            <th>Teléfono</th>
+                            <th>Detalles</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {proveedores.map((proveedor) => (
+                            <tr key={proveedor.N_proveedor}>
+                                <td>{proveedor.Nombre}</td>
+                                <td>{proveedor.Correo_Electronico}</td>
+                                <td>{proveedor.Telefono}</td>
+                                <td>{proveedor.Detalles}</td>
+                                <td>
+                                    <button className="edit" onClick={() => handleEdit(proveedor)}>
+                                        <span className="icon icon-edit"></span>
+                                        Editar
+                                    </button>
+                                    <button
+                                        className="delete"
+                                        onClick={() => handleDelete(proveedor.Nombre)}
+                                    >
+                                        <span className="icon icon-delete"></span>
+                                        Eliminar
+                                    </button>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            )}
         </div>
     );
 };
 
-export default GestionServicios;
+export default GestionProveedores;

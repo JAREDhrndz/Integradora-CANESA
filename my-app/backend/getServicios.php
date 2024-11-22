@@ -1,23 +1,19 @@
 <?php
 header('Content-Type: application/json');
-header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
-header('Access-Control-Allow-Headers: Content-Type, Authorization');
+include 'db.php';
 
-$host = 'localhost';
-$dbname = 'canesa';
-$username = 'root';
-$password = '';
+$sql = "SELECT id, nombre, descripcion, costo FROM servicios";
+$result = $conn->query($sql);
 
-try {
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $sql = 'SELECT id, nombre, descripcion, costo FROM servicios';
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute();
-    $servicios = $stmt->fetchAll(PDO::FETCH_ASSOC);
+if ($result->num_rows > 0) {
+    $servicios = [];
+    while ($row = $result->fetch_assoc()) {
+        $servicios[] = $row;
+    }
     echo json_encode($servicios);
-} catch (PDOException $e) {
-    echo json_encode(['status' => 'error', 'message' => $e->getMessage()]);
+} else {
+    echo json_encode([]);
 }
+
+$conn->close();
 ?>
