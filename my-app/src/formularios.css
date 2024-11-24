@@ -109,17 +109,6 @@
     color: #f1f1f1;
 }
 
-/* Estilo de los botones en la tabla */
-.table-general button {
-    padding: 6px 12px;
-    background-color: #b48351;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 12px;
-    transition: background-color 0.3s ease;
-}
 
 .table-general button:hover {
     background-color: #9c6b3f;
@@ -428,8 +417,8 @@
     display: inline-flex; /* Alineación de los íconos */
     align-items: center;
     justify-content: center;
-    width: 32px; /* Tamaño del botón cuadrado */
-    height: 32px;
+    width: 20px; /* Tamaño del botón cuadrado */
+    height: 20px;
     transition: transform 0.2s ease; /* Animación suave al pasar */
 }
 

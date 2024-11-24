@@ -96,7 +96,7 @@ const GestionProveedores = () => {
                         <span className="button-insert">Insertar Nuevo Proveedor</span>
                     </button>
 
-                    <table className="table">
+                    <table className="table-general">
                         <thead>
                             <tr>
                                 <th>ID</th>
@@ -108,44 +108,47 @@ const GestionProveedores = () => {
                             </tr>
                         </thead>
                         <tbody>
-    {Array.isArray(proveedores) && proveedores.length > 0 ? (
-        proveedores.map((proveedor) => (
-            <tr key={proveedor.N_proveedor}>
-                <td>{proveedor.N_proveedor}</td>
-                <td>{proveedor.Nombre}</td>
-                <td>{proveedor.Correo_Electronico}</td>
-                <td>{proveedor.Telefono}</td>
-                <td>{proveedor.Detalles}</td>
-            <td>
-                    <div className="btn-actions">
-                        <button className="btn-icon edit" onClick={() => {
-                            setFormData({
-                                id: proveedor.N_proveedor,
-                                nombre: proveedor.Nombre,
-                                correo_electronico: proveedor.Correo_Electronico,
-                                telefono: proveedor.Telefono,
-                                detalles: proveedor.Detalles,
-                            });
-                            setShowForm(true);
-                        }}>
-                            <img src={editIcon} alt="Editar" />
-                        </button>
-                        <button className="btn-icon delete" onClick={() => handleDelete(proveedor.N_proveedor)}>
-                            <img src={deleteIcon} alt="Eliminar" />
-                        </button>
-                    </div>
-            </td>
-
-
-            </tr>
-        ))
-    ) : (
-        <tr>
-            <td colSpan="6">No se encontraron proveedores</td>
-        </tr>
-    )}
-</tbody>
-
+                            {Array.isArray(proveedores) && proveedores.length > 0 ? (
+                                proveedores.map((proveedor) => (
+                                    <tr key={proveedor.N_proveedor}>
+                                        <td>{proveedor.N_proveedor}</td>
+                                        <td>{proveedor.Nombre}</td>
+                                        <td>{proveedor.Correo_Electronico}</td>
+                                        <td>{proveedor.Telefono}</td>
+                                        <td>{proveedor.Detalles}</td>
+                                        <td>
+                                            <div className="btn-actions">
+                                                <button
+                                                    className="btn-icon"
+                                                    onClick={() => {
+                                                        setFormData({
+                                                            id: proveedor.N_proveedor,
+                                                            nombre: proveedor.Nombre,
+                                                            correo_electronico: proveedor.Correo_Electronico,
+                                                            telefono: proveedor.Telefono,
+                                                            detalles: proveedor.Detalles,
+                                                        });
+                                                        setShowForm(true);
+                                                    }}
+                                                >
+                                                    <img src={editIcon} alt="Editar" />
+                                                </button>
+                                                <button
+                                                    className="btn-icon"
+                                                    onClick={() => handleDelete(proveedor.N_proveedor)}
+                                                >
+                                                    <img src={deleteIcon} alt="Eliminar" />
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                ))
+                            ) : (
+                                <tr className="no-records">
+                                    <td colSpan="6">No se encontraron proveedores</td>
+                                </tr>
+                            )}
+                        </tbody>
                     </table>
                 </>
             ) : (

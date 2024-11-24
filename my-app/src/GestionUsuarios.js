@@ -1,15 +1,18 @@
+import editIcon from './assets/icons/edit.png';
+import deleteIcon from './assets/icons/delete.png';
+
 import React, { useState, useEffect } from 'react';
-import './formularios.css';  // Asegúrate de que esta línea esté correcta
+import './formularios.css';
 
 const GestionUsuarios = () => {
   const [usuarios, setUsuarios] = useState([]);
   const [formData, setFormData] = useState({
     Nombre: '',
-    Correo: '',
+    Correo_Electronico: '',
     Telefono: '',
     Direccion: '',
-    Fecha_nacimiento: '',
-    Tipo_usuario: 'Regular',
+    Tipo_usuario: 'Cliente',
+    Contraseña: '',
   });
   const [usuarioActual, setUsuarioActual] = useState(null);
   const [mostrarFormulario, setMostrarFormulario] = useState(false);
@@ -27,13 +30,14 @@ const GestionUsuarios = () => {
     fetchUsuarios();
   }, []);
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (numUsuario) => {
     try {
-      const response = await fetch(`http://localhost/backend/delUsuarios.php?id=${id}`, {
+      const response = await fetch(`http://localhost/backend/deleteUsuario.php?Num_usuario=${numUsuario}`, {
         method: 'DELETE',
       });
+  
       if (response.ok) {
-        setUsuarios(usuarios.filter((usuario) => usuario.Id !== id));
+        setUsuarios(usuarios.filter((usuario) => usuario.Num_Usuario !== numUsuario));
       } else {
         console.error('Error al eliminar el usuario');
       }
@@ -46,11 +50,11 @@ const GestionUsuarios = () => {
     setUsuarioActual(usuario);
     setFormData({
       Nombre: usuario.Nombre,
-      Correo: usuario.Correo,
+      Correo_Electronico: usuario.Correo_Electronico,
       Telefono: usuario.Telefono,
       Direccion: usuario.Direccion,
-      Fecha_nacimiento: usuario.Fecha_nacimiento,
       Tipo_usuario: usuario.Tipo_usuario,
+      Contraseña: '', // Para la actualización no queremos mostrar la contraseña existente
     });
     setMostrarFormulario(true);
   };
@@ -65,7 +69,7 @@ const GestionUsuarios = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost/backend/insertUsuario.php', {
+      const response = await fetch('http://localhost/backend/addUsuario.php', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -77,11 +81,11 @@ const GestionUsuarios = () => {
         setUsuarios([...usuarios, newUsuario]);
         setFormData({
           Nombre: '',
-          Correo: '',
+          Correo_Electronico: '',
           Telefono: '',
           Direccion: '',
-          Fecha_nacimiento: '',
-          Tipo_usuario: 'Regular',
+          Tipo_usuario: 'Cliente',
+          Contraseña: '', // Limpiar el campo contraseña después de agregar
         });
       } else {
         console.error('Error al insertar el usuario');
@@ -94,7 +98,7 @@ const GestionUsuarios = () => {
   const handleUpdateSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`http://localhost/backend/updateUsuario.php?id=${usuarioActual.Id}`, {
+      const response = await fetch(`http://localhost/backend/updateUsuario.php?numUsuario=${usuarioActual.Num_Usuario}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -103,7 +107,7 @@ const GestionUsuarios = () => {
       });
       if (response.ok) {
         setUsuarios(usuarios.map((usuario) =>
-          usuario.Id === usuarioActual.Id ? { ...usuario, ...formData } : usuario
+          usuario.Num_Usuario === usuarioActual.Num_Usuario ? { ...usuario, ...formData } : usuario
         ));
         setMostrarFormulario(false);
         setUsuarioActual(null);
@@ -140,8 +144,9 @@ const GestionUsuarios = () => {
         <div className="form-add-update">
           <h2 className="title">{usuarioActual ? 'Actualizar Usuario' : 'Agregar Nuevo Usuario'}</h2>
           <form onSubmit={usuarioActual ? handleUpdateSubmit : handleSubmit}>
-            <label htmlFor="Nombre">Nombre:</label>
+            <label htmlFor="input-nombre">Nombre:</label>
             <input
+              id="input-nombre"
               type="text"
               name="Nombre"
               value={formData.Nombre}
@@ -149,17 +154,19 @@ const GestionUsuarios = () => {
               required
             />
 
-            <label htmlFor="Correo">Correo:</label>
+            <label htmlFor="input-correo">Correo:</label>
             <input
+              id="input-correo"
               type="email"
-              name="Correo"
-              value={formData.Correo}
+              name="Correo_Electronico"
+              value={formData.Correo_Electronico}
               onChange={handleChange}
               required
             />
 
-            <label htmlFor="Telefono">Teléfono:</label>
+            <label htmlFor="input-telefono">Teléfono:</label>
             <input
+              id="input-telefono"
               type="tel"
               name="Telefono"
               value={formData.Telefono}
@@ -167,8 +174,9 @@ const GestionUsuarios = () => {
               required
             />
 
-            <label htmlFor="Direccion">Dirección:</label>
+            <label htmlFor="input-direccion">Dirección:</label>
             <input
+              id="input-direccion"
               type="text"
               name="Direccion"
               value={formData.Direccion}
@@ -176,24 +184,27 @@ const GestionUsuarios = () => {
               required
             />
 
-            <label htmlFor="Fecha_nacimiento">Fecha de Nacimiento:</label>
-            <input
-              type="date"
-              name="Fecha_nacimiento"
-              value={formData.Fecha_nacimiento}
-              onChange={handleChange}
-              required
-            />
-
-            <label htmlFor="Tipo_usuario">Tipo de Usuario:</label>
+            <label htmlFor="input-tipo-usuario">Tipo de Usuario:</label>
             <select
+              id="input-tipo-usuario"
               name="Tipo_usuario"
               value={formData.Tipo_usuario}
               onChange={handleChange}
             >
-              <option value="Regular">Regular</option>
+              <option value="Cliente">Cliente</option>
               <option value="Administrador">Administrador</option>
+              <option value="SuperAdministrador">SuperAdministrador</option>
             </select>
+
+            <label htmlFor="input-contraseña">Contraseña:</label>
+            <input
+              id="input-contraseña"
+              type="password"
+              name="Contraseña"
+              value={formData.Contraseña}
+              onChange={handleChange}
+              required
+            />
 
             <div className="btn-container-form">
               <button type="submit" className="btn-update">
@@ -218,39 +229,43 @@ const GestionUsuarios = () => {
 
       {!mostrarFormulario && (
         <table className="table-general">
-          <thead>
-            <tr>
-              <th className="column-id">ID</th>
-              <th className="column-nombre">Nombre</th>
-              <th className="column-correo">Correo</th>
-              <th className="column-telefono">Teléfono</th>
-              <th className="column-direccion">Dirección</th>
-              <th className="column-fecha-nacimiento">Fecha de Nacimiento</th>
-              <th className="column-tipo-usuario">Tipo de Usuario</th>
-              <th className="column-acciones">Acciones</th>
-            </tr>
-          </thead>
+<thead>
+  <tr>
+    <th className="column-id">ID</th>
+    <th className="column-nombre">Nombre</th>
+    <th className="column-correo">Correo</th>
+    <th className="column-telefono">Teléfono</th>
+    <th className="column-direccion">Dirección</th>
+    <th className="column-tipo-usuario">Tipo de Usuario</th>
+    <th className="column-contraseña">Contraseña</th>
+    <th className="column-acciones">Acciones</th>
+  </tr>
+</thead>
           <tbody>
             {usuarios.length > 0 ? (
               usuarios.map((usuario) => (
-                <tr key={usuario.Id}>
-                  <td>{usuario.Id}</td>
+                <tr key={usuario.Num_Usuario}>
+                  <td>{usuario.Num_Usuario}</td>
                   <td>{usuario.Nombre}</td>
-                  <td>{usuario.Correo}</td>
+                  <td>{usuario.Correo_Electronico}</td>
                   <td>{usuario.Telefono}</td>
                   <td>{usuario.Direccion}</td>
-                  <td>{usuario.Fecha_nacimiento}</td>
                   <td>{usuario.Tipo_usuario}</td>
+                  <td>********</td> {/* Mostramos un texto en lugar de la contraseña */}
                   <td>
-                    <button onClick={() => handleUpdate(usuario)} className="btn-edit">Editar</button>
-                    <button onClick={() => handleDelete(usuario.Id)} className="btn-delete">Eliminar</button>
+                    <button onClick={() => handleUpdate(usuario)} className="btn-icon">
+                      <img src={editIcon} alt="Editar" />
+                    </button>
+                    <button onClick={() => handleDelete(usuario.Num_Usuario)} className="btn-icon">
+                      <img src={deleteIcon} alt="Eliminar" />
+                    </button>
                   </td>
                 </tr>
               ))
             ) : (
               <tr>
                 <td colSpan="8">No hay usuarios registrados.</td>
-              </tr>
+                </tr>
             )}
           </tbody>
         </table>

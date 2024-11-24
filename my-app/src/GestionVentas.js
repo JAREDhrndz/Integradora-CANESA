@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import './formularios.css';  // Asegúrate de que esta línea esté correcta
+import './formularios.css'; 
+import editIcon from './assets/icons/edit.png';
+import deleteIcon from './assets/icons/delete.png'; 
 
 const GestionVentas = () => {
   const [ventas, setVentas] = useState([]);
@@ -30,13 +32,17 @@ const GestionVentas = () => {
 
   const handleDelete = async (id) => {
     try {
-      const response = await fetch(`http://localhost/backend/delVentas.php?id=${id}`, {
-        method: 'DELETE',
+      const response = await fetch(`http://localhost/backend/deleteVentas.php?id=${id}`, {
+        method: 'GET',
       });
-      if (response.ok) {
-        setVentas(ventas.filter((venta) => venta.Id !== id));
+
+      const result = await response.json();
+
+      if (result.status === "success") {
+        setVentas((prevVentas) => prevVentas.filter((venta) => venta.Id !== id));
+        console.log('Venta eliminada con éxito');
       } else {
-        console.error('Error al eliminar la venta');
+        console.error('Error eliminando la venta:', result.message);
       }
     } catch (error) {
       console.error('Error al eliminar la venta:', error);
@@ -67,7 +73,7 @@ const GestionVentas = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost/backend/insertVenta.php', {
+      const response = await fetch('http://localhost/backend/addVentas.php', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -96,27 +102,30 @@ const GestionVentas = () => {
 
   const handleUpdateSubmit = async (e) => {
     e.preventDefault();
+    console.log('Datos que se van a enviar:', formData); // Verifica los datos que vas a enviar
     try {
-      const response = await fetch(`http://localhost/backend/updateVenta.php?id=${ventaActual.Id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-      if (response.ok) {
-        setVentas(ventas.map(venta => 
-          venta.Id === ventaActual.Id ? { ...venta, ...formData } : venta
-        ));
-        setMostrarFormulario(false);
-        setVentaActual(null);
-      } else {
-        console.error('Error al actualizar la venta');
-      }
+        const response = await fetch(`http://localhost/backend/updateVentas.php?id=${ventaActual.Id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
+        });
+
+        if (response.ok) {
+            setVentas(ventas.map(venta => 
+                venta.Id === ventaActual.Id ? { ...venta, ...formData } : venta
+            ));
+            setMostrarFormulario(false);
+            setVentaActual(null);
+        } else {
+            console.error('Error al actualizar la venta');
+        }
     } catch (error) {
-      console.error('Error al actualizar la venta:', error);
+        console.error('Error al actualizar la venta:', error);
     }
-  };
+};
+
 
   const toggleFormulario = () => {
     setMostrarFormulario(!mostrarFormulario);
@@ -126,18 +135,17 @@ const GestionVentas = () => {
   return (
     <div id="gestion-ventas" className="container">
       <h1 id="titulo-ventas" className="title">Gestión de Ventas</h1>
-      
 
       <div className="btn-container">
-          {!mostrarFormulario && (
-            <button className="btn-add" onClick={toggleFormulario}>
-              <span className="icon icon-1"></span>
-              <span className="gradient-insert"></span>
-              <span className="gradient-insert2"></span>
-              <span className="insert-background"></span>
-              <span className="button-insert">Insertar Registro</span> 
-            </button>
-         )}
+        {!mostrarFormulario && (
+          <button className="btn-add" onClick={toggleFormulario}>
+            <span className="icon icon-1"></span>
+            <span className="gradient-insert"></span>
+            <span className="gradient-insert2"></span>
+            <span className="insert-background"></span>
+            <span className="button-insert">Insertar Registro</span> 
+          </button>
+        )}
       </div>
 
       {mostrarFormulario && (
@@ -147,6 +155,7 @@ const GestionVentas = () => {
             <label htmlFor="Descripcion">Descripción:</label>
             <input
               type="text"
+              id="Descripcion"
               name="Descripcion"
               value={formData.Descripcion}
               onChange={handleChange}
@@ -155,6 +164,7 @@ const GestionVentas = () => {
             
             <label htmlFor="Tipo_de_Pago">Tipo de Pago:</label>
             <select
+              id="Tipo_de_Pago"
               name="Tipo_de_Pago"
               value={formData.Tipo_de_Pago}
               onChange={handleChange}
@@ -166,6 +176,7 @@ const GestionVentas = () => {
             <label htmlFor="Total_pagado">Total Pagado:</label>
             <input
               type="number"
+              id="Total_pagado"
               name="Total_pagado"
               value={formData.Total_pagado}
               onChange={handleChange}
@@ -175,6 +186,7 @@ const GestionVentas = () => {
             <label htmlFor="Fecha">Fecha:</label>
             <input
               type="datetime-local"
+              id="Fecha"
               name="Fecha"
               value={formData.Fecha}
               onChange={handleChange}
@@ -184,6 +196,7 @@ const GestionVentas = () => {
             <label htmlFor="Num_usuario">Número de Usuario:</label>
             <input
               type="number"
+              id="Num_usuario"
               name="Num_usuario"
               value={formData.Num_usuario}
               onChange={handleChange}
@@ -193,6 +206,7 @@ const GestionVentas = () => {
             <label htmlFor="Id_proveedor_servicio">ID Proveedor Servicio:</label>
             <input
               type="number"
+              id="Id_proveedor_servicio"
               name="Id_proveedor_servicio"
               value={formData.Id_proveedor_servicio}
               onChange={handleChange}
@@ -202,31 +216,30 @@ const GestionVentas = () => {
             <label htmlFor="Num_empleado">Número de Empleado:</label>
             <input
               type="number"
+              id="Num_empleado"
               name="Num_empleado"
               value={formData.Num_empleado}
               onChange={handleChange}
               required
             />
 
-<div className="btn-container-form">
-  {/* Botón de Agregar o Actualizar Venta */}
-  <button type="submit" className="btn-update">
-    <span className="icon icon-1"></span>
-    <span className="gradient-update"></span>
-    <span className="gradient-update2"></span>
-    <span className="insert-background"></span>
-    <span className="button-update">{ventaActual ? 'Actualizar Venta' : 'Agregar Venta'}</span>
-  </button>
+            <div className="btn-container-form">
+              <button type="submit" className="btn-update">
+                <span className="icon icon-1"></span>
+                <span className="gradient-update"></span>
+                <span className="gradient-update2"></span>
+                <span className="insert-background"></span>
+                <span className="button-update">{ventaActual ? 'Actualizar Venta' : 'Agregar Venta'}</span>
+              </button>
 
-  {/* Botón de Regresar a la lista */}
-  <button type="button" className="btn-add" onClick={toggleFormulario}>
-    <span className="icon icon-1"></span>
-    <span className="gradient-back"></span>
-    <span className="gradient-back2"></span>
-    <span className="insert-background"></span>
-    <span className="button-back">Regresar a la lista</span>
-  </button>
-</div>
+              <button type="button" className="btn-add" onClick={toggleFormulario}>
+                <span className="icon icon-1"></span>
+                <span className="gradient-back"></span>
+                <span className="gradient-back2"></span>
+                <span className="insert-background"></span>
+                <span className="button-back">Regresar a la lista</span>
+              </button>
+            </div>
 
           </form>
         </div>
@@ -235,42 +248,63 @@ const GestionVentas = () => {
       {!mostrarFormulario && (
         <table className="table-general">
           <thead>
-            <tr>
-              <th className="column-id">ID</th>
-              <th className="column-descripcion">Descripción</th>
-              <th className="column-tipo-pago">Tipo de Pago</th>
-              <th className="column-total">Total Pagado</th>
-              <th className="column-fecha">Fecha</th>
-              <th className="column-usuario">Usuario</th>
-              <th className="column-proveedor">Proveedor</th>
-              <th className="column-empleado">Empleado</th>
-              <th className="column-acciones">Acciones</th>
-            </tr>
+          <tr>
+            <th>ID</th>
+            <th>Descripción</th>
+            <th>Tipo de Pago</th>
+            <th>Total Pagado</th>
+            <th>Fecha</th>
+            <th>Usuario</th>
+            <th>Proveedor</th>
+            <th>Empleado</th>
+            <th>Acciones</th>
+          </tr>
           </thead>
           <tbody>
-            {ventas.length > 0 ? (
-              ventas.map((venta) => (
-                <tr key={venta.Id}>
-                  <td>{venta.Id}</td>
-                  <td>{venta.Descripcion}</td>
-                  <td>{venta.Tipo_de_Pago}</td>
-                  <td>{venta.Total_pagado}</td>
-                  <td>{venta.Fecha}</td>
-                  <td>{venta.Num_usuario}</td>
-                  <td>{venta.Id_proveedor_servicio}</td>
-                  <td>{venta.Num_empleado}</td>
-                  <td>
-                    <button onClick={() => handleUpdate(venta)} className="btn-edit">Editar</button>
-                    <button onClick={() => handleDelete(venta.Id)} className="btn-delete">Eliminar</button>
-                  </td>
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan="9">No hay ventas registradas.</td>
-              </tr>
-            )}
-          </tbody>
+  {ventas.length > 0 ? (
+    ventas.map((venta) => (
+      <tr key={venta.Id}>  {/* Usando Id como key única */}
+        <td>{venta.Id}</td>
+        <td>{venta.Descripcion}</td>
+        <td>{venta.Tipo_de_Pago}</td>
+        <td>{venta.Total_pagado}</td>
+        <td>{venta.Fecha}</td>
+        <td>{venta.Num_usuario}</td>
+        <td>{venta.Id_proveedor_servicio}</td>
+        <td>{venta.Num_empleado}</td>
+        <td>
+          <div className="btn-actions">
+            <button
+              className="btn-icon"
+              onClick={() => handleUpdate(venta)}
+            >
+              <img
+                className="icon-action"
+                src={editIcon}
+                alt="Editar"
+              />
+            </button>
+            <button
+              className="btn-icon"
+              onClick={() => handleDelete(venta.Id)}
+            >
+              <img
+                className="icon-action"
+                src={deleteIcon}
+                alt="Eliminar"
+              />
+            </button>
+          </div>
+        </td>
+      </tr>
+    ))
+  ) : (
+    <tr>
+      <td colSpan="9">No hay ventas registradas</td>
+    </tr>
+  )}
+</tbody>
+
         </table>
       )}
     </div>
@@ -278,4 +312,3 @@ const GestionVentas = () => {
 };
 
 export default GestionVentas;
-

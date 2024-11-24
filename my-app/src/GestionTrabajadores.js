@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import './formularios.css';  // Asegúrate de que esta línea esté correcta
+import './formularios.css';
+import editIcon from './assets/icons/edit.png';
+import deleteIcon from './assets/icons/delete.png';
 
 const GestionTrabajadores = () => {
     const [trabajadores, setTrabajadores] = useState([]);
     const [formData, setFormData] = useState({
+        id: '',
         nombre: '',
         cargo: '',
         telefono: '',
-        correo_electronico: '',
+        correo_electronico: ''
     });
-    const [isAdding, setIsAdding] = useState(false); // Para mostrar u ocultar el formulario
+    const [showForm, setShowForm] = useState(false);
 
     const fetchTrabajadores = async () => {
         try {
@@ -32,24 +35,31 @@ const GestionTrabajadores = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const { nombre, cargo, telefono, correo_electronico } = formData;
+        const { id, nombre, cargo, telefono, correo_electronico } = formData;
 
         try {
-            const url = isAdding
-                ? 'http://localhost/backend/addTrabajador.php'
-                : 'http://localhost/backend/updateTrabajador.php';
+            const url = id
+                ? 'http://localhost/backend/updateTrabajador.php'  // Actualización
+                : 'http://localhost/backend/addTrabajador.php';   // Insertar
 
             const response = await fetch(url, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
                 },
-                body: new URLSearchParams({ nombre, cargo, telefono, correo_electronico }),
+                body: new URLSearchParams({
+                    id,
+                    nombre,
+                    cargo,
+                    telefono,
+                    correo_electronico
+                }),
             });
 
             const result = await response.json();
             if (result.status === "success") {
-                fetchTrabajadores(); // Actualizar la lista
+                fetchTrabajadores();
+                setShowForm(false);
             } else {
                 console.error('Error:', result.message);
             }
@@ -57,72 +67,116 @@ const GestionTrabajadores = () => {
             console.error('Error:', error);
         }
 
-        // Limpiar el formulario después de enviar
-        setFormData({ nombre: '', cargo: '', telefono: '', correo_electronico: '' });
+        setFormData({ id: '', nombre: '', cargo: '', telefono: '', correo_electronico: '' });
     };
 
-    const handleDelete = async (numeroEmpleado) => {
+    const handleDelete = async (id) => {
         try {
             const response = await fetch('http://localhost/backend/deleteTrabajador.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
                 },
-                body: new URLSearchParams({ numero_empleado: numeroEmpleado }),
+                body: new URLSearchParams({ id }),
             });
 
             const result = await response.json();
-            if (result.status === "success") {
-                fetchTrabajadores(); // Actualizar la lista
-            } else {
-                console.error('Error eliminando trabajador:', result.message);
-            }
+            if (result.status === "success") fetchTrabajadores();
+            else console.error('Error eliminando trabajador:', result.message);
         } catch (error) {
             console.error('Error eliminando trabajador:', error);
         }
     };
 
-    const toggleForm = () => {
-        setIsAdding(!isAdding); // Alternar entre agregar y editar
-        setFormData({ nombre: '', cargo: '', telefono: '', correo_electronico: '' }); // Limpiar el formulario
-    };
-
-    const handleEdit = (trabajador) => {
-        setFormData({
-            nombre: trabajador.Nombre,
-            cargo: trabajador.Cargo,
-            telefono: trabajador.Telefono,
-            correo_electronico: trabajador.Correo_Electronico,
-        });
-        setIsAdding(false); // Activar el formulario de edición
-    };
-
     return (
-        <div id="container" className="container">
-            <h2 id="title" className="title">Gestión de Trabajadores</h2>
+        <div id="gestion-trabajadores" className="container">
+            <h1 id="titulo-trabajadores" className="title">Gestión de Trabajadores</h1>
 
-            {/* Mostrar el botón para agregar trabajador solo si no está en el modo de edición */}
-            {!isAdding && (
-                <button className="btn-add" onClick={toggleForm}>
-                    <span className="icon icon-1"></span>
-                    <span className="gradient-insert"></span>
-                    <span className="gradient-insert2"></span>
-                    <span className="insert-background"></span>
-                    <span className="button-insert">Agregar Trabajador</span>
-                </button>
-            )}
+            {!showForm ? (
+                <>
+                    <button className="btn-add" onClick={() => setShowForm(true)}>
+                        <span className="icon icon-1"></span>
+                        <span className="gradient-insert"></span>
+                        <span className="gradient-insert2"></span>
+                        <span className="insert-background"></span>
+                        <span className="button-insert">Insertar Nuevo Trabajador</span>
+                    </button>
 
-            {/* Mostrar el formulario de agregar/editar trabajador */}
-            {isAdding !== null && (
-                <div className={`form-add-update ${isAdding ? '' : 'hidden'}`}>
-                    <h2 className="title">{isAdding ? 'Agregar Trabajador' : 'Actualizar Trabajador'}</h2>
+                    <table className="table-general">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>Cargo</th>
+                                <th>Teléfono</th>
+                                <th>Correo Electrónico</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {Array.isArray(trabajadores) && trabajadores.length > 0 ? (
+                                trabajadores.map((trabajador) => (
+                                    <tr key={trabajador.Numero_empleado}>
+                                        <td>{trabajador.Numero_empleado}</td>
+                                        <td>{trabajador.Nombre}</td>
+                                        <td>{trabajador.Cargo}</td>
+                                        <td>{trabajador.Telefono}</td>
+                                        <td>{trabajador.Correo_Electronico}</td>
+                                        <td>
+                                            <div className="btn-actions">
+                                                <button
+                                                    className="btn-icon"
+                                                    onClick={() => {
+                                                        setFormData({
+                                                            id: trabajador.Numero_empleado,
+                                                            nombre: trabajador.Nombre,
+                                                            cargo: trabajador.Cargo,
+                                                            telefono: trabajador.Telefono,
+                                                            correo_electronico: trabajador.Correo_Electronico,
+                                                        });
+                                                        setShowForm(true);
+                                                    }}
+                                                >
+                                                    <img src={editIcon} alt="Editar" />
+                                                </button>
+                                                <button
+                                                    className="btn-icon"
+                                                    onClick={() => handleDelete(trabajador.Numero_empleado)}
+                                                >
+                                                    <img src={deleteIcon} alt="Eliminar" />
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                ))
+                            ) : (
+                                <tr className="no-records">
+                                    <td colSpan="6">No se encontraron trabajadores</td>
+                                </tr>
+                            )}
+                        </tbody>
+                    </table>
+                </>
+            ) : (
+                <div className="form-add-update">
+                    <h2 className="title">{formData.id ? 'Actualizar Trabajador' : 'Agregar Nuevo Trabajador'}</h2>
                     <form onSubmit={handleSubmit}>
-                        <label htmlFor="nombre">Nombre:</label>
+                        <label htmlFor="id">ID (solo para actualizar):</label>
+                        <input
+                            type="number"
+                            name="id"
+                            value={formData.id}
+                            onChange={handleChange}
+                            placeholder="ID"
+                        />
+
+                        <label htmlFor="nombre">Nombre del trabajador:</label>
                         <input
                             type="text"
                             name="nombre"
                             value={formData.nombre}
                             onChange={handleChange}
+                            placeholder="Nombre"
                             required
                         />
 
@@ -132,6 +186,7 @@ const GestionTrabajadores = () => {
                             name="cargo"
                             value={formData.cargo}
                             onChange={handleChange}
+                            placeholder="Cargo"
                             required
                         />
 
@@ -141,6 +196,7 @@ const GestionTrabajadores = () => {
                             name="telefono"
                             value={formData.telefono}
                             onChange={handleChange}
+                            placeholder="Teléfono"
                             required
                         />
 
@@ -150,6 +206,7 @@ const GestionTrabajadores = () => {
                             name="correo_electronico"
                             value={formData.correo_electronico}
                             onChange={handleChange}
+                            placeholder="Correo Electrónico"
                             required
                         />
 
@@ -159,48 +216,19 @@ const GestionTrabajadores = () => {
                                 <span className="gradient-update"></span>
                                 <span className="gradient-update2"></span>
                                 <span className="insert-background"></span>
-                                <span className="button-update">{isAdding ? 'Agregar' : 'Actualizar'}</span>
+                                <span className="button-update">{formData.id ? 'Actualizar Trabajador' : 'Agregar Trabajador'}</span>
                             </button>
 
-                            <button type="button" className="btn-add" onClick={toggleForm}>
+                            <button type="button" className="btn-add" onClick={() => setShowForm(false)}>
                                 <span className="icon icon-1"></span>
                                 <span className="gradient-back"></span>
                                 <span className="gradient-back2"></span>
                                 <span className="insert-background"></span>
-                                <span className="button-back">Regresar</span>
+                                <span className="button-back">Regresar a la lista</span>
                             </button>
                         </div>
                     </form>
                 </div>
-            )}
-
-            {/* Tabla de trabajadores */}
-            {!isAdding && (
-                <table className="table">
-                    <thead>
-                        <tr>
-                            <th>Nombre</th>
-                            <th>Cargo</th>
-                            <th>Teléfono</th>
-                            <th>Correo Electrónico</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {trabajadores.map((trabajador) => (
-                            <tr key={trabajador.Numero_empleado}>
-                                <td>{trabajador.Nombre}</td>
-                                <td>{trabajador.Cargo}</td>
-                                <td>{trabajador.Telefono}</td>
-                                <td>{trabajador.Correo_Electronico}</td>
-                                <td>
-                                    <button className="btn-edit" onClick={() => handleEdit(trabajador)}>Editar</button>
-                                    <button className="btn-delete" onClick={() => handleDelete(trabajador.Numero_empleado)}>Eliminar</button>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
             )}
         </div>
     );
