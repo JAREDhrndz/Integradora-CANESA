@@ -1,26 +1,24 @@
 <?php
 header('Content-Type: application/json');
 
-$conexion = new mysqli("localhost", "root", "", "canesa");
+$host = 'localhost';
+$db = 'canesa';
+$user = 'root';
+$password = '';
 
-if ($conexion->connect_error) {
-    echo json_encode(["status" => "error", "message" => "Error en la conexión a la base de datos"]);
-    exit;
+$id_proveedor = $_POST['id']; // Asegúrate de que el parámetro se llame 'id' en la solicitud POST
+
+try {
+    $pdo = new PDO("mysql:host=$host;dbname=$db", $user, $password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    // Asegúrate de que la tabla y el campo sean correctos (aquí uso N_proveedor)
+    $stmt = $pdo->prepare("DELETE FROM proveedores WHERE N_proveedor = ?");
+    $stmt->execute([$id_proveedor]);
+
+    echo json_encode(['status' => 'success']);
+} catch (PDOException $e) {
+    echo json_encode(['status' => 'error', 'message' => $e->getMessage()]);
 }
-
-$nombre = $_POST['nombre'];
-
-$query = "DELETE FROM proveedores WHERE Nombre = ?";
-$stmt = $conexion->prepare($query);
-$stmt->bind_param("s", $nombre);
-
-if ($stmt->execute()) {
-    echo json_encode(["status" => "success", "message" => "Proveedor eliminado exitosamente"]);
-} else {
-    echo json_encode(["status" => "error", "message" => "Error al eliminar proveedor"]);
-}
-
-$stmt->close();
-$conexion->close();
 ?>
 

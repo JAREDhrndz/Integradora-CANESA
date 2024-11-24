@@ -1,4 +1,14 @@
 <?php
+// Permitir solicitudes desde cualquier origen
+header("Access-Control-Allow-Origin: *");  // Permite cualquier origen, puedes cambiar '*' por tu dominio específico
+header("Access-Control-Allow-Methods: POST, GET, OPTIONS");  // Métodos permitidos
+header("Access-Control-Allow-Headers: Content-Type");  // Permite encabezados Content-Type
+
+// Manejo de la solicitud OPTIONS
+if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+    exit;  // Si es una solicitud preflight (OPTIONS), terminamos aquí
+}
+
 include 'db.php';
 
 $data = json_decode(file_get_contents("php://input"), true);

@@ -1,78 +1,52 @@
-// src/Historial.js
-import React, { useState, useEffect } from 'react';
-import './Historial.css';
+import React, { useEffect, useState } from 'react';
 
-const Historial = () => {
-    const [records, setRecords] = useState([]);
-    const [selectedTable, setSelectedTable] = useState('');
+const HistorialRegistros = () => {
+  const [data, setData] = useState(null);
 
-    const fetchData = async (table) => {
-        try {
-            const response = await fetch(`/api/historial/${table}`);
-            const data = await response.json();
-            setRecords(data);
-        } catch (error) {
-            console.error('Error fetching data:', error);
-        }
-    };
+  useEffect(() => {
+    fetch('http://localhost/backend/historialRegistros.php')
+      .then(response => response.json())
+      .then(data => setData(data))
+      .catch(error => console.error('Error al cargar los datos:', error));
+  }, []);
 
-    const handleClick = (table) => {
-        setSelectedTable(table);
-        fetchData(table);
-    };
+  const renderTable = (tableName, records) => (
+    <div className="table-container" key={tableName}>
+      <h2 className="table-title">{tableName}</h2>
+      <table className="table">
+        <thead>
+          <tr>
+            {Object.keys(records[0]).map((key) => (
+              <th key={key}>{key}</th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {records.map((record, index) => (
+            <tr key={index}>
+              {Object.values(record).map((value, idx) => (
+                <td key={idx}>{value}</td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
 
-    return (
-        <div id="historial-container" className="historial-container">
-            <h2 id="historial-title">Historial de Cambios</h2>
-
-            <div id="menu-options" className="menu-options">
-                {['proveedores', 'trabajadores', 'ventas', 'servicios', 'clientes'].map((table) => (
-                    <button
-                        key={table}
-                        id={`menu-item-${table}`}
-                        className="menu-item"
-                        onClick={() => handleClick(table)}
-                    >
-                        {table.charAt(0).toUpperCase() + table.slice(1)}
-                    </button>
-                ))}
-            </div>
-
-            <div id="record-list" className="record-list">
-                {selectedTable && (
-                    <div id={`records-${selectedTable}`}>
-                        <h3 id="record-list-title">
-                            Registros de {selectedTable.charAt(0).toUpperCase() + selectedTable.slice(1)}
-                        </h3>
-                        <table id="records-table" className="records-table">
-                            <thead>
-                                <tr>
-                                    <th id="records-column-date">Fecha</th>
-                                    <th id="records-column-action">Acción</th>
-                                    <th id="records-column-details">Detalles</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {records.length === 0 ? (
-                                    <tr>
-                                        <td colSpan="3">No hay registros disponibles</td>
-                                    </tr>
-                                ) : (
-                                    records.map((record, index) => (
-                                        <tr key={index}>
-                                            <td>{record.fecha}</td>
-                                            <td>{record.accion}</td>
-                                            <td>{record.detalles}</td>
-                                        </tr>
-                                    ))
-                                )}
-                            </tbody>
-                        </table>
-                    </div>
-                )}
-            </div>
-        </div>
-    );
+  return (
+    <div className="container">
+      <h1 className="title">Historial de Registros</h1>
+      {data ? (
+        Object.keys(data).map((tableName) => {
+          const records = data[tableName];
+          return renderTable(tableName, records);
+        })
+      ) : (
+        <p>Cargando datos...</p>
+      )}
+    </div>
+  );
 };
 
-export default Historial;
+export default HistorialRegistros;

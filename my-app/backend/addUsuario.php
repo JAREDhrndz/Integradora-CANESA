@@ -1,28 +1,43 @@
 <?php
 header('Content-Type: application/json');
-$data = json_decode(file_get_contents('php://input'), true);
-include 'db.php'; // Incluye el archivo db.php que configura la conexión
 
-if (!$data) {
-    echo json_encode(['error' => 'No se proporcionaron datos válidos']);
+// Establecemos la conexión con la base de datos
+$conexion = new mysqli("localhost", "root", "", "canesa");
+
+if ($conexion->connect_error) {
+    echo json_encode(["status" => "error", "message" => "Error en la conexión a la base de datos"]);
     exit;
 }
 
-try {
-    // Usa la conexión $pdo de db.php
-    $stmt = $pdo->prepare("INSERT INTO usuarios (Nombre, Correo, Telefono, Direccion, Fecha_nacimiento, Tipo_usuario) VALUES (:Nombre, :Correo, :Telefono, :Direccion, :Fecha_nacimiento, :Tipo_usuario)");
-    $stmt->execute([
-        ':Nombre' => $data['Nombre'] ?? null,
-        ':Correo' => $data['Correo'] ?? null,
-        ':Telefono' => $data['Telefono'] ?? null,
-        ':Direccion' => $data['Direccion'] ?? null,
-        ':Fecha_nacimiento' => $data['Fecha_nacimiento'] ?? null,
-        ':Tipo_usuario' => $data['Tipo_usuario'] ?? null,
-    ]);
+// Verificamos si todos los parámetros están presentes
+if (isset($_POST['Nombre'], $_POST['Correo_Electronico'], $_POST['Telefono'], $_POST['Direccion'], $_POST['Tipo_usuario'], $_POST['Contraseña'])) {
+    // Recibimos los datos a través del método POST
+    $nombre = $_POST['Nombre'];
+    $correo_electronico = $_POST['Correo_Electronico'];
+    $telefono = $_POST['Telefono'];
+    $direccion = $_POST['Direccion'];
+    // Si el tipo de usuario está vacío, establecemos 'Cliente' como valor predeterminado
+    $tipo_usuario = !empty($_POST['Tipo_usuario']) ? $_POST['Tipo_usuario'] : 'Cliente';
+    $contraseña = $_POST['Contraseña'];
 
-    $data['Id'] = $pdo->lastInsertId(); // Obtén el ID generado
-    echo json_encode(['message' => 'Usuario agregado exitosamente', 'data' => $data]);
-} catch (PDOException $e) {
-    echo json_encode(['error' => $e->getMessage()]);
+    // Preparamos la consulta SQL
+    $query = "INSERT INTO usuarios (Nombre, Correo_Electronico, Telefono, Direccion, Tipo_usuario, Contraseña) VALUES (?, ?, ?, ?, ?, ?)";
+    $stmt = $conexion->prepare($query);
+
+    // Vinculamos los parámetros de la consulta
+    $stmt->bind_param("ssssss", $nombre, $correo_electronico, $telefono, $direccion, $tipo_usuario, $contraseña);
+
+    // Ejecutamos la consulta
+    if ($stmt->execute()) {
+        echo json_encode(["status" => "success", "message" => "Usuario agregado exitosamente"]);
+    } else {
+        echo json_encode(["status" => "error", "message" => "Error al agregar usuario"]);
+    }
+
+    $stmt->close();
+} else {
+    echo json_encode(["status" => "error", "message" => "Faltan parámetros en la solicitud"]);
 }
+
+$conexion->close();
 ?>

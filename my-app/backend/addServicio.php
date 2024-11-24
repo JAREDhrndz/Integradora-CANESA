@@ -1,22 +1,46 @@
 <?php
 header('Content-Type: application/json');
-include 'db.php';
 
-if (isset($_POST['nombre']) && isset($_POST['descripcion']) && isset($_POST['costo'])) {
-    $nombre = $_POST['nombre'];
-    $descripcion = $_POST['descripcion'];
-    $costo = $_POST['costo'];
+// Configuración de conexión a la base de datos
+$conexion = new mysqli("localhost", "root", "", "canesa");
 
-    $sql = "INSERT INTO servicios (nombre, descripcion, costo) VALUES ('$nombre', '$descripcion', '$costo')";
-
-    if ($conn->query($sql) === TRUE) {
-        echo json_encode(["status" => "success"]);
-    } else {
-        echo json_encode(["status" => "error", "message" => $conn->error]);
-    }
-} else {
-    echo json_encode(["status" => "error", "message" => "Datos incompletos"]);
+// Verificar conexión
+if ($conexion->connect_error) {
+    echo json_encode(["status" => "error", "message" => "Error en la conexión a la base de datos"]);
+    exit;
 }
 
-$conn->close();
+// Obtener datos enviados desde el cliente
+$nombre = $_POST['Nombre'];
+$descripcion = $_POST['Descripcion'];
+$costo = $_POST['Costo'];
+
+// Validar datos (asegurarse de que no estén vacíos)
+if (empty($nombre) || empty($descripcion) || empty($costo)) {
+    echo json_encode(["status" => "error", "message" => "Datos incompletos"]);
+    exit;
+}
+
+// Preparar la consulta SQL
+$query = "INSERT INTO servicios (Nombre, Descripcion, Costo) VALUES (?, ?, ?)";
+$stmt = $conexion->prepare($query);
+
+// Verificar si la consulta está bien preparada
+if (!$stmt) {
+    echo json_encode(["status" => "error", "message" => "Error al preparar la consulta: " . $conexion->error]);
+    exit;
+}
+
+// Vincular parámetros y ejecutar
+$stmt->bind_param("ssd", $nombre, $descripcion, $costo);
+
+if ($stmt->execute()) {
+    echo json_encode(["status" => "success", "message" => "Servicio agregado exitosamente", "id" => $stmt->insert_id]);
+} else {
+    echo json_encode(["status" => "error", "message" => "Error al agregar servicio: " . $stmt->error]);
+}
+
+// Cerrar conexiones
+$stmt->close();
+$conexion->close();
 ?>

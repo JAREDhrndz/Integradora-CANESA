@@ -10,7 +10,7 @@ $nombre = $_POST['nombre'];
 $cargo = $_POST['cargo'];
 $telefono = $_POST['telefono'];
 $correo_electronico = $_POST['correo_electronico'];
-$numero_empleado = $_POST['numero_empleado'];
+$numero_empleado = $_POST['id']; // id enviado desde el frontend
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$db", $user, $password);

@@ -8,19 +8,19 @@ if ($conexion->connect_error) {
     exit;
 }
 
+$id_servicio = $_POST['id'];
 $nombre = $_POST['nombre'];
-$correo_electronico = $_POST['correo_electronico'];
-$telefono = $_POST['telefono'];
-$detalles = $_POST['detalles'];
+$descripcion = $_POST['descripcion'];
+$costo = $_POST['costo'];
 
-$query = "UPDATE proveedores SET Correo_Electronico = ?, Telefono = ?, Detalles = ? WHERE Nombre = ?";
+$query = "UPDATE servicios SET Nombre = ?, Descripcion = ?, Costo = ? WHERE Id = ?";
 $stmt = $conexion->prepare($query);
-$stmt->bind_param("ssss", $correo_electronico, $telefono, $detalles, $nombre);
+$stmt->bind_param("ssdi", $nombre, $descripcion, $costo, $id_servicio);
 
 if ($stmt->execute()) {
-    echo json_encode(["status" => "success", "message" => "Proveedor actualizado exitosamente"]);
+    echo json_encode(["status" => "success", "message" => "Servicio actualizado exitosamente"]);
 } else {
-    echo json_encode(["status" => "error", "message" => "Error al actualizar proveedor"]);
+    echo json_encode(["status" => "error", "message" => "Error al actualizar el servicio"]);
 }
 
 $stmt->close();
